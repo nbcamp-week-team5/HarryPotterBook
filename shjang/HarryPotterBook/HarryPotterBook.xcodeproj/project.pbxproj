@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58C057892D91735400FFD2BC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 58C057882D91735400FFD2BC /* .swiftlint.yml */; };
 		58FD32DB2D9106F300D4A6C1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58FD32DA2D9106F300D4A6C1 /* SnapKit */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		58C057882D91735400FFD2BC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		58FD32BF2D9104A700D4A6C1 /* HarryPotterBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotterBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 		58FD32B62D9104A700D4A6C1 = {
 			isa = PBXGroup;
 			children = (
+				58C057882D91735400FFD2BC /* .swiftlint.yml */,
 				58FD32C12D9104A700D4A6C1 /* HarryPotterBook */,
 				58FD32C02D9104A700D4A6C1 /* Products */,
 			);
@@ -87,6 +90,7 @@
 				58FD32BC2D9104A700D4A6C1 /* Frameworks */,
 				58FD32BD2D9104A700D4A6C1 /* Resources */,
 				58FD33012D91514500D4A6C1 /* Embed Frameworks */,
+				58C0578A2D91748D00FFD2BC /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -145,10 +149,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58C057892D91735400FFD2BC /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		58C0578A2D91748D00FFD2BC /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n    swiftlint\nelse \n    echo \"[warning] SwiftLint not installed, download using `brew install swiftlint`\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58FD32BB2D9104A700D4A6C1 /* Sources */ = {
@@ -169,8 +195,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8JNJV53KQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = HarryPotterBook/Info.plist;
+				INFOPLIST_FILE = HarryPotterBook/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -197,8 +224,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8JNJV53KQ;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = HarryPotterBook/Info.plist;
+				INFOPLIST_FILE = HarryPotterBook/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
