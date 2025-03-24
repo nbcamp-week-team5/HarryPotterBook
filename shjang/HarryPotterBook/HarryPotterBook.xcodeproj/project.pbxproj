@@ -8,8 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		58FD32DB2D9106F300D4A6C1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 58FD32DA2D9106F300D4A6C1 /* SnapKit */; };
-		58FD32DD2D9106F300D4A6C1 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 58FD32DC2D9106F300D4A6C1 /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58FD33012D91514500D4A6C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		58FD32BF2D9104A700D4A6C1 /* HarryPotterBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotterBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -19,7 +31,7 @@
 		58FD32D12D9104A800D4A6C1 /* Exceptions for "HarryPotterBook" folder in "HarryPotterBook" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resource/Info.plist,
 			);
 			target = 58FD32BE2D9104A700D4A6C1 /* HarryPotterBook */;
 		};
@@ -42,7 +54,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				58FD32DB2D9106F300D4A6C1 /* SnapKit in Frameworks */,
-				58FD32DD2D9106F300D4A6C1 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +86,7 @@
 				58FD32BB2D9104A700D4A6C1 /* Sources */,
 				58FD32BC2D9104A700D4A6C1 /* Frameworks */,
 				58FD32BD2D9104A700D4A6C1 /* Resources */,
+				58FD33012D91514500D4A6C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -86,7 +98,6 @@
 			name = HarryPotterBook;
 			packageProductDependencies = (
 				58FD32DA2D9106F300D4A6C1 /* SnapKit */,
-				58FD32DC2D9106F300D4A6C1 /* SnapKit-Dynamic */,
 			);
 			productName = HarryPotterBook;
 			productReference = 58FD32BF2D9104A700D4A6C1 /* HarryPotterBook.app */;
@@ -158,10 +169,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8JNJV53KQ;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HarryPotterBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -186,10 +197,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U8JNJV53KQ;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = HarryPotterBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -364,11 +375,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 58FD32D92D9106F300D4A6C1 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		58FD32DC2D9106F300D4A6C1 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 58FD32D92D9106F300D4A6C1 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
