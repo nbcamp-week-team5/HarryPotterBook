@@ -73,6 +73,7 @@
 			buildConfigurationList = 66EBCDD02D9248EF00AF63C3 /* Build configuration list for PBXNativeTarget "HarryPotterBook" */;
 			buildPhases = (
 				66EBCDB92D9248EC00AF63C3 /* Sources */,
+				661423872D926995006255D2 /* ShellScript */,
 				66EBCDBA2D9248EC00AF63C3 /* Frameworks */,
 				66EBCDBB2D9248EC00AF63C3 /* Resources */,
 			);
@@ -138,6 +139,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		661423872D926995006255D2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		66EBCDB92D9248EC00AF63C3 /* Sources */ = {
