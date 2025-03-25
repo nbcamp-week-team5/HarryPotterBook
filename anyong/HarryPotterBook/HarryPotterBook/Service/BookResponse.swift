@@ -25,6 +25,17 @@ struct BookInfo: Decodable {
     let wiki: String
     let chapters: [ChapterInfo]
     
+    var convertDate: String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let date = dateFormatter.date(from: releaseDate) else { return "날짜 오류 "}
+        
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        return dateFormatter.string(from: date)
+    }
+    
     enum CodingKeys: String, CodingKey {
         case title
         case author
@@ -41,7 +52,7 @@ struct BookInfo: Decodable {
             title: title,
             author: author,
             pages: pages,
-            releaseDate: releaseDate,
+            releaseDate: convertDate,
             dedication: dedication,
             summary: summary,
             wiki: wiki,
