@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		66EBCDD72D924B2E00AF63C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCDD62D924B2E00AF63C3 /* SnapKit */; };
-		66EBCDD92D924B2E00AF63C3 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				66EBCDD72D924B2E00AF63C3 /* SnapKit in Frameworks */,
-				66EBCDD92D924B2E00AF63C3 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +85,6 @@
 			name = HarryPotterBook;
 			packageProductDependencies = (
 				66EBCDD62D924B2E00AF63C3 /* SnapKit */,
-				66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */,
 			);
 			productName = HarryPotterBook;
 			productReference = 66EBCDBD2D9248EC00AF63C3 /* HarryPotterBook.app */;
@@ -391,11 +388,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
