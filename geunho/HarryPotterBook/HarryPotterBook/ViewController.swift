@@ -9,12 +9,13 @@ import UIKit
 import SnapKit
 
 final class ViewController: UIViewController {
-
+    
+    
     private let dataService = DataService()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Harry Potter and the Philosopher’s Stone"
+        label.text = "Harry Potter"
         label.textAlignment = .center
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 24, weight: .bold)
@@ -35,7 +36,9 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        loadBooks()
+        
         configureLayout()
     }
     
@@ -57,8 +60,22 @@ final class ViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
         }
-        
+    }
+    
+    func loadBooks() {
+        dataService.loadBooks { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let books):
+                if let firstBook = books.first {
+                    self.titleLabel.text = firstBook.title
+                    self.seriesOrder.setTitle("1", for: .normal)
+                }
+            case .failure(let error):
+                print("에러: \(error)")
+            }
+        }
     }
 }
-
 

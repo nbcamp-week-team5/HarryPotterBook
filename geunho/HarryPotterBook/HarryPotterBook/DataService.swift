@@ -31,19 +31,3 @@ class DataService {
         }
     }
 }
-/* 사용부
- private let dataService = DataService()
- 
- func loadBooks() {
- dataService.loadBooks { [weak self] result in
- guard let self = self else { return }
- 
- switch result {
- case .success(let books):
- 
- 
- case .failure(let error):
- }
- }
- }
- */
