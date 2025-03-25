@@ -88,7 +88,7 @@ final class ViewController: UIViewController {
     }()
     private lazy var bookAuthor: UILabel = {
         let label = UILabel()
-        label.text = "J. K. Rowling"
+        label.text = "Author"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 18)
         label.textColor = .darkGray
@@ -113,7 +113,7 @@ final class ViewController: UIViewController {
     }()
     private lazy var bookReleased: UILabel = {
         let label = UILabel()
-        label.text = "June 26, 1997"
+        label.text = "Released Date"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
@@ -145,6 +145,57 @@ final class ViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Dedication, Summary
+    // Dedication
+    private lazy var dedicationStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    private lazy var dedication: UILabel = {
+        let label = UILabel()
+        label.text = "Dedication"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    private lazy var dedicationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dedication..."
+        label.font = .systemFont(ofSize: 14)
+        label.numberOfLines = 0
+        label.textColor = .darkGray
+        return label
+    }()
+    
+    // Summary
+    private lazy var summaryStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    private lazy var summary: UILabel = {
+        let label = UILabel()
+        label.text = "Summary"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    private lazy var summaryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Summary..."
+        label.font = .systemFont(ofSize: 14)
+        label.numberOfLines = 0
+        label.textColor = .darkGray
+        return label
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +208,7 @@ final class ViewController: UIViewController {
     private func configureLayout() {
         view.backgroundColor = .white
         
-        [titleLabel, seriesOrder, hStackView].forEach {
+        [titleLabel, seriesOrder, hStackView, dedicationStackView, summaryStackView].forEach {
             view.addSubview($0)
         }
         
@@ -176,10 +227,18 @@ final class ViewController: UIViewController {
         [released, bookReleased].forEach {
             releasedStackView.addArrangedSubview($0)
         }
+        
         [pages, bookPages].forEach {
             pagesStackView.addArrangedSubview($0)
         }
         
+        [dedication, dedicationLabel].forEach {
+            dedicationStackView.addArrangedSubview($0)
+        }
+        
+        [summary, summaryLabel].forEach {
+            summaryStackView.addArrangedSubview($0)
+        }
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
@@ -203,6 +262,18 @@ final class ViewController: UIViewController {
             make.width.equalTo(100)
             make.height.equalTo(150)
         }
+        
+        dedicationStackView.snp.makeConstraints { make in
+            make.top.equalTo(hStackView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        summaryStackView.snp.makeConstraints { make in
+            make.top.equalTo(dedicationStackView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        
     }
     
     func loadBooks() {
@@ -218,6 +289,8 @@ final class ViewController: UIViewController {
                     self.bookAuthor.text = firstBook.author
                     self.bookReleased.text = changeDateFormat(firstBook.releaseDate)
                     self.bookPages.text = String(firstBook.pages)
+                    self.dedicationLabel.text = firstBook.dedication
+                    self.summaryLabel.text = firstBook.summary
                 }
             case .failure(let error):
                 print("에러: \(error)")
