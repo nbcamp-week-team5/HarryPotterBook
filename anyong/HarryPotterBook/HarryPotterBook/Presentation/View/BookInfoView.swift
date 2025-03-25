@@ -13,6 +13,7 @@ import SnapKit
 final class BookInfoView: UIView {
     private let titleLabel = UILabel()
     private let orderButton = UIButton(type: .system)
+    private let bookInfoView = BookInfoCellView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,34 +43,37 @@ final class BookInfoView: UIView {
             $0.titleLabel?.textAlignment = .center
             $0.setTitleColor(.white, for: .normal)
             $0.backgroundColor = .systemBlue
-            $0.layer.cornerRadius = 15
+            $0.layer.cornerRadius = 20
         }
     }
     
     private func setUI() {
-        self.addsubViews(titleLabel, orderButton)
+        self.addSubViews(titleLabel, orderButton, bookInfoView)
     }
     
     private func setLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).offset(10)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(10)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         orderButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
-            $0.size.equalTo(30)
+            $0.size.equalTo(40)
+        }
+        
+        bookInfoView.snp.makeConstraints {
+            $0.top.equalTo(orderButton.snp.bottom).offset(20)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
     }
 }
 
 extension BookInfoView {
-    func setTitle(_ title: String) {
-        self.titleLabel.text = title
-    }
-    
-    func setOrder(_ num: Int) {
-        self.orderButton.setTitle("\(num)", for: .normal)
+    func configure(_ book: Book, _ num: Int) {
+        titleLabel.text = book.title
+        orderButton.setTitle("\(num)", for: .normal)
+        bookInfoView.configure(book, num)
     }
 }
