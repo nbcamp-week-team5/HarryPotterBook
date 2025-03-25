@@ -224,6 +224,18 @@ final class ViewController: UIViewController {
             }
         }
     }
+    
+    func changeDateFormat(_ dateStr: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let convertedDate = dateFormatter.date(from: dateStr)
+        
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.dateFormat = "MMMM dd, yyyy"
+        let newConvertedDate = newDateFormatter.string(from: convertedDate!)
+        
+        return newConvertedDate
+    }
 }
 
 #Preview {
