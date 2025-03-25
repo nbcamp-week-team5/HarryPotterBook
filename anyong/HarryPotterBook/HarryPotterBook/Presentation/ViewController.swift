@@ -10,15 +10,13 @@ import UIKit
 final class ViewController: UIViewController {
     private let rootView = BookInfoView()
     private let dataService = DataService()
+    private let alert = UIAlertController(title: "알림", message: "정보를 불러오는데 실패했습니다", preferredStyle: .alert)
     
-    private var book: [Book] = []
+    private var books: [Book] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadBooks()
-        rootView.setOrder(1)
-        rootView.setTitle(book[0].title)
     }
     
     override func loadView() {
@@ -27,15 +25,24 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController {
+    private func showAlert() {
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func loadBooks() {
         dataService.loadBooks { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let success):
-                self.book = success
-            case .failure(let failure):
-                print(failure)
+                self.books = success
+                self.rootView.configure(books[5], 6)
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self.showAlert()
+                    self.view = UIView()
+                }
             }
         }
     }
