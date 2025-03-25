@@ -11,11 +11,20 @@ struct Book: Codable {
     let title: String
     let author: String
     let pages: Int
-    let release_date: String
+    let releaseDate: String
     let dedication: String
     let summary: String
     let wiki: String
-    let chapters: [String:String]
+    let chapters: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case title, author, pages, dedication, summary, wiki, chapters
+        case releaseDate = "release_date"
+    }
+}
+
+struct Chapter: Codable {
+    let title: String
 }
 
 struct BookWrapper: Codable {
