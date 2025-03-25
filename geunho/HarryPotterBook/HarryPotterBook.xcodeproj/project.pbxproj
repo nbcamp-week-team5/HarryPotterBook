@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		66EBCDD72D924B2E00AF63C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCDD62D924B2E00AF63C3 /* SnapKit */; };
+		66EBCDD92D924B2E00AF63C3 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		66EBCDBD2D9248EC00AF63C3 /* HarryPotterBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotterBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66EBCDD72D924B2E00AF63C3 /* SnapKit in Frameworks */,
+				66EBCDD92D924B2E00AF63C3 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = HarryPotterBook;
 			packageProductDependencies = (
+				66EBCDD62D924B2E00AF63C3 /* SnapKit */,
+				66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */,
 			);
 			productName = HarryPotterBook;
 			productReference = 66EBCDBD2D9248EC00AF63C3 /* HarryPotterBook.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 66EBCDB42D9248EC00AF63C3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 66EBCDBE2D9248EC00AF63C3 /* Products */;
 			projectDirPath = "";
@@ -341,6 +353,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66EBCDD62D924B2E00AF63C3 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		66EBCDD82D924B2E00AF63C3 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 66EBCDD52D924B2E00AF63C3 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 66EBCDB52D9248EC00AF63C3 /* Project object */;
 }
