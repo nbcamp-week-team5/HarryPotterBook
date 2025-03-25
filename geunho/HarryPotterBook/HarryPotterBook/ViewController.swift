@@ -10,7 +10,7 @@ import SnapKit
 
 final class ViewController: UIViewController {
 
-//    private let dataService = DataService()
+    private let dataService = DataService()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -32,19 +32,6 @@ final class ViewController: UIViewController {
 
         return button
     }()
-    
-//    func loadBooks() {
-//        dataService.loadBooks { [weak self] result in
-//            guard let self = self else { return }
-//            
-//            switch result {
-//            case .success(let books):
-//                
-//                
-//            case .failure(let error):
-//            }
-//        }
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +59,6 @@ final class ViewController: UIViewController {
         }
         
     }
-
-
 }
 
-#Preview {
-    ViewController()
-}
+
