@@ -114,16 +114,16 @@ final class BookInfoCellView: UIView {
     }
     
     private func setUI() {
-        authorStackView.addArrangedSubviews(authorTitleLabel, authorLabel)
-        releasedStackView.addArrangedSubviews(releasedTitleLabel, releasedLabel)
-        pagesStackView.addArrangedSubviews(pagesTitleLabel, pagesLabel)
-        titleStackView.addArrangedSubviews(
+        authorStackView.addArrangedSubViews(authorTitleLabel, authorLabel)
+        releasedStackView.addArrangedSubViews(releasedTitleLabel, releasedLabel)
+        pagesStackView.addArrangedSubViews(pagesTitleLabel, pagesLabel)
+        titleStackView.addArrangedSubViews(
             titleLabel,
             authorStackView,
             releasedStackView,
             pagesStackView
         )
-        imageStackView.addArrangedSubviews(posterImageView, titleStackView)
+        imageStackView.addArrangedSubViews(posterImageView, titleStackView)
         addSubview(imageStackView)
     }
     
