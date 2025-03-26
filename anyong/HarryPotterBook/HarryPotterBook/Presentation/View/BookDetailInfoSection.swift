@@ -82,7 +82,7 @@ final class BookDetailInfoSection: UIView {
         
         summaryStackView.snp.makeConstraints {
             $0.top.equalTo(dedicationStackView.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview()
+            $0.horizontalEdges.bottom.equalToSuperview()
         }
     }
 }
