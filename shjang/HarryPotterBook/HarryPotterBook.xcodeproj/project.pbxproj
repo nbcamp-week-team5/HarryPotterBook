@@ -31,7 +31,7 @@
 		58FD32D12D9104A800D4A6C1 /* Exceptions for "HarryPotterBook" folder in "HarryPotterBook" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resource/Info.plist,
+				Info.plist,
 			);
 			target = 58FD32BE2D9104A700D4A6C1 /* HarryPotterBook */;
 		};

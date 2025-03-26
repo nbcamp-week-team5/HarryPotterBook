@@ -11,7 +11,10 @@ final class AppFlowCoordinator {
     }
     
     func start() {
-        let bookViewController = appDIContainer.makeBookViewController()
-        navigationController.pushViewController(bookViewController, animated: false)
+        let bookDIContainer = appDIContainer.makeBookDIConatiner()
+        let flow = bookDIContainer.makeBookFlowCoordinator(
+            navigationController: navigationController
+        )
+        flow.start()
     }
 }

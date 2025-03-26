@@ -1,15 +1,18 @@
 import Foundation
-import Combine
+
+protocol BookViewModelDelegate: AnyObject {
+    func didUpdateSelectedBook(_ viewModel: BookViewModel, _ book: Book?)
+    func didFailToLoadBook(_ viewModel: BookViewModel, _ error: Error)
+}
 
 final class BookViewModel {
-    var books: [Book] = []
-    var selectedBook: Book? {
+    weak var delegate: BookViewModelDelegate?
+    private(set) var books: [Book] = []
+    private(set) var selectedBook: Book? {
         didSet {
-            onBookSelected?(selectedBook)
+            delegate?.didUpdateSelectedBook(self, selectedBook)
         }
     }
-    
-    var onBookSelected: ((Book?) -> Void)?
     
     private let dataService: DataService
     
@@ -31,7 +34,7 @@ final class BookViewModel {
                 }
                 self.selectedBook = self.books.first // TMP
             case .failure(let error):
-                print("Failed: \(error)")
+                self.delegate?.didFailToLoadBook(self, error)
             }
         }
     }

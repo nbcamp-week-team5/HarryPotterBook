@@ -3,11 +3,7 @@ final class AppDIContainer {
     lazy var appConfiguration = AppConfiguration()
     
     func makeBookDIConatiner() -> BookDIContainer {
-        return BookDIContainer()
-    }
-    
-    func makeBookViewController() -> BookViewController {
-        let bookDIContainer = makeBookDIConatiner()
-        return bookDIContainer.makeBookViewController()
+        let dependencies = BookDIContainer.Dependencies(appConfiguration: appConfiguration)
+        return BookDIContainer(dependencies: dependencies)
     }
 }
