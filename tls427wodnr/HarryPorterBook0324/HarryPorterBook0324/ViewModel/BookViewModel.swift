@@ -8,13 +8,13 @@ import UIKit
 
 class BookViewModel {
     private let pageVM: PageViewModel
-
+    
     init(pageVM: PageViewModel) {
         self.pageVM = pageVM
     }
     
     private let dataService = DataService()
-        
+    
     private var books: [Book] = []
     
     private let bookImageResources: [ImageResource] = [.harrypotter1,.harrypotter2,.harrypotter3,.harrypotter4,.harrypotter5,.harrypotter6,.harrypotter7]
@@ -23,20 +23,16 @@ class BookViewModel {
         if books.isEmpty {
             dataService.loadBooks { [weak self] result in
                 guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        self.books = data
-                        completion(self.books)
-                    case .failure(let error):
-                        print(error)
-                    }
+                switch result {
+                case .success(let data):
+                    self.books = data
+                    completion(self.books)
+                case .failure(let error):
+                    print(error)
                 }
             }
         } else {
-            DispatchQueue.main.async {
-                completion(self.books)
-            }
+            completion(self.books)
         }
     }
     
