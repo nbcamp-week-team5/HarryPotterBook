@@ -306,23 +306,21 @@ final class ViewController: UIViewController {
         
         dedicationStackView.snp.makeConstraints { make in
             make.top.equalTo(bookHStackView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
         }
         
         summaryStackView.snp.makeConstraints { make in
             make.top.equalTo(dedicationStackView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
         }
         
         chapterStackView.snp.makeConstraints { make in
             make.top.equalTo(summaryStackView.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
         
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(seriesButton.snp.bottom).offset(16)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
         }
         
         scrollContentsVStack.snp.makeConstraints { make in
