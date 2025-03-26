@@ -12,6 +12,10 @@ final class BookViewController: UIViewController {
     
     private let dataService = DataService()
     
+    private var isFolded = true
+    private var tempString = ""
+
+    
     // MARK: - Main Title
     private lazy var mainTitleLabel: UILabel = {
         let label = UILabel()
@@ -202,7 +206,7 @@ final class BookViewController: UIViewController {
         return label
     }()
     private lazy var summaryLabel: UILabel = {
-        let label = UILabel()
+        var label = UILabel()
         label.text = "Summary..."
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
@@ -217,9 +221,10 @@ final class BookViewController: UIViewController {
         button.backgroundColor = .red
         button.addTarget(
             self,
-            action: #selector(summaryButtonClicked(isFolded:)),
+            action: #selector(summaryButtonClicked),
             for: .touchUpInside
         )
+        button.isHidden = true
         return button
     }()
     
@@ -247,6 +252,8 @@ final class BookViewController: UIViewController {
         super.viewDidLoad()
         
         loadBooks()
+        
+        detectSummaryText()
         
         configureViews()
         configureLayout()
@@ -396,6 +403,49 @@ final class BookViewController: UIViewController {
         
         return newConvertedDate
     }
+    
+    func truncateSummaryText() {
+        
+        
+        if self.isFolded {
+            tempString = summaryLabel.text!
+            let startIndex = summaryLabel.text!.index(summaryLabel.text!.startIndex, offsetBy: 450)
+            let endIndex = summaryLabel.text!.endIndex
+            
+            summaryLabel.text?
+                .replaceSubrange(startIndex..<endIndex, with: "...")
+        }
+        else {
+            summaryLabel.text = tempString
+        }
+        
+        
+    }
+    
+    func detectSummaryText() {
+        if summaryLabel.text!.count >= 450 {
+            summaryButton.isHidden = false
+            tempString = summaryLabel.text!
+            truncateSummaryText()
+        }
+    }
+    
+    @objc func summaryButtonClicked() {
+        
+        if !self.isFolded {
+            summaryButton.setTitle("접기", for: .normal)
+            self.isFolded = !self.isFolded
+            truncateSummaryText()
+        } else {
+            summaryButton.setTitle("더보기", for: .normal)
+            self.isFolded = !self.isFolded
+            truncateSummaryText()
+        }
+        
+        
+        UserDefaults.standard.set(isFolded, forKey: "summaryButtonState")
+    }
+    
 }
 
 #Preview {
