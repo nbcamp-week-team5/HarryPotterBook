@@ -89,4 +89,8 @@ class MainView: UIView {
         
         chapterView.configure(book)
     }
+    
+    func setSummaryViewDelegate(_ delegate: SummaryViewDelegate) {
+        summaryView.delegate = delegate
+    }
 }

@@ -23,18 +23,20 @@ class BookViewModel {
         if books.isEmpty {
             dataService.loadBooks { [weak self] result in
                 guard let self = self else { return }
-                
-                switch result {
-                case .success(let data):
-                    books = data
-                    completion(books)
-                    
-                case .failure(let error):
-                    print(error)
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
+                        self.books = data
+                        completion(self.books)
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
             }
         } else {
-            completion(books)
+            DispatchQueue.main.async {
+                completion(self.books)
+            }
         }
     }
     

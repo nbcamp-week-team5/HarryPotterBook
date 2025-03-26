@@ -23,8 +23,7 @@ class MainViewController: UIViewController {
             self?.headerView.setPageButtonColor()
         }
         headerView.delegate = self
-        headerView.setPageButtonColor()
-        mainView.summaryView.delegate = self
+        mainView.setSummaryViewDelegate(self)
         setupViews()
         setupLayout()
         bindData()
@@ -44,7 +43,7 @@ class MainViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-                        
+            
             mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -55,15 +54,13 @@ class MainViewController: UIViewController {
     private func bindData() {
         bookVM.getBooks { [weak self] books in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                let book = self.bookVM.getCurrentBook()
-                self.headerView.configure(book.title)
-                self.mainView.configure(
-                    book: book,
-                    bookImage: UIImage(resource: self.bookVM.getBookImageResource()),
-                    formattedSummary: self.summaryVM.formatSummary()
-                )
-            }
+            let book = self.bookVM.getCurrentBook()
+            self.headerView.configure(book.title)
+            self.mainView.configure(
+                book: book,
+                bookImage: UIImage(resource: self.bookVM.getBookImageResource()),
+                formattedSummary: self.summaryVM.formatSummary()
+            )
         }
     }
 }
@@ -72,7 +69,7 @@ extension MainViewController: HeaderViewDelegate {
     func didTapPageButton(at index: Int) {
         pageVM.setPage(index)
     }
-
+    
     func currentPage() -> Int {
         return pageVM.getPage()
     }
