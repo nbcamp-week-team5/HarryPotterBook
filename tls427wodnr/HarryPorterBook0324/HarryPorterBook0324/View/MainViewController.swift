@@ -7,18 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     private let viewModel = BookViewModel()
-    
-    private var page = 0 {
-        didSet {
-            isSummarys[page] = UserDefaults.standard.bool(forKey: isSummaryKeys[page])
-            bindData()
-            setPageButtonColor()
-        }
-    }
-    
-    private let bookImageResources: [ImageResource] = [.harrypotter1,.harrypotter2,.harrypotter3,.harrypotter4,.harrypotter5,.harrypotter6,.harrypotter7]
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -192,10 +182,6 @@ class ViewController: UIViewController {
         return label
     }()
     
-    private let isSummaryKeys: [String] = ["isSummaryKey_0","isSummaryKey_1","isSummaryKey_2","isSummaryKey_3","isSummaryKey_4","isSummaryKey_5","isSummaryKey_6"]
-    
-    private var isSummarys: [Bool] = Array(repeating: false, count: 7)
-    
     private let summaryButtonWrapper: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -257,10 +243,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.onPageUpdated = { [weak self] in
+            self?.viewModel.getSummaryState()
+            self?.bindData()
+            self?.setPageButtonColor()
+        }
         setupViews()
         setupSummaryButton()
         setupLayout()
-        isSummarys[page] = UserDefaults.standard.bool(forKey: isSummaryKeys[page])
         bindData()
         setPageButtonColor()
     }
@@ -363,12 +353,11 @@ class ViewController: UIViewController {
     }
     
     private func setupSummaryButton() {
-        self.summaryButton.setTitle(isSummarys[page] ? "더 보기" : "접기", for: .normal)
+        self.summaryButton.setTitle(viewModel.currentSummaryButtonTitle(), for: .normal)
     }
     
     @objc func clickSummaryButton() {
-        isSummarys[page] = !isSummarys[page]
-        UserDefaults.standard.set(isSummarys[page], forKey: isSummaryKeys[page])
+        viewModel.toggleSummaryState()
         bindData()
     }
     
@@ -377,16 +366,16 @@ class ViewController: UIViewController {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.setupSummaryButton()
-                let book = books[self.page]
+                let book = books[self.viewModel.getPage()]
                 self.titleLabel.text = book.title
                 self.bookTitle.text = book.title
-                self.bookImage.image = UIImage(resource: self.bookImageResources[self.page])
+                self.bookImage.image = UIImage(resource: self.viewModel.getBookImageResource())
                 self.bookAuthor.text = book.author
                 self.bookReleaseDate.text = book.release_date
                 self.bookPage.text = String(book.pages)
                 self.bookDedication.text = book.dedication
                 self.summaryButton.isHidden = book.summary.count < 450
-                self.bookSummary.text = self.formatSummary(book.summary)
+                self.bookSummary.text = self.viewModel.formatSummary()
                 self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 book.chapters.enumerated().forEach { (_, chapter) in
                     let label = UILabel()
@@ -400,19 +389,9 @@ class ViewController: UIViewController {
         }
     }
     
-    func formatSummary(_ summary: String) -> String {
-        let limit = 450
-        if summary.count >= limit, isSummarys[page] == true {
-            let index = summary.index(summary.startIndex, offsetBy: limit)
-            let formated = String(summary[..<index]) + "..."
-            return formated
-        }
-        return summary
-    }
-    
     func setPageButtonColor() {
         for case let button as UIButton in pageButtonStackView.arrangedSubviews {
-            if button.tag == page {
+            if button.tag == viewModel.getPage() {
                 button.backgroundColor = .systemBlue
                 button.setTitleColor(.white, for: .normal)
             } else {
@@ -423,7 +402,7 @@ class ViewController: UIViewController {
     }
     
     @objc func clickPageButton(_ sender: UIButton) {
-        page = sender.tag
+        viewModel.setPage(sender.tag)
     }
 }
 
