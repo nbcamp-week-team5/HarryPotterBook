@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
             mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
