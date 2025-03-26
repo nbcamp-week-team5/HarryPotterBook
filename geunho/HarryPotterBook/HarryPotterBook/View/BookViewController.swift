@@ -209,6 +209,19 @@ final class BookViewController: UIViewController {
         label.textColor = .darkGray
         return label
     }()
+    private lazy var summaryButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더 보기", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.backgroundColor = .red
+        button.addTarget(
+            self,
+            action: #selector(summaryButtonClicked(isFolded:)),
+            for: .touchUpInside
+        )
+        return button
+    }()
     
     
     // MARK: - Chapters
@@ -228,6 +241,8 @@ final class BookViewController: UIViewController {
         return label
     }()
     
+    
+    // MARK: UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -275,7 +290,7 @@ final class BookViewController: UIViewController {
             dedicationStackView.addArrangedSubview($0)
         }
         
-        [summary, summaryLabel].forEach {
+        [summary, summaryLabel, summaryButton].forEach {
             summaryStackView.addArrangedSubview($0)
         }
     }
@@ -293,7 +308,7 @@ final class BookViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(mainTitleLabel.snp.bottom).offset(16)
         }
-
+        
         bookHStackView.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
         }
@@ -332,6 +347,7 @@ final class BookViewController: UIViewController {
         }
     }
     
+    // MARK: - Other Functions
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
             guard let self = self else { return }
