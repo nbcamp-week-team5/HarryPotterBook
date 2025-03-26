@@ -35,8 +35,23 @@ final class ViewController: UIViewController {
     
     
     // MARK: - 책 정보 영역
+    // ScrollView
+    private lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        return view
+    }()
+    private lazy var scrollContentsVStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     // 메인 HStack
-    private lazy var hStackView: UIStackView = {
+    private lazy var bookHStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .leading
@@ -53,7 +68,7 @@ final class ViewController: UIViewController {
     }()
     
     // 책 상세 정보 VStack
-    private lazy var vStackView: UIStackView = {
+    private lazy var bookVStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -196,6 +211,31 @@ final class ViewController: UIViewController {
         return label
     }()
     
+    // MARK: - Chapter
+    private lazy var chapterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
+    private lazy var chapters: UILabel = {
+        let label = UILabel()
+        label.text = "Chapters"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+//    private lazy var chaptersLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "1. Chapter"
+//        label.font = .systemFont(ofSize: 14)
+//        label.numberOfLines = 0
+//        label.textColor = .darkGray
+//        return label
+//    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,16 +248,23 @@ final class ViewController: UIViewController {
     private func configureLayout() {
         view.backgroundColor = .white
         
-        [titleLabel, seriesOrder, hStackView, dedicationStackView, summaryStackView].forEach {
+        [titleLabel, seriesOrder, scrollView].forEach {
             view.addSubview($0)
         }
         
-        [bookImageView, vStackView].forEach {
-            hStackView.addArrangedSubview($0)
+        scrollView.addSubview(scrollContentsVStack)
+        
+        // Scroll View
+        [bookHStackView, dedicationStackView, summaryStackView, chapterStackView].forEach {
+            scrollContentsVStack.addArrangedSubview($0)
+        }
+        
+        [bookImageView, bookVStackView].forEach {
+            bookHStackView.addArrangedSubview($0)
         }
         
         [bookTitle, authorStackView, releasedStackView, pagesStackView].forEach {
-            vStackView.addArrangedSubview($0)
+            bookVStackView.addArrangedSubview($0)
         }
         
         [author, bookAuthor].forEach {
@@ -240,6 +287,7 @@ final class ViewController: UIViewController {
             summaryStackView.addArrangedSubview($0)
         }
         
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(20)
@@ -252,19 +300,19 @@ final class ViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
         }
         
-        hStackView.snp.makeConstraints { make in
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).inset(20)
+        bookHStackView.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
-            make.top.equalTo(seriesOrder.snp.bottom).offset(16)
+//            make.top.equalTo(seriesOrder.snp.bottom).offset(16)
         }
         
         bookImageView.snp.makeConstraints { make in
             make.width.equalTo(100)
             make.height.equalTo(150)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).inset(20)
         }
         
         dedicationStackView.snp.makeConstraints { make in
-            make.top.equalTo(hStackView.snp.bottom).offset(24)
+            make.top.equalTo(bookHStackView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -273,7 +321,24 @@ final class ViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
+        chapterStackView.snp.makeConstraints { make in
+            make.top.equalTo(summaryStackView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview()
+        }
         
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(seriesOrder.snp.bottom).offset(16)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        scrollContentsVStack.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(scrollView.snp.leading)
+            make.trailing.equalTo(scrollView.snp.trailing)
+            make.bottom.equalTo(scrollView.snp.bottom)
+            make.width.equalTo(scrollView.snp.width)
+        }
     }
     
     func loadBooks() {
@@ -291,6 +356,21 @@ final class ViewController: UIViewController {
                     self.bookPages.text = String(firstBook.pages)
                     self.dedicationLabel.text = firstBook.dedication
                     self.summaryLabel.text = firstBook.summary
+                    
+                    // Chapter
+                    chapterStackView.addArrangedSubview(chapters)
+                    for chapter in firstBook.chapters{
+                        lazy var chaptersLabel: UILabel = {
+                            let label = UILabel()
+                            label.text = "1. Chapter"
+                            label.font = .systemFont(ofSize: 14)
+                            label.numberOfLines = 0
+                            label.textColor = .darkGray
+                            return label
+                        }()
+                        chaptersLabel.text = chapter.title
+                        chapterStackView.addArrangedSubview(chaptersLabel)
+                    }
                 }
             case .failure(let error):
                 print("에러: \(error)")
