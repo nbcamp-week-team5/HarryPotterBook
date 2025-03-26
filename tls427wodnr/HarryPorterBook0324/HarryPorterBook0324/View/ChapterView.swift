@@ -40,7 +40,7 @@ class ChapterView: UIView {
         setupViews()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -50,7 +50,7 @@ class ChapterView: UIView {
         chapterStackView.addArrangedSubview(chapterTitle)
         chapterStackView.addArrangedSubview(chapterListView)
     }
-
+    
     private func setupLayout() {
         chapterStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -72,5 +72,5 @@ class ChapterView: UIView {
             self.chapterListView.addArrangedSubview(label)
         }
     }
-
+    
 }

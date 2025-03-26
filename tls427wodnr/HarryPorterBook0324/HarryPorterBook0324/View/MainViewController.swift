@@ -8,6 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
     private let pageVM = PageViewModel()
     private lazy var bookVM = BookViewModel(pageVM: pageVM)
     private lazy var summaryVM = SummaryViewModel(pageVM: pageVM, bookVM: bookVM)
@@ -44,7 +45,7 @@ class MainViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-                        
+            
             mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -72,7 +73,7 @@ extension MainViewController: HeaderViewDelegate {
     func didTapPageButton(at index: Int) {
         pageVM.setPage(index)
     }
-
+    
     func currentPage() -> Int {
         return pageVM.getPage()
     }

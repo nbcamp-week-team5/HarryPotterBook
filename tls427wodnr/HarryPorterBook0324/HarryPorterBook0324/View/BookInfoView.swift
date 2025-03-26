@@ -8,7 +8,7 @@
 import UIKit
 
 class BookInfoView: UIView {
-
+    
     private let bookInfoStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
@@ -111,7 +111,7 @@ class BookInfoView: UIView {
         setupViews()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -136,7 +136,7 @@ class BookInfoView: UIView {
         
         addSubview(bookInfoStackView)
     }
-
+    
     private func setupLayout() {
         bookImage.translatesAutoresizingMaskIntoConstraints = false
         bookInfoStackView.translatesAutoresizingMaskIntoConstraints = false

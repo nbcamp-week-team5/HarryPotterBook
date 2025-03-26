@@ -15,7 +15,7 @@ protocol SummaryViewDelegate: AnyObject {
 class SummaryView: UIView {
     
     weak var delegate: SummaryViewDelegate?
-
+    
     private let summaryStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -56,7 +56,7 @@ class SummaryView: UIView {
         setupViews()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -70,7 +70,7 @@ class SummaryView: UIView {
         summaryButtonWrapper.addArrangedSubview(summaryButton)
         summaryStackView.addArrangedSubview(summaryButtonWrapper)
     }
-
+    
     private func setupLayout() {
         summaryStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -87,7 +87,7 @@ class SummaryView: UIView {
         self.summaryButton.isHidden = summaryCount < 450
         self.bookSummary.text = formattedSummary
     }
-        
+    
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)

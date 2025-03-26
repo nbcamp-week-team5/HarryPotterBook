@@ -7,7 +7,7 @@
 
 class PageViewModel {
     var onPageUpdated: (() -> Void)?
-
+    
     private var page = 0 {
         didSet {
             onPageUpdated?()

@@ -5,7 +5,7 @@
 //  Created by tlswo on 3/26/25.
 //
 
-import UIKit
+import Foundation
 
 class SummaryViewModel {
     private let pageVM: PageViewModel
