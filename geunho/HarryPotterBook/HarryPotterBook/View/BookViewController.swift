@@ -47,8 +47,8 @@ final class BookViewController: UIViewController {
     private lazy var scrollContentsVStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .leading
         stackView.distribution = .equalSpacing
+        stackView.alignment = .firstBaseline
         stackView.spacing = 8
         return stackView
     }()
@@ -168,7 +168,7 @@ final class BookViewController: UIViewController {
     private lazy var dedicationStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.spacing = 8
         return stackView
@@ -193,7 +193,7 @@ final class BookViewController: UIViewController {
     private lazy var summaryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.spacing = 8
         return stackView
@@ -218,7 +218,6 @@ final class BookViewController: UIViewController {
         button.setTitle("더 보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        button.backgroundColor = .red
         button.addTarget(
             self,
             action: #selector(summaryButtonClicked),
@@ -227,13 +226,20 @@ final class BookViewController: UIViewController {
         button.isHidden = true
         return button
     }()
-    
+    private lazy var summaryButtonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .trailing
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        return stackView
+    }()
     
     // MARK: - Chapters
     private lazy var chapterStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.spacing = 8
         return stackView
@@ -269,7 +275,7 @@ final class BookViewController: UIViewController {
         scrollView.addSubview(scrollContentsVStack)
         
         // Scroll View
-        [bookHStackView, dedicationStackView, summaryStackView, chapterStackView].forEach {
+        [bookHStackView, dedicationStackView, summaryStackView, summaryButtonStackView, chapterStackView].forEach {
             scrollContentsVStack.addArrangedSubview($0)
         }
         
@@ -297,9 +303,11 @@ final class BookViewController: UIViewController {
             dedicationStackView.addArrangedSubview($0)
         }
         
-        [summary, summaryLabel, summaryButton].forEach {
+        [summary, summaryLabel].forEach {
             summaryStackView.addArrangedSubview($0)
         }
+        
+        summaryButtonStackView.addArrangedSubview(summaryButton)
     }
     
     private func configureLayout() {
@@ -334,6 +342,14 @@ final class BookViewController: UIViewController {
             make.top.equalTo(dedicationStackView.snp.bottom).offset(24)
         }
         
+        summaryButtonStackView.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(20)
+            
+            // trailing 정렬 완료
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(20)
+        }
+        
         chapterStackView.snp.makeConstraints { make in
             make.top.equalTo(summaryStackView.snp.bottom).offset(24)
             make.bottom.equalToSuperview()
@@ -346,11 +362,7 @@ final class BookViewController: UIViewController {
         }
         
         scrollContentsVStack.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
-            make.bottom.equalTo(scrollView.snp.bottom)
-            make.width.equalTo(scrollView.snp.width)
+            make.top.leading.trailing.bottom.width.equalToSuperview()
         }
     }
     
@@ -433,11 +445,11 @@ final class BookViewController: UIViewController {
     @objc func summaryButtonClicked() {
         
         if !self.isFolded {
-            summaryButton.setTitle("접기", for: .normal)
+            summaryButton.setTitle("더보기", for: .normal)
             self.isFolded = !self.isFolded
             truncateSummaryText()
         } else {
-            summaryButton.setTitle("더보기", for: .normal)
+            summaryButton.setTitle("접기", for: .normal)
             self.isFolded = !self.isFolded
             truncateSummaryText()
         }
