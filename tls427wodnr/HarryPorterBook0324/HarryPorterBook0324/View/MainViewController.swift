@@ -8,32 +8,11 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private let viewModel = BookViewModel()
+    private let pageVM = PageViewModel()
+    private lazy var bookVM = BookViewModel(pageVM: pageVM)
+    private lazy var summaryVM = SummaryViewModel(pageVM: pageVM, bookVM: bookVM)
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let pageButtonStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.alignment = .center
-        stack.distribution = .equalSpacing
-        stack.spacing = 8
-        return stack
-    }()
-    
-    private let headerStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.distribution = .fill
-        stack.spacing = 10
-        return stack
-    }()
+    private let headerView = HeaderView()
     
     private let bookInfoStackView: UIStackView = {
         let stack = UIStackView()
@@ -243,41 +222,23 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.onPageUpdated = { [weak self] in
-            self?.viewModel.getSummaryState()
+        pageVM.onPageUpdated = { [weak self] in
+            self?.summaryVM.getSummaryState()
             self?.bindData()
-            self?.setPageButtonColor()
+            self?.headerView.setPageButtonColor()
         }
+        headerView.delegate = self
         setupViews()
         setupSummaryButton()
         setupLayout()
         bindData()
-        setPageButtonColor()
+        headerView.setPageButtonColor()
     }
     
     private func setupViews() {
         view.backgroundColor = .white
-              
-        view.addSubview(headerStackView)
-        headerStackView.addArrangedSubview(titleLabel)
-        headerStackView.addArrangedSubview(pageButtonStackView)
         
-        for index in 0..<7 {
-            let button = UIButton()
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            button.setTitle("\(index+1)", for: .normal)
-            button.layer.cornerRadius = 16
-            button.tag = index
-            button.addTarget(self, action: #selector(clickPageButton), for: .touchUpInside)
-            
-            button.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                button.widthAnchor.constraint(equalToConstant: 32),
-                button.heightAnchor.constraint(equalToConstant: 32),
-            ])
-            
-            pageButtonStackView.addArrangedSubview(button)
-        }
+        view.addSubview(headerView)
         
         authorInfoStackView.addArrangedSubview(authorTitle)
         authorInfoStackView.addArrangedSubview(bookAuthor)
@@ -322,24 +283,24 @@ class MainViewController: UIViewController {
     }
     
     private func setupLayout() {
-        headerStackView.translatesAutoresizingMaskIntoConstraints = false
         bookImage.translatesAutoresizingMaskIntoConstraints = false
         verticalScrollView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
             
-            headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            headerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             
             bookImage.widthAnchor.constraint(equalToConstant: 100),
             bookImage.heightAnchor.constraint(equalToConstant: 150),
             
             chapterStackView.topAnchor.constraint(equalTo: summaryStackView.bottomAnchor, constant: 24),
             
-            verticalScrollView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 30),
+            verticalScrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             verticalScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             verticalScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             verticalScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -353,29 +314,29 @@ class MainViewController: UIViewController {
     }
     
     private func setupSummaryButton() {
-        self.summaryButton.setTitle(viewModel.currentSummaryButtonTitle(), for: .normal)
+        self.summaryButton.setTitle(summaryVM.currentSummaryButtonTitle(), for: .normal)
     }
     
     @objc func clickSummaryButton() {
-        viewModel.toggleSummaryState()
+        summaryVM.toggleSummaryState()
         bindData()
     }
     
     private func bindData() {
-        viewModel.getBooks { [weak self] books in
+        bookVM.getBooks { [weak self] books in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.setupSummaryButton()
-                let book = books[self.viewModel.getPage()]
-                self.titleLabel.text = book.title
+                let book = books[self.pageVM.getPage()]
+                self.headerView.configure(book.title)
                 self.bookTitle.text = book.title
-                self.bookImage.image = UIImage(resource: self.viewModel.getBookImageResource())
+                self.bookImage.image = UIImage(resource: self.bookVM.getBookImageResource())
                 self.bookAuthor.text = book.author
                 self.bookReleaseDate.text = book.release_date
                 self.bookPage.text = String(book.pages)
                 self.bookDedication.text = book.dedication
                 self.summaryButton.isHidden = book.summary.count < 450
-                self.bookSummary.text = self.viewModel.formatSummary()
+                self.bookSummary.text = self.summaryVM.formatSummary()
                 self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 book.chapters.enumerated().forEach { (_, chapter) in
                     let label = UILabel()
@@ -388,21 +349,15 @@ class MainViewController: UIViewController {
             }
         }
     }
-    
-    func setPageButtonColor() {
-        for case let button as UIButton in pageButtonStackView.arrangedSubviews {
-            if button.tag == viewModel.getPage() {
-                button.backgroundColor = .systemBlue
-                button.setTitleColor(.white, for: .normal)
-            } else {
-                button.backgroundColor = .systemGray4
-                button.setTitleColor(.systemBlue, for: .normal)
-            }
-        }
+}
+
+extension MainViewController: HeaderViewDelegate {
+    func didTapPageButton(at index: Int) {
+        pageVM.setPage(index)
     }
-    
-    @objc func clickPageButton(_ sender: UIButton) {
-        viewModel.setPage(sender.tag)
+
+    func currentPage(in headerView: HeaderView) -> Int {
+        return pageVM.getPage()
     }
 }
 

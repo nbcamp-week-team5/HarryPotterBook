@@ -4,12 +4,20 @@
 //
 //  Created by tlswo on 3/25/25.
 //
-import Foundation
+import UIKit
 
 class BookViewModel {
+    private let pageVM: PageViewModel
+
+    init(pageVM: PageViewModel) {
+        self.pageVM = pageVM
+    }
+    
     private let dataService = DataService()
         
     private var books: [Book] = []
+    
+    private let bookImageResources: [ImageResource] = [.harrypotter1,.harrypotter2,.harrypotter3,.harrypotter4,.harrypotter5,.harrypotter6,.harrypotter7]
     
     func getBooks(completion: @escaping ([Book]) -> Void) {
         if books.isEmpty {
@@ -28,5 +36,13 @@ class BookViewModel {
         } else {
             completion(books)
         }
+    }
+    
+    func getBookSummary() -> String {
+        return books[pageVM.getPage()].summary
+    }
+    
+    func getBookImageResource() -> ImageResource {
+        return bookImageResources[pageVM.getPage()]
     }
 }
