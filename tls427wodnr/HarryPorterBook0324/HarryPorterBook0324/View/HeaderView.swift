@@ -9,7 +9,7 @@ import UIKit
 
 protocol HeaderViewDelegate: AnyObject {
     func didTapPageButton(at index: Int)
-    func currentPage(in headerView: HeaderView) -> Int
+    func currentPage() -> Int
 }
 
 class HeaderView: UIView {
@@ -89,7 +89,7 @@ class HeaderView: UIView {
     }
     
     func setPageButtonColor() {
-        guard let currentPage = delegate?.currentPage(in: self) else { return }
+        guard let currentPage = delegate?.currentPage() else { return }
         for case let button as UIButton in pageButtonStackView.arrangedSubviews {
             if button.tag == currentPage {
                 button.backgroundColor = .systemBlue

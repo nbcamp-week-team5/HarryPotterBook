@@ -15,50 +15,7 @@ class MainViewController: UIViewController {
     private let headerView = HeaderView()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
-    
-    // MARK: SummaryView Component
-    private let summaryStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .leading
-        stack.distribution = .fill
-        stack.spacing = 10
-        return stack
-    }()
-    
-    private let summaryTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        label.text = "Summary"
-        return label
-    }()
-    
-    private let bookSummary: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .darkGray
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let summaryButtonWrapper: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .trailing
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
-    private let spacer = UIView()
-        
-    private lazy var summaryButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.tintColor = .systemBlue
-        button.addTarget(self, action: #selector(clickSummaryButton), for: .touchUpInside)
-        return button
-    }()
+    private let summaryView = SummaryView()
     
     // MARK: Chapters Component
     private let verticalScrollView: UIScrollView = {
@@ -111,7 +68,9 @@ class MainViewController: UIViewController {
         }
         headerView.delegate = self
         setupViews()
-        setupSummaryButton()
+        
+        summaryView.delegate = self
+        summaryView.setupSummaryButton()
         setupLayout()
         bindData()
         headerView.setPageButtonColor()
@@ -122,13 +81,6 @@ class MainViewController: UIViewController {
         
         view.addSubview(headerView)
         
-        summaryStackView.addArrangedSubview(summaryTitle)
-        summaryStackView.addArrangedSubview(bookSummary)
-        
-        summaryButtonWrapper.addArrangedSubview(spacer)
-        summaryButtonWrapper.addArrangedSubview(summaryButton)
-        summaryStackView.addArrangedSubview(summaryButtonWrapper)
-        
         chapterStackView.addArrangedSubview(chapterTitle)
         chapterStackView.addArrangedSubview(chapterListView)
                 
@@ -137,7 +89,7 @@ class MainViewController: UIViewController {
         
         contentStackView.addArrangedSubview(bookInfoView)
         contentStackView.addArrangedSubview(dedicationView)
-        contentStackView.addArrangedSubview(summaryStackView)
+        contentStackView.addArrangedSubview(summaryView)
         contentStackView.addArrangedSubview(chapterStackView)
         
         contentStackView.isLayoutMarginsRelativeArrangement = true
@@ -150,13 +102,11 @@ class MainViewController: UIViewController {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
-            
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             
-            chapterStackView.topAnchor.constraint(equalTo: summaryStackView.bottomAnchor, constant: 24),
+            chapterStackView.topAnchor.constraint(equalTo: summaryView.bottomAnchor, constant: 24),
             
             verticalScrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
             verticalScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -171,20 +121,11 @@ class MainViewController: UIViewController {
         ])
     }
     
-    private func setupSummaryButton() {
-        self.summaryButton.setTitle(summaryVM.currentSummaryButtonTitle(), for: .normal)
-    }
-    
-    @objc func clickSummaryButton() {
-        summaryVM.toggleSummaryState()
-        bindData()
-    }
-    
     private func bindData() {
         bookVM.getBooks { [weak self] books in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.setupSummaryButton()
+                self.summaryView.setupSummaryButton()
                 let book = books[self.pageVM.getPage()]
                 self.headerView.configure(book.title)
                 
@@ -192,8 +133,8 @@ class MainViewController: UIViewController {
                 
                 self.dedicationView.configure(book.dedication)
                 
-                self.summaryButton.isHidden = book.summary.count < 450
-                self.bookSummary.text = self.summaryVM.formatSummary()
+                self.summaryView.configure(summaryCount: book.summary.count, formattedSummary: self.summaryVM.formatSummary())
+                
                 self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 book.chapters.enumerated().forEach { (_, chapter) in
                     let label = UILabel()
@@ -213,8 +154,18 @@ extension MainViewController: HeaderViewDelegate {
         pageVM.setPage(index)
     }
 
-    func currentPage(in headerView: HeaderView) -> Int {
+    func currentPage() -> Int {
         return pageVM.getPage()
     }
 }
 
+extension MainViewController: SummaryViewDelegate {
+    func getCurrentSummaryButtonTitle() -> String {
+        summaryVM.currentSummaryButtonTitle()
+    }
+    
+    func didTapSummaryButton() {
+        summaryVM.toggleSummaryState()
+        bindData()
+    }
+}
