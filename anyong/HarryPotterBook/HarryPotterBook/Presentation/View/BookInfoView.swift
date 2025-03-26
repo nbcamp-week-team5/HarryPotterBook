@@ -13,7 +13,8 @@ import SnapKit
 final class BookInfoView: UIView {
     private let titleLabel = UILabel()
     private let orderButton = UIButton(type: .system)
-    private let bookInfoView = BookInfoCellView()
+    private let bookInfoSection = BookInfoSection()
+    private let bookDeatilInfoSection = BookDetailInfoSection()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,7 +49,7 @@ final class BookInfoView: UIView {
     }
     
     private func setUI() {
-        self.addSubViews(titleLabel, orderButton, bookInfoView)
+        self.addSubViews(titleLabel, orderButton, bookInfoSection, bookDeatilInfoSection)
     }
     
     private func setLayout() {
@@ -63,8 +64,13 @@ final class BookInfoView: UIView {
             $0.size.equalTo(40)
         }
         
-        bookInfoView.snp.makeConstraints {
+        bookInfoSection.snp.makeConstraints {
             $0.top.equalTo(orderButton.snp.bottom).offset(20)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+        }
+        
+        bookDeatilInfoSection.snp.makeConstraints {
+            $0.top.equalTo(bookInfoSection.snp.bottom).offset(24)
             $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
         }
     }
@@ -74,6 +80,7 @@ extension BookInfoView {
     func configure(_ book: Book, _ num: Int) {
         titleLabel.text = book.title
         orderButton.setTitle("\(num)", for: .normal)
-        bookInfoView.configure(book, num)
+        bookInfoSection.configure(book, num)
+        bookDeatilInfoSection.configure(book)
     }
 }
