@@ -385,6 +385,7 @@ class ViewController: UIViewController {
                 self.bookReleaseDate.text = book.release_date
                 self.bookPage.text = String(book.pages)
                 self.bookDedication.text = book.dedication
+                self.summaryButton.isHidden = book.summary.count < 450
                 self.bookSummary.text = self.formatSummary(book.summary)
                 self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 book.chapters.enumerated().forEach { (_, chapter) in
