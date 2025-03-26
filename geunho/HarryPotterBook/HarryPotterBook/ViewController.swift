@@ -233,10 +233,11 @@ final class ViewController: UIViewController {
         
         loadBooks()
         
+        configureViews()
         configureLayout()
     }
     
-    private func configureLayout() {
+    private func configureViews() {
         view.backgroundColor = .white
         
         [titleLabel, seriesButton, scrollView].forEach {
@@ -277,7 +278,9 @@ final class ViewController: UIViewController {
         [summary, summaryLabel].forEach {
             summaryStackView.addArrangedSubview($0)
         }
-        
+    }
+    
+    private func configureLayout() {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
