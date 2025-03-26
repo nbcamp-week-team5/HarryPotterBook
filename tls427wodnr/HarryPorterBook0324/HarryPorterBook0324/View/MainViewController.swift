@@ -13,129 +13,10 @@ class MainViewController: UIViewController {
     private lazy var summaryVM = SummaryViewModel(pageVM: pageVM, bookVM: bookVM)
     
     private let headerView = HeaderView()
+    private let bookInfoView = BookInfoView()
+    private let dedicationView = DedicationView()
     
-    private let bookInfoStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.alignment = .top
-        stack.distribution = .fill
-        stack.spacing = 10
-        return stack
-    }()
-    
-    private let authorInfoStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 8
-        return stack
-    }()
-    
-    private let releaseInfoStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 8
-        return stack
-    }()
-    
-    private let pageInfoStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 8
-        return stack
-    }()
-    
-    private let bookDetailStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .leading
-        stack.distribution = .equalSpacing
-        stack.spacing = 10
-        return stack
-    }()
-    
-    private let bookImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private let bookTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let authorTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.text = "Author"
-        return label
-    }()
-    
-    private let bookAuthor: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .darkGray
-        return label
-    }()
-    
-    private let releasedTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.text = "Released"
-        return label
-    }()
-    
-    private let bookReleaseDate: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .gray
-        return label
-    }()
-    
-    private let pageTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.text = "Pages"
-        return label
-    }()
-    
-    private let bookPage: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .gray
-        return label
-    }()
-    
-    private let dedicationStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .leading
-        stack.distribution = .fill
-        stack.spacing = 10
-        return stack
-    }()
-    
-    private let dedicationTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        label.text = "Dedication"
-        return label
-    }()
-    
-    private let bookDedication: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .darkGray
-        label.numberOfLines = 0
-        return label
-    }()
-    
+    // MARK: SummaryView Component
     private let summaryStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -179,6 +60,7 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    // MARK: Chapters Component
     private let verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -240,26 +122,6 @@ class MainViewController: UIViewController {
         
         view.addSubview(headerView)
         
-        authorInfoStackView.addArrangedSubview(authorTitle)
-        authorInfoStackView.addArrangedSubview(bookAuthor)
-        
-        releaseInfoStackView.addArrangedSubview(releasedTitle)
-        releaseInfoStackView.addArrangedSubview(bookReleaseDate)
-        
-        pageInfoStackView.addArrangedSubview(pageTitle)
-        pageInfoStackView.addArrangedSubview(bookPage)
-        
-        bookDetailStackView.addArrangedSubview(bookTitle)
-        bookDetailStackView.addArrangedSubview(authorInfoStackView)
-        bookDetailStackView.addArrangedSubview(releaseInfoStackView)
-        bookDetailStackView.addArrangedSubview(pageInfoStackView)
-        
-        bookInfoStackView.addArrangedSubview(bookImage)
-        bookInfoStackView.addArrangedSubview(bookDetailStackView)
-        
-        dedicationStackView.addArrangedSubview(dedicationTitle)
-        dedicationStackView.addArrangedSubview(bookDedication)
-        
         summaryStackView.addArrangedSubview(summaryTitle)
         summaryStackView.addArrangedSubview(bookSummary)
         
@@ -273,8 +135,8 @@ class MainViewController: UIViewController {
         view.addSubview(verticalScrollView)
         verticalScrollView.addSubview(contentStackView)
         
-        contentStackView.addArrangedSubview(bookInfoStackView)
-        contentStackView.addArrangedSubview(dedicationStackView)
+        contentStackView.addArrangedSubview(bookInfoView)
+        contentStackView.addArrangedSubview(dedicationView)
         contentStackView.addArrangedSubview(summaryStackView)
         contentStackView.addArrangedSubview(chapterStackView)
         
@@ -283,7 +145,6 @@ class MainViewController: UIViewController {
     }
     
     private func setupLayout() {
-        bookImage.translatesAutoresizingMaskIntoConstraints = false
         verticalScrollView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -294,9 +155,6 @@ class MainViewController: UIViewController {
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            
-            bookImage.widthAnchor.constraint(equalToConstant: 100),
-            bookImage.heightAnchor.constraint(equalToConstant: 150),
             
             chapterStackView.topAnchor.constraint(equalTo: summaryStackView.bottomAnchor, constant: 24),
             
@@ -329,12 +187,11 @@ class MainViewController: UIViewController {
                 self.setupSummaryButton()
                 let book = books[self.pageVM.getPage()]
                 self.headerView.configure(book.title)
-                self.bookTitle.text = book.title
-                self.bookImage.image = UIImage(resource: self.bookVM.getBookImageResource())
-                self.bookAuthor.text = book.author
-                self.bookReleaseDate.text = book.release_date
-                self.bookPage.text = String(book.pages)
-                self.bookDedication.text = book.dedication
+                
+                self.bookInfoView.configure(bookTitle: book.title, bookImage: UIImage(resource: self.bookVM.getBookImageResource()), bookAuthor: book.author, bookReleaseDate: book.release_date, bookPage: String(book.pages))
+                
+                self.dedicationView.configure(book.dedication)
+                
                 self.summaryButton.isHidden = book.summary.count < 450
                 self.bookSummary.text = self.summaryVM.formatSummary()
                 self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }

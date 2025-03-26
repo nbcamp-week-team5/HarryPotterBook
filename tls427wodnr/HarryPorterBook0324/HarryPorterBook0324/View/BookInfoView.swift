@@ -106,6 +106,16 @@ class BookInfoView: UIView {
         return label
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+        setupLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupViews() {
         authorInfoStackView.addArrangedSubview(authorTitle)
         authorInfoStackView.addArrangedSubview(bookAuthor)
@@ -123,6 +133,30 @@ class BookInfoView: UIView {
         
         bookInfoStackView.addArrangedSubview(bookImage)
         bookInfoStackView.addArrangedSubview(bookDetailStackView)
+        
+        addSubview(bookInfoStackView)
     }
 
+    private func setupLayout() {
+        bookImage.translatesAutoresizingMaskIntoConstraints = false
+        bookInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            bookImage.widthAnchor.constraint(equalToConstant: 100),
+            bookImage.heightAnchor.constraint(equalToConstant: 150),
+            
+            bookInfoStackView.topAnchor.constraint(equalTo: topAnchor),
+            bookInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bookInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bookInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+    
+    func configure(bookTitle: String, bookImage: UIImage, bookAuthor: String, bookReleaseDate: String, bookPage: String) {
+        self.bookTitle.text = bookTitle
+        self.bookImage.image = bookImage
+        self.bookAuthor.text = bookAuthor
+        self.bookReleaseDate.text = bookReleaseDate
+        self.bookPage.text = bookPage
+    }
 }
