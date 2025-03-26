@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BookInfoCellView: UIView {
+final class BookInfoSection: UIView {
     private let posterImageView = UIImageView()
     private let titleLabel = UILabel()
     private let authorTitleLabel = UILabel()
@@ -139,7 +139,7 @@ final class BookInfoCellView: UIView {
     }
 }
 
-extension BookInfoCellView {
+extension BookInfoSection {
     func configure(_ book: Book, _ num: Int) {
         posterImageView.image = UIImage(named: "harrypotter\(num)")
         titleLabel.text = book.title
