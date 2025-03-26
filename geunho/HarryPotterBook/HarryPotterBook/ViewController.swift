@@ -13,7 +13,7 @@ final class ViewController: UIViewController {
     private let dataService = DataService()
     
     // MARK: - Main Title
-    private lazy var titleLabel: UILabel = {
+    private lazy var mainTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Harry Potter"
         label.textAlignment = .center
@@ -240,7 +240,7 @@ final class ViewController: UIViewController {
     private func configureViews() {
         view.backgroundColor = .white
         
-        [titleLabel, seriesButton, scrollView].forEach {
+        [mainTitleLabel, seriesButton, scrollView].forEach {
             view.addSubview($0)
         }
         
@@ -282,7 +282,7 @@ final class ViewController: UIViewController {
     
     private func configureLayout() {
         
-        titleLabel.snp.makeConstraints { make in
+        mainTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(10)
@@ -291,10 +291,9 @@ final class ViewController: UIViewController {
         seriesButton.snp.makeConstraints { make in
             make.width.height.equalTo(40)
             make.centerX.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.top.equalTo(mainTitleLabel.snp.bottom).offset(16)
         }
 
-        
         bookHStackView.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
         }
@@ -343,7 +342,7 @@ final class ViewController: UIViewController {
             switch result {
             case .success(let books):
                 if let firstBook = books.first {
-                    self.titleLabel.text = firstBook.title
+                    self.mainTitleLabel.text = firstBook.title
                     self.seriesButton.setTitle("1", for: .normal)
                     self.bookTitle.text = firstBook.title
                     self.bookAuthor.text = firstBook.author
