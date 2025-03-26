@@ -12,7 +12,7 @@ final class ViewController: UIViewController {
     
     private let dataService = DataService()
     
-    // MARK: - 제목 영역
+    // MARK: - Main Title
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Harry Potter"
@@ -22,19 +22,18 @@ final class ViewController: UIViewController {
         return label
     }()
     
-    private lazy var seriesOrder: UIButton = {
-        let button = UIButton()
+    private lazy var seriesButton: UIButton = {
+        var button = UIButton()
         button.setTitle("1", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.backgroundColor = .systemBlue
-        button.layer.masksToBounds = true
-        //        button.layer.cornerRadius = button.frame.width / 2
         button.layer.cornerRadius = 20
+        button.layer.masksToBounds = true
         return button
     }()
     
     
-    // MARK: - 책 정보 영역
+    // MARK: - Book Primary Info
     // ScrollView
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -211,7 +210,8 @@ final class ViewController: UIViewController {
         return label
     }()
     
-    // MARK: - Chapter
+    
+    // MARK: - Chapters
     private lazy var chapterStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -227,15 +227,6 @@ final class ViewController: UIViewController {
         label.textColor = .black
         return label
     }()
-//    private lazy var chaptersLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "1. Chapter"
-//        label.font = .systemFont(ofSize: 14)
-//        label.numberOfLines = 0
-//        label.textColor = .darkGray
-//        return label
-//    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,7 +239,7 @@ final class ViewController: UIViewController {
     private func configureLayout() {
         view.backgroundColor = .white
         
-        [titleLabel, seriesOrder, scrollView].forEach {
+        [titleLabel, seriesButton, scrollView].forEach {
             view.addSubview($0)
         }
         
@@ -294,15 +285,15 @@ final class ViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(10)
         }
         
-        seriesOrder.snp.makeConstraints { make in
+        seriesButton.snp.makeConstraints { make in
             make.width.height.equalTo(40)
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
         }
+
         
         bookHStackView.snp.makeConstraints { make in
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).inset(70)
-//            make.top.equalTo(seriesOrder.snp.bottom).offset(16)
         }
         
         bookImageView.snp.makeConstraints { make in
@@ -328,7 +319,7 @@ final class ViewController: UIViewController {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(seriesOrder.snp.bottom).offset(16)
+            make.top.equalTo(seriesButton.snp.bottom).offset(16)
             make.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -341,6 +332,7 @@ final class ViewController: UIViewController {
         }
     }
     
+    
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
             guard let self = self else { return }
@@ -349,7 +341,7 @@ final class ViewController: UIViewController {
             case .success(let books):
                 if let firstBook = books.first {
                     self.titleLabel.text = firstBook.title
-                    self.seriesOrder.setTitle("1", for: .normal)
+                    self.seriesButton.setTitle("1", for: .normal)
                     self.bookTitle.text = firstBook.title
                     self.bookAuthor.text = firstBook.author
                     self.bookReleased.text = changeDateFormat(firstBook.releaseDate)
@@ -357,7 +349,7 @@ final class ViewController: UIViewController {
                     self.dedicationLabel.text = firstBook.dedication
                     self.summaryLabel.text = firstBook.summary
                     
-                    // Chapter
+                    // Chapters View
                     chapterStackView.addArrangedSubview(chapters)
                     for chapter in firstBook.chapters{
                         lazy var chaptersLabel: UILabel = {
