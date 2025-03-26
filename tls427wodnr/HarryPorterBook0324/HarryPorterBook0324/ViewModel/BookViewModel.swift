@@ -38,6 +38,10 @@ class BookViewModel {
         }
     }
     
+    func getCurrentBook() -> Book {
+        return books[pageVM.getPage()]
+    }
+    
     func getBookSummary() -> String {
         return books[pageVM.getPage()].summary
     }
