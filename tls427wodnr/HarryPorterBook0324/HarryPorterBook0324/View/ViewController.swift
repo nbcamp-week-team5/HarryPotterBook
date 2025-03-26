@@ -10,11 +10,15 @@ import UIKit
 class ViewController: UIViewController {
     private let viewModel = BookViewModel()
     
-    private var page = 1 {
+    private var page = 0 {
         didSet {
+            isSummarys[page] = UserDefaults.standard.bool(forKey: isSummaryKeys[page])
             bindData()
+            setPageButtonColor()
         }
     }
+    
+    private let bookImageResources: [ImageResource] = [.harrypotter1,.harrypotter2,.harrypotter3,.harrypotter4,.harrypotter5,.harrypotter6,.harrypotter7]
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -23,13 +27,13 @@ class ViewController: UIViewController {
         return label
     }()
     
-    private let pageButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 16
-        return button
+    private let pageButtonStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .equalSpacing
+        stack.spacing = 8
+        return stack
     }()
     
     private let headerStackView: UIStackView = {
@@ -85,7 +89,6 @@ class ViewController: UIViewController {
     
     private let bookImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(resource: .harrypotter1)
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -189,8 +192,31 @@ class ViewController: UIViewController {
         return label
     }()
     
+    private let isSummaryKeys: [String] = ["isSummaryKey_0","isSummaryKey_1","isSummaryKey_2","isSummaryKey_3","isSummaryKey_4","isSummaryKey_5","isSummaryKey_6"]
+    
+    private var isSummarys: [Bool] = Array(repeating: false, count: 7)
+    
+    private let summaryButtonWrapper: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .trailing
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let spacer = UIView()
+        
+    private lazy var summaryButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.tintColor = .systemBlue
+        button.addTarget(self, action: #selector(clickSummaryButton), for: .touchUpInside)
+        return button
+    }()
+    
     private let verticalScrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
@@ -232,19 +258,36 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupSummaryButton()
         setupLayout()
+        isSummarys[page] = UserDefaults.standard.bool(forKey: isSummaryKeys[page])
         bindData()
+        setPageButtonColor()
     }
     
     private func setupViews() {
         view.backgroundColor = .white
-        
-        pageButton.setTitle("\(page)", for: .normal)
-        pageButton.addTarget(self, action: #selector(clickPageButton), for: .touchUpInside)
-      
+              
         view.addSubview(headerStackView)
         headerStackView.addArrangedSubview(titleLabel)
-        headerStackView.addArrangedSubview(pageButton)
+        headerStackView.addArrangedSubview(pageButtonStackView)
+        
+        for index in 0..<7 {
+            let button = UIButton()
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            button.setTitle("\(index+1)", for: .normal)
+            button.layer.cornerRadius = 16
+            button.tag = index
+            button.addTarget(self, action: #selector(clickPageButton), for: .touchUpInside)
+            
+            button.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalToConstant: 32),
+                button.heightAnchor.constraint(equalToConstant: 32),
+            ])
+            
+            pageButtonStackView.addArrangedSubview(button)
+        }
         
         authorInfoStackView.addArrangedSubview(authorTitle)
         authorInfoStackView.addArrangedSubview(bookAuthor)
@@ -269,6 +312,10 @@ class ViewController: UIViewController {
         summaryStackView.addArrangedSubview(summaryTitle)
         summaryStackView.addArrangedSubview(bookSummary)
         
+        summaryButtonWrapper.addArrangedSubview(spacer)
+        summaryButtonWrapper.addArrangedSubview(summaryButton)
+        summaryStackView.addArrangedSubview(summaryButtonWrapper)
+        
         chapterStackView.addArrangedSubview(chapterTitle)
         chapterStackView.addArrangedSubview(chapterListView)
                 
@@ -286,14 +333,12 @@ class ViewController: UIViewController {
     
     private func setupLayout() {
         headerStackView.translatesAutoresizingMaskIntoConstraints = false
-        pageButton.translatesAutoresizingMaskIntoConstraints = false
         bookImage.translatesAutoresizingMaskIntoConstraints = false
         verticalScrollView.translatesAutoresizingMaskIntoConstraints = false
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
-            pageButton.widthAnchor.constraint(equalToConstant: 32),
-            pageButton.heightAnchor.constraint(equalToConstant: 32),
+            summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
             
             headerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -304,7 +349,7 @@ class ViewController: UIViewController {
             
             chapterStackView.topAnchor.constraint(equalTo: summaryStackView.bottomAnchor, constant: 24),
             
-            verticalScrollView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 10),
+            verticalScrollView.topAnchor.constraint(equalTo: headerStackView.bottomAnchor, constant: 30),
             verticalScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             verticalScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             verticalScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -313,22 +358,35 @@ class ViewController: UIViewController {
             contentStackView.leadingAnchor.constraint(equalTo: verticalScrollView.leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: verticalScrollView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: verticalScrollView.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.widthAnchor)
+            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.widthAnchor),
         ])
+    }
+    
+    private func setupSummaryButton() {
+        self.summaryButton.setTitle(isSummarys[page] ? "더 보기" : "접기", for: .normal)
+    }
+    
+    @objc func clickSummaryButton() {
+        isSummarys[page] = !isSummarys[page]
+        UserDefaults.standard.set(isSummarys[page], forKey: isSummaryKeys[page])
+        bindData()
     }
     
     private func bindData() {
         viewModel.getBooks { [weak self] books in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let book = books[self.page - 1]
+                self.setupSummaryButton()
+                let book = books[self.page]
                 self.titleLabel.text = book.title
                 self.bookTitle.text = book.title
+                self.bookImage.image = UIImage(resource: self.bookImageResources[self.page])
                 self.bookAuthor.text = book.author
                 self.bookReleaseDate.text = book.release_date
                 self.bookPage.text = String(book.pages)
                 self.bookDedication.text = book.dedication
-                self.bookSummary.text = book.summary
+                self.bookSummary.text = self.formatSummary(book.summary)
+                self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
                 book.chapters.enumerated().forEach { (_, chapter) in
                     let label = UILabel()
                     label.font = .systemFont(ofSize: 14)
@@ -341,12 +399,30 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func clickPageButton() {
-        guard let buttonTitle = pageButton.title(for: .normal),
-              let pageNumber = Int(buttonTitle) else {
-            return
+    func formatSummary(_ summary: String) -> String {
+        let limit = 450
+        if summary.count >= limit, isSummarys[page] == true {
+            let index = summary.index(summary.startIndex, offsetBy: limit)
+            let formated = String(summary[..<index]) + "..."
+            return formated
         }
-        page = pageNumber
+        return summary
+    }
+    
+    func setPageButtonColor() {
+        for case let button as UIButton in pageButtonStackView.arrangedSubviews {
+            if button.tag == page {
+                button.backgroundColor = .systemBlue
+                button.setTitleColor(.white, for: .normal)
+            } else {
+                button.backgroundColor = .systemGray4
+                button.setTitleColor(.systemBlue, for: .normal)
+            }
+        }
+    }
+    
+    @objc func clickPageButton(_ sender: UIButton) {
+        page = sender.tag
     }
 }
 
