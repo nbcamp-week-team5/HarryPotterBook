@@ -13,8 +13,11 @@ import SnapKit
 final class BookInfoView: UIView {
     private let titleLabel = UILabel()
     private let orderButton = UIButton(type: .system)
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     private let bookInfoSection = BookInfoSection()
     private let bookDeatilInfoSection = BookDetailInfoSection()
+    private let bookChapterSection = BookChapterSection()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,10 +49,18 @@ final class BookInfoView: UIView {
             $0.backgroundColor = .systemBlue
             $0.layer.cornerRadius = 20
         }
+        
+        scrollView.do {
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+            $0.alwaysBounceVertical = true
+        }
     }
     
     private func setUI() {
-        self.addSubViews(titleLabel, orderButton, bookInfoSection, bookDeatilInfoSection)
+        addSubViews(titleLabel, orderButton, scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubViews(bookInfoSection, bookDeatilInfoSection, bookChapterSection)
     }
     
     private func setLayout() {
@@ -64,14 +75,30 @@ final class BookInfoView: UIView {
             $0.size.equalTo(40)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(orderButton.snp.bottom).offset(8)
+            $0.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+        }
+        
         bookInfoSection.snp.makeConstraints {
-            $0.top.equalTo(orderButton.snp.bottom).offset(20)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
         bookDeatilInfoSection.snp.makeConstraints {
             $0.top.equalTo(bookInfoSection.snp.bottom).offset(24)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        bookChapterSection.snp.makeConstraints {
+            $0.top.equalTo(bookDeatilInfoSection.snp.bottom).offset(24)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
 }
@@ -82,5 +109,6 @@ extension BookInfoView {
         orderButton.setTitle("\(num)", for: .normal)
         bookInfoSection.configure(book, num)
         bookDeatilInfoSection.configure(book)
+        bookChapterSection.configure(book)
     }
 }
