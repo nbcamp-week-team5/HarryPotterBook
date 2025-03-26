@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class ViewController: UIViewController {
+final class BookViewController: UIViewController {
     
     private let dataService = DataService()
     
@@ -332,7 +332,6 @@ final class ViewController: UIViewController {
         }
     }
     
-    
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
             guard let self = self else { return }
@@ -384,5 +383,5 @@ final class ViewController: UIViewController {
 }
 
 #Preview {
-    ViewController()
+    BookViewController()
 }
