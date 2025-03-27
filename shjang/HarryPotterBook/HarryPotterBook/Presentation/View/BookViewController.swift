@@ -32,6 +32,37 @@ final class BookViewController: UIViewController {
         return view
     }()
     
+    private lazy var contentScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private lazy var chapterTitleView: UILabel = {
+        let label = UILabel()
+        label.text = "Chapters"
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
+    private lazy var chapterStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [chapterTitleView])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            bookBriefView, bookDetailView, chapterStackView
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        return stackView
+    }()
+    
+    
     init(viewModel: BookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -52,40 +83,43 @@ final class BookViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         seriesOrderLabel.layer.cornerRadius = seriesOrderLabel.frame.height / 2
+        contentStackView.layoutIfNeeded()
+        contentScrollView.contentSize = CGSize(width: contentScrollView.bounds.width, height: contentStackView.bounds.height)
     }
     
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(titleLabel)
         view.addSubview(seriesOrderLabel)
-        view.addSubview(bookBriefView)
-        view.addSubview(bookDetailView)
+        view.addSubview(contentScrollView)
+        contentScrollView.addSubview(contentStackView)
         setupConstraints()
     }
     
     private func setupConstraints() {
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
         }
         
-        seriesOrderLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
-            make.width.height.equalTo(30)
+        seriesOrderLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.width.height.equalTo(30)
         }
         
-        bookBriefView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalTo(seriesOrderLabel.snp.bottom).offset(10)
+        contentScrollView.snp.makeConstraints {
+            $0.top.equalTo(seriesOrderLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
-        bookDetailView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalTo(bookBriefView.snp.bottom).offset(24)
+        contentStackView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.width.equalTo(contentScrollView.snp.width).offset(-40)
         }
     }
         
@@ -95,6 +129,19 @@ final class BookViewController: UIViewController {
             seriesOrderLabel.text = "\(String(describing: currentBook.seriesOrder!))"
             bookBriefView.configure(with: currentBook)
             bookDetailView.configure(with: currentBook)
+            
+            for i in 0..<currentBook.chapters.count {
+                let chapterLabel = UILabel()
+                chapterLabel.font = UIFont.systemFont(ofSize: 14)
+                chapterLabel.textColor = .darkGray
+                chapterLabel.numberOfLines = 0
+                chapterLabel.text = "Chapter \(i + 1). \(currentBook.chapters[i].title)"
+                chapterStackView.addArrangedSubview(chapterLabel)
+                chapterLabel.snp.makeConstraints {
+                    $0.leading.equalToSuperview()
+                    $0.trailing.equalToSuperview()
+                }
+            }
         }
     }
     
@@ -124,4 +171,8 @@ extension BookViewController: BookViewModelDelegate {
     func didFailedToLoadImage(_ viewModel: BookViewModel, _ error: any Error) {
         showError("Failed To Load Image")
     }
+}
+
+extension BookViewController: UIScrollViewDelegate {
+    
 }
