@@ -36,7 +36,7 @@ class BookService {
     
     func getBookSummary(page: Int) -> String {
         return books[page].summary
-    }
+    } // SummaryService로 옮기기 
     
     func getBookImage(page: Int) -> String {
         return bookImages[page]
