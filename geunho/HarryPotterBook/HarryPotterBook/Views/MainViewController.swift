@@ -10,7 +10,7 @@ import SnapKit
 
 let defaults = UserDefaults.standard
 
-final class BookViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     private let dataService = DataService()
     
@@ -482,5 +482,5 @@ final class BookViewController: UIViewController {
 }
 
 #Preview {
-    BookViewController()
+    MainViewController()
 }
