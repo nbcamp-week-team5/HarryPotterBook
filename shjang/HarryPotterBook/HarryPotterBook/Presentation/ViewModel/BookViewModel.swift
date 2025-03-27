@@ -13,16 +13,24 @@ final class BookViewModel {
             delegate?.didUpdateSelectedBook(self, selectedBook)
         }
     }
+    var summary: String = ""
+    var isExpanded: Bool = false
     
     private let dataService: DataService
     
     init(dataService: DataService) {
         self.dataService = dataService
+        isExpanded = UserDefaults.standard.bool(forKey: "isExpanded")
         parseBook()
     }
     
     func selectBook(_ book: Book) {
         selectedBook = book
+    }
+    
+    func toggleExpanded() {
+        isExpanded.toggle()
+        UserDefaults.standard.set(isExpanded, forKey: "isExpanded")
     }
     
     func parseBook() {
