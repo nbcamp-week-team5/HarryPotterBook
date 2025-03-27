@@ -27,6 +27,11 @@ final class BookViewController: UIViewController {
         return view
     }()
     
+    private lazy var bookDetailView: BookDetailView = {
+        let view = BookDetailView()
+        return view
+    }()
+    
     init(viewModel: BookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -54,6 +59,7 @@ final class BookViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(seriesOrderLabel)
         view.addSubview(bookBriefView)
+        view.addSubview(bookDetailView)
         setupConstraints()
     }
     
@@ -71,9 +77,15 @@ final class BookViewController: UIViewController {
         }
         
         bookBriefView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(5)
-            make.trailing.equalToSuperview().offset(-5)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
             make.top.equalTo(seriesOrderLabel.snp.bottom).offset(10)
+        }
+        
+        bookDetailView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalTo(bookBriefView.snp.bottom).offset(24)
         }
     }
         
@@ -82,6 +94,7 @@ final class BookViewController: UIViewController {
             titleLabel.text = currentBook.title
             seriesOrderLabel.text = "\(String(describing: currentBook.seriesOrder!))"
             bookBriefView.configure(with: currentBook)
+            bookDetailView.configure(with: currentBook)
         }
     }
     
@@ -106,5 +119,9 @@ extension BookViewController: BookViewModelDelegate {
     
     func didFailToLoadBook(_ viewModel: BookViewModel, _ error: any Error) {
         showError("Failed To Load ViewModel" )
+    }
+    
+    func didFailedToLoadImage(_ viewModel: BookViewModel, _ error: any Error) {
+        showError("Failed To Load Image")
     }
 }

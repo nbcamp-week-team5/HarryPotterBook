@@ -40,7 +40,7 @@ final class BookBriefView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.textColor = .black
-        label.text = "Release"
+        label.text = "Released"
         return label
     }()
     
@@ -91,7 +91,7 @@ final class BookBriefView: UIView {
         titleLabel, authorStackView, releaseStackView, pagesStackView
         ])
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = 8
         stackView.distribution = .fillProportionally
         stackView.alignment = .top
         return stackView
@@ -99,7 +99,7 @@ final class BookBriefView: UIView {
     
     private lazy var bookImageView: UIImageView = {
         let imgView = UIImageView()
-        let img = UIImage(named: "harrypotter1")
+        let img = UIImage(named: "harrypotter1") // TODO: tmp
         imgView.image = img
         imgView.contentMode = .scaleAspectFill
         return imgView
