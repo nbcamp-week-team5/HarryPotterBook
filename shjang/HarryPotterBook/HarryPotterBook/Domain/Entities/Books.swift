@@ -8,7 +8,7 @@ struct Book: Decodable {
     let title: String
     let author: String
     let pages: Int
-    let releaseDate: String
+    var releaseDate: String?
     let dedication: String
     let summary: String
     let wiki: String

@@ -14,7 +14,7 @@ final class DataService {
         case parsingFailed
     }
     
-    func loadBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
+    func parseBook(completion: @escaping (Result<[Book], Error>) -> Void) {
         guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {
             completion(.failure(DataError.fileNotFound))
             return
