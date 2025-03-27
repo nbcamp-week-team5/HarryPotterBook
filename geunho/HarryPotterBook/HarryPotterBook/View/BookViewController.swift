@@ -8,11 +8,14 @@
 import UIKit
 import SnapKit
 
+let defaults = UserDefaults.standard
+
 final class BookViewController: UIViewController {
     
     private let dataService = DataService()
     
-    private var isFolded = true
+    var isFolded = defaults.bool(forKey: "summaryButtonState")
+    
     private var tempString = ""
 
     
@@ -430,8 +433,7 @@ final class BookViewController: UIViewController {
         return newConvertedDate
     }
     
-    func truncateSummaryText() {
-        
+    func adjustSummaryText() {
         
         if self.isFolded {
             tempString = summaryLabel.text!
@@ -444,15 +446,21 @@ final class BookViewController: UIViewController {
         else {
             summaryLabel.text = tempString
         }
-        
-        
     }
     
     func detectSummaryText() {
         if summaryLabel.text!.count >= 450 {
             summaryButton.isHidden = false
             tempString = summaryLabel.text!
-            truncateSummaryText()
+            adjustSummaryText()
+            
+            if self.isFolded {
+                summaryButton.setTitle("더보기", for: .normal)
+            } else {
+                summaryButton.setTitle("접기", for: .normal)
+            }
+            
+            
         }
     }
     
@@ -461,15 +469,14 @@ final class BookViewController: UIViewController {
         if !self.isFolded {
             summaryButton.setTitle("더보기", for: .normal)
             self.isFolded = !self.isFolded
-            truncateSummaryText()
         } else {
             summaryButton.setTitle("접기", for: .normal)
             self.isFolded = !self.isFolded
-            truncateSummaryText()
         }
         
+        adjustSummaryText()
         
-        UserDefaults.standard.set(isFolded, forKey: "summaryButtonState")
+        defaults.set(isFolded, forKey: "summaryButtonState")
     }
     
 }
