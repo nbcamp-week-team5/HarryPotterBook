@@ -5,7 +5,7 @@
 //  Created by tlswo on 3/25/25.
 //
 
-class BookViewModel {
+class BookService {
     
     private let dataService = DataService()
     

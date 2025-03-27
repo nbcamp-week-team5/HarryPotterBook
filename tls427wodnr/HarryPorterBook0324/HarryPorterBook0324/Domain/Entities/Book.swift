@@ -25,7 +25,3 @@ struct Book: Codable {
     let wiki: String
     let chapters: [Chapter]
 }
-
-struct Chapter: Codable {
-    let title: String
-}

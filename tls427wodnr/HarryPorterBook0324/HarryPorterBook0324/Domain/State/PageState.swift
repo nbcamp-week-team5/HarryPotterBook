@@ -5,7 +5,7 @@
 //  Created by tlswo on 3/26/25.
 //
 
-class PageViewModel {
+class PageState {
     var onPageUpdated: (() -> Void)?
     
     private var page = 0 {

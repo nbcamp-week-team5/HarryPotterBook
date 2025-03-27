@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SummaryViewModel {
+class SummaryService {
     
     private let isSummaryKeys: [String] = ["isSummaryKey_0","isSummaryKey_1","isSummaryKey_2","isSummaryKey_3","isSummaryKey_4","isSummaryKey_5","isSummaryKey_6"]
     
