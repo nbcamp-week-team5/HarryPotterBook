@@ -9,19 +9,17 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let pageVM = PageViewModel()
-    private lazy var bookVM = BookViewModel(pageVM: pageVM)
-    private lazy var summaryVM = SummaryViewModel(pageVM: pageVM, bookVM: bookVM)
-    
+    private let viewModel = MainViewModel()
+
     private let headerView = HeaderView()
     private let mainView = MainView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageVM.onPageUpdated = { [weak self] in
-            self?.summaryVM.getSummaryState()
-            self?.bindData()
-            self?.headerView.setPageButtonColor()
+        viewModel.onDataUpdated = { [weak self] in
+            guard let self = self else { return }
+            bindData()
+            headerView.setPageButtonColor()
         }
         headerView.delegate = self
         headerView.setPageButtonColor()
@@ -54,15 +52,18 @@ class MainViewController: UIViewController {
     }
     
     private func bindData() {
-        bookVM.getBooks { [weak self] books in
+        viewModel.getBooks { [weak self] _ in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                let book = self.bookVM.getCurrentBook()
+                let book = self.viewModel.getCurrentBook()
+                let imageName = self.viewModel.getCurrentBookImage()
+                let image = UIImage(named: imageName) ?? UIImage()
+                let formattedSummary = self.viewModel.getFormattedSummary()
                 self.headerView.configure(book.title)
                 self.mainView.configure(
                     book: book,
-                    bookImage: UIImage(named: self.bookVM.getBookImage()) ?? UIImage(),
-                    formattedSummary: self.summaryVM.formatSummary()
+                    bookImage: image,
+                    formattedSummary: formattedSummary
                 )
             }
         }
@@ -71,21 +72,21 @@ class MainViewController: UIViewController {
 
 extension MainViewController: HeaderViewDelegate {
     func didTapPageButton(at index: Int) {
-        pageVM.setPage(index)
+        viewModel.setPage(index)
     }
     
     func currentPage() -> Int {
-        return pageVM.getPage()
+        return viewModel.getPage()
     }
 }
 
 extension MainViewController: SummaryViewDelegate {
     func getCurrentSummaryButtonTitle() -> String {
-        summaryVM.currentSummaryButtonTitle()
+        return viewModel.currentSummaryButtonTitle()
     }
     
     func didTapSummaryButton() {
-        summaryVM.toggleSummaryState()
+        viewModel.toggleSummaryState()
         bindData()
     }
 }

@@ -6,11 +6,6 @@
 //
 
 class BookViewModel {
-    private let pageVM: PageViewModel
-    
-    init(pageVM: PageViewModel) {
-        self.pageVM = pageVM
-    }
     
     private let dataService = DataService()
     
@@ -35,15 +30,15 @@ class BookViewModel {
         }
     }
     
-    func getCurrentBook() -> Book {
-        return books[pageVM.getPage()]
+    func getCurrentBook(page: Int) -> Book {
+        return books[page]
     }
     
-    func getBookSummary() -> String {
-        return books[pageVM.getPage()].summary
+    func getBookSummary(page: Int) -> String {
+        return books[page].summary
     }
     
-    func getBookImage() -> String {
-        return bookImages[pageVM.getPage()]
+    func getBookImage(page: Int) -> String {
+        return bookImages[page]
     }
 }
