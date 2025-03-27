@@ -56,7 +56,7 @@ final class BookViewController: UIViewController {
     init(viewModel: BookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.viewModel.delegate = self
+        bookDetailView.delegate = self
     }
     
     @available(*, unavailable)
@@ -67,7 +67,7 @@ final class BookViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        updateUICurrentBook()
+        updateUI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -113,13 +113,12 @@ final class BookViewController: UIViewController {
         }
     }
         
-    func updateUICurrentBook() {
+    func updateUI() {
         if let currentBook = viewModel.selectedBook {
             titleLabel.text = currentBook.title
             seriesOrderLabel.text = "\(String(describing: currentBook.seriesOrder!))"
             bookBriefView.configure(with: currentBook)
-            bookDetailView.configure(with: currentBook)
-            
+            bookDetailView.configure(with: currentBook, isExpanded: viewModel.isExpanded)
             for i in 0..<currentBook.chapters.count {
                 bookChapterView.addChapter(currentBook.chapters[i].title)
             }
@@ -154,6 +153,9 @@ extension BookViewController: BookViewModelDelegate {
     }
 }
 
-extension BookViewController: UIScrollViewDelegate {
-    
+extension BookViewController: BookDetailViewDelegate {
+    func bookDetailViewDidTapButton(_ view: BookDetailView) {
+        viewModel.toggleExpanded()
+        updateUI()
+    }
 }

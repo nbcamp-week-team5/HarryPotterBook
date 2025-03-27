@@ -1,8 +1,20 @@
 import UIKit
 import SnapKit
 
+protocol BookDetailViewDelegate: AnyObject {
+    func bookDetailViewDidTapButton(_ view: BookDetailView)
+}
+
 final class BookDetailView: UIView {
     // MARK: Properties
+    weak var delegate: BookDetailViewDelegate?
+    private lazy var expandButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Expand", for: .normal)
+        button.addTarget(self, action: #selector(handleExpandButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var dedicationTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -67,22 +79,39 @@ final class BookDetailView: UIView {
     private func setupView() {
         addSubview(dedicationStackView)
         addSubview(summaryStackView)
+        addSubview(expandButton)
     }
     
     private func setupConstraints() {
-        dedicationStackView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+        dedicationStackView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
         }
         
-        summaryStackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(dedicationStackView.snp.bottom).offset(24)
-            make.bottom.equalToSuperview()
+        summaryStackView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(dedicationStackView.snp.bottom).offset(24)
+        }
+        
+        expandButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview()
+            $0.top.equalTo(summaryStackView.snp.bottom).offset(8)
+            $0.bottom.equalToSuperview()
         }
     }
     
-    func configure(with book: Book) {
+    @objc func handleExpandButtonTapped() {
+        delegate?.bookDetailViewDidTapButton(self)
+    }
+    
+    func configure(with book: Book, isExpanded: Bool) {
         dedicationContentLabel.text = book.dedication
-        summaryContentLabel.text = book.summary
+        let summary = book.summary
+        if summary.count > 450 && !isExpanded {
+            summaryContentLabel.text = String(summary.prefix(450)) + "…"
+            expandButton.setTitle("Expand", for: .normal)
+        } else {
+            summaryContentLabel.text = summary
+            expandButton.setTitle(isExpanded ? "Fold" : "Expand", for: .normal)
+        }
     }
 }
