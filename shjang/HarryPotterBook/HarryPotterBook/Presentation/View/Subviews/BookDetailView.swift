@@ -45,10 +45,10 @@ final class BookDetailView: UIView {
     }()
     
     private lazy var summaryStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [summaryTitleLabel, summaryContentLabel]
-        )
+        let stackView = UIStackView(arrangedSubviews:
+                                        [summaryTitleLabel, summaryContentLabel])
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.spacing = 8
         return stackView
     }()
@@ -71,12 +71,13 @@ final class BookDetailView: UIView {
     
     private func setupConstraints() {
         dedicationStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
         }
         
         summaryStackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(dedicationStackView.snp.bottom).offset(24)
+            make.bottom.equalToSuperview()
         }
     }
     
