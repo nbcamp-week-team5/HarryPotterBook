@@ -32,30 +32,20 @@ final class BookViewController: UIViewController {
         return view
     }()
     
+    private lazy var bookChapterView: BookChapterView = {
+        let view = BookChapterView()
+        return view
+    }()
+    
     private lazy var contentScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
-    private lazy var chapterTitleView: UILabel = {
-        let label = UILabel()
-        label.text = "Chapters"
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        return label
-    }()
-    
-    private lazy var chapterStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [chapterTitleView])
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        return stackView
-    }()
-    
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            bookBriefView, bookDetailView, chapterStackView
+            bookBriefView, bookDetailView, bookChapterView
         ])
         stackView.axis = .vertical
         stackView.spacing = 24
@@ -131,16 +121,7 @@ final class BookViewController: UIViewController {
             bookDetailView.configure(with: currentBook)
             
             for i in 0..<currentBook.chapters.count {
-                let chapterLabel = UILabel()
-                chapterLabel.font = UIFont.systemFont(ofSize: 14)
-                chapterLabel.textColor = .darkGray
-                chapterLabel.numberOfLines = 0
-                chapterLabel.text = "Chapter \(i + 1). \(currentBook.chapters[i].title)"
-                chapterStackView.addArrangedSubview(chapterLabel)
-                chapterLabel.snp.makeConstraints {
-                    $0.leading.equalToSuperview()
-                    $0.trailing.equalToSuperview()
-                }
+                bookChapterView.addChapter(currentBook.chapters[i].title)
             }
         }
     }
