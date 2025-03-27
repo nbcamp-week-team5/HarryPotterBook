@@ -370,7 +370,6 @@ final class BookViewController: UIViewController {
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let books):
                 if let firstBook = books.first {
@@ -399,9 +398,24 @@ final class BookViewController: UIViewController {
                     }
                 }
             case .failure(let error):
-                print("에러: \(error)")
+                DispatchQueue.main.async {
+                    self.showErrorAlert(error: error)
+                }
+                
             }
         }
+    }
+    
+    func showErrorAlert(error: Error) {
+        print("에러: \(error)")
+        let alert = UIAlertController(
+            title: "파일을 불러오지 못했습니다!",
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func changeDateFormat(_ dateStr: String) -> String {
