@@ -1,7 +1,7 @@
 import UIKit
 
 final class BookChapterView: UIView {
-    private lazy var chapterTitleView: UILabel = {
+    private lazy var chapterTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Chapters"
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -10,7 +10,7 @@ final class BookChapterView: UIView {
     }()
     
     private lazy var chapterStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [chapterTitleView])
+        let stackView = UIStackView(arrangedSubviews: [chapterTitleLabel])
         stackView.axis = .vertical
         stackView.spacing = 8
         return stackView
@@ -37,12 +37,26 @@ final class BookChapterView: UIView {
         }
     }
     
+    func configure(with chapters: [Chapter]) {
+        clearChapters()
+        chapters.forEach { addChapter($0.title) }
+    }
+    
     func addChapter(_ chapterTitle: String) {
         let label = UILabel()
-        label.text = "\(chapterTitle)"
+        label.text = chapterTitle
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14)
         label.textColor = .darkGray
         chapterStackView.addArrangedSubview(label)
+    }
+    
+    func clearChapters() {
+        for view in chapterStackView.arrangedSubviews {
+            if view !== chapterTitleLabel {
+                chapterStackView.removeArrangedSubview(view)
+                view.removeFromSuperview()
+            }
+        }
     }
 }
