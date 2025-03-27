@@ -6,31 +6,41 @@ protocol BookViewModelDelegate: AnyObject {
 }
 
 final class BookViewModel {
+    private enum UserDefaultsKeys {
+        static let isExpanded = "isExpanded"
+    }
+    
     weak var delegate: BookViewModelDelegate?
+    
     private(set) var books: [Book] = []
+    private(set) var selectedIndex: Int = 0
     private(set) var selectedBook: Book? {
         didSet {
             delegate?.didUpdateSelectedBook(self, selectedBook)
         }
     }
-    var summary: String = ""
+    
     var isExpanded: Bool = false
     
     private let dataService: DataService
     
     init(dataService: DataService) {
         self.dataService = dataService
-        isExpanded = UserDefaults.standard.bool(forKey: "isExpanded")
+        isExpanded = UserDefaults.standard.bool(forKey: UserDefaultsKeys.isExpanded)
         parseBook()
     }
     
-    func selectBook(_ book: Book) {
-        selectedBook = book
+    func selectBook(at index: Int) {
+        guard index >= 0 && index < books.count else { return }
+        guard index != selectedIndex else { return }
+        selectedIndex = index
+        selectedBook = books[index]
+        delegate?.didUpdateSelectedBook(self, selectedBook)
     }
     
     func toggleExpanded() {
         isExpanded.toggle()
-        UserDefaults.standard.set(isExpanded, forKey: "isExpanded")
+        UserDefaults.standard.set(isExpanded, forKey: UserDefaultsKeys.isExpanded)
     }
     
     func parseBook() {
