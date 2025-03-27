@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
                 self.headerView.configure(book.title)
                 self.mainView.configure(
                     book: book,
-                    bookImage: UIImage(resource: self.bookVM.getBookImageResource()),
+                    bookImage: UIImage(named: self.bookVM.getBookImage()) ?? UIImage(),
                     formattedSummary: self.summaryVM.formatSummary()
                 )
             }

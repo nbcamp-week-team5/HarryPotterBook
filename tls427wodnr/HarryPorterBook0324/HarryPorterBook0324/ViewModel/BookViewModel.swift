@@ -4,7 +4,6 @@
 //
 //  Created by tlswo on 3/25/25.
 //
-import UIKit
 
 class BookViewModel {
     private let pageVM: PageViewModel
@@ -17,7 +16,7 @@ class BookViewModel {
     
     private var books: [Book] = []
     
-    private let bookImageResources: [ImageResource] = [.harrypotter1,.harrypotter2,.harrypotter3,.harrypotter4,.harrypotter5,.harrypotter6,.harrypotter7]
+    private let bookImages: [String] = ["harrypotter1","harrypotter2","harrypotter3","harrypotter4","harrypotter5","harrypotter6","harrypotter7"]
     
     func getBooks(completion: @escaping ([Book]) -> Void) {
         if books.isEmpty {
@@ -44,7 +43,7 @@ class BookViewModel {
         return books[pageVM.getPage()].summary
     }
     
-    func getBookImageResource() -> ImageResource {
-        return bookImageResources[pageVM.getPage()]
+    func getBookImage() -> String {
+        return bookImages[pageVM.getPage()]
     }
 }
