@@ -22,6 +22,11 @@ final class BookViewController: UIViewController {
         return label
     }()
     
+    private lazy var bookBriefView: BookBriefView = {
+        let view = BookBriefView()
+        return view
+    }()
+    
     init(viewModel: BookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -48,6 +53,11 @@ final class BookViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(titleLabel)
         view.addSubview(seriesOrderLabel)
+        view.addSubview(bookBriefView)
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -59,12 +69,19 @@ final class BookViewController: UIViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
             make.width.height.equalTo(30)
         }
+        
+        bookBriefView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
+            make.top.equalTo(seriesOrderLabel.snp.bottom).offset(10)
+        }
     }
         
     func updateUICurrentBook() {
         if let currentBook = viewModel.selectedBook {
             titleLabel.text = currentBook.title
             seriesOrderLabel.text = "\(String(describing: currentBook.seriesOrder!))"
+            bookBriefView.configure(with: currentBook)
         }
     }
     
