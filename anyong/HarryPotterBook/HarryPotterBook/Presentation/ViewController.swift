@@ -10,6 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
     private let rootView = BookInfoView()
     private let dataService = DataService()
+    private let userDefaultService = UserDefaultService()
     private let alert = UIAlertController(title: "알림", message: "정보를 불러오는데 실패했습니다", preferredStyle: .alert)
     
     private var books: [Book] = []
@@ -21,6 +22,7 @@ final class ViewController: UIViewController {
     
     override func loadView() {
         view = rootView
+        rootView.bookDeatilInfoSection.delegate = self
     }
 }
 
@@ -37,7 +39,11 @@ extension ViewController {
             switch result {
             case .success(let success):
                 self.books = success
-                self.rootView.configure(books[5], 6)
+                if let book = books.first {
+                    let isExpended = self.userDefaultService.get(0)
+                    
+                    self.rootView.configure(book, 1, isExpended)
+                }
             case .failure(_):
                 DispatchQueue.main.async {
                     self.showAlert()
@@ -45,5 +51,12 @@ extension ViewController {
                 }
             }
         }
+    }
+}
+
+
+extension ViewController: BookDetailInfoSectionDelegate {
+    func didTapExpendButton(_ expeded: Bool) {
+        userDefaultService.save(0, expeded)
     }
 }
