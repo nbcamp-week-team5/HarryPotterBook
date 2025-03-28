@@ -49,7 +49,7 @@ class HeaderView: UIView {
         }
         
         mainTitleLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
         }
         
         seriesButton.snp.makeConstraints { make in

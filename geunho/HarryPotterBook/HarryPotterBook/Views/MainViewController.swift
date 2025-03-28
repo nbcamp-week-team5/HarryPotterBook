@@ -65,7 +65,6 @@ final class MainViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
         }
         
-        
         scrollContentsVStack.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.width.equalToSuperview()
         }
