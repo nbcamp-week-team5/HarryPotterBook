@@ -16,7 +16,7 @@ final class BookInfoView: UIView {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let bookInfoSection = BookInfoSection()
-    private let bookDeatilInfoSection = BookDetailInfoSection()
+    let bookDeatilInfoSection = BookDetailInfoSection()
     private let bookChapterSection = BookChapterSection()
     
     override init(frame: CGRect) {
@@ -45,9 +45,12 @@ final class BookInfoView: UIView {
         orderButton.do {
             $0.titleLabel?.font = .systemFont(ofSize: 16)
             $0.titleLabel?.textAlignment = .center
-            $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .systemBlue
+            $0.setTitleColor(.systemBlue, for: .normal)
+            $0.setTitleColor(.white, for: [.selected, .disabled])
+            $0.tintColor = .clear
+            $0.clipsToBounds = true
             $0.layer.cornerRadius = 20
+            $0.addTarget(self, action: #selector(didTapOrderButton), for: .touchUpInside)
         }
         
         scrollView.do {
@@ -104,11 +107,22 @@ final class BookInfoView: UIView {
 }
 
 extension BookInfoView {
-    func configure(_ book: Book, _ num: Int) {
+    func configure(_ book: Book, _ num: Int, _ isExpanded: Bool) {
         titleLabel.text = book.title
+        orderButton.isSelected = false
         orderButton.setTitle("\(num)", for: .normal)
+        orderButton.backgroundColor = orderButton.isSelected ? .systemBlue : .systemGray5
         bookInfoSection.configure(book, num)
-        bookDeatilInfoSection.configure(book)
+        bookDeatilInfoSection.configure(book, isExpanded)
         bookChapterSection.configure(book)
+    }
+}
+extension BookInfoView {
+    @objc
+    private func didTapOrderButton(_ sender: UIButton) {
+        sender.isSelected = true
+        sender.isEnabled = false
+            
+        sender.backgroundColor = sender.isSelected ? .systemBlue : .systemGray5
     }
 }
