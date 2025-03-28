@@ -28,7 +28,6 @@ class DataService {
             let books = bookResponse.data.map { $0.attributes }
             // dataService.loadBooks 안에 있는 completion: { } 실행
             completion(.success(books))
-            print(#function)
         } catch {
             print("🚨 JSON 파싱 에러 : \(error)")
             // dataService.loadBooks 안에 있는 completion: { } 실행

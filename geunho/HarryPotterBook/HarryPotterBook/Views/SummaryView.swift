@@ -59,8 +59,6 @@ class SummaryView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .trailing
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 8
         return stackView
     }()
     
@@ -82,14 +80,15 @@ class SummaryView: UIView {
             summaryStackView.addArrangedSubview($0)
         }
         
-        summaryButtonStackView.addArrangedSubview(summaryButton)
+       summaryButtonStackView.addArrangedSubview(summaryButton)
         
         summaryStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
         summaryButtonStackView.snp.makeConstraints { make in
-            make.width.equalTo(40)
+            // width.equalTo로 하니 레이아웃 오류 발생
+            make.width.greaterThanOrEqualTo(40)
             make.height.equalTo(20)
         }
       

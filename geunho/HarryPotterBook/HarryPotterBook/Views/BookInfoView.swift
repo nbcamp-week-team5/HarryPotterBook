@@ -14,9 +14,7 @@ class BookInfoView: UIView {
     private lazy var bookHStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 8
+        stackView.spacing = 20
         return stackView
     }()
     
@@ -163,13 +161,12 @@ class BookInfoView: UIView {
         }
         
         bookVStackView.snp.makeConstraints { make in
-            make.leading.equalTo(bookImageView.snp.trailing).offset(20)
+           
         }
-        
-        
-        
+                
         bookImageView.snp.makeConstraints { make in
-            make.width.equalTo(100)
+            // equalTo -> lessThanOrEqualTo로 변경하니 레이아웃 오류가 확실히 줄었음.
+            make.width.lessThanOrEqualTo(100)
             make.height.equalTo(150)
             make.leading.equalToSuperview()
         }
