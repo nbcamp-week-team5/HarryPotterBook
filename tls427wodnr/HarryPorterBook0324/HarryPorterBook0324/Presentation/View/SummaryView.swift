@@ -54,7 +54,8 @@ class SummaryView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
@@ -81,6 +82,16 @@ class SummaryView: UIView {
             summaryStackView.topAnchor.constraint(equalTo: topAnchor),
             summaryStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        summaryButtonWrapper.snp.makeConstraints {
+            $0.width.equalTo(summaryStackView.snp.width)
+        }
+        
+        summaryStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func configure(summaryCount: Int,formattedSummary: String) {

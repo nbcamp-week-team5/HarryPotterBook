@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MainViewController: UIViewController {
     
@@ -25,7 +26,8 @@ class MainViewController: UIViewController {
         headerView.setPageButtonColor()
         mainView.setSummaryViewDelegate(self)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
         bindData()
     }
     
@@ -49,6 +51,19 @@ class MainViewController: UIViewController {
             mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        headerView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+        }
+        
+        mainView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(30)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+        }
     }
     
     private func bindData() {

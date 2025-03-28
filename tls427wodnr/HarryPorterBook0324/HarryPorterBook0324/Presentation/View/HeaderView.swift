@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol HeaderViewDelegate: AnyObject {
     func didTapPageButton(at index: Int)
@@ -44,7 +45,8 @@ class HeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
@@ -82,6 +84,12 @@ class HeaderView: UIView {
             headerStackView.topAnchor.constraint(equalTo: topAnchor),
             headerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        headerStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func configure(_ text: String) {

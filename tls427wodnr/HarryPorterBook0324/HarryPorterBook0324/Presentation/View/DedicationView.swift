@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class DedicationView: UIView {
     
@@ -37,7 +38,8 @@ class DedicationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
@@ -58,6 +60,12 @@ class DedicationView: UIView {
             dedicationStackView.topAnchor.constraint(equalTo: topAnchor),
             dedicationStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        dedicationStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func configure(_ text: String) {

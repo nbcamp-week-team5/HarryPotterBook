@@ -32,7 +32,8 @@ class MainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
         summaryView.setupSummaryButton()
     }
     
@@ -64,12 +65,27 @@ class MainView: UIView {
             verticalScrollView.topAnchor.constraint(equalTo: topAnchor),
             verticalScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentStackView.topAnchor.constraint(equalTo: verticalScrollView.topAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: verticalScrollView.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: verticalScrollView.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: verticalScrollView.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.widthAnchor),
+            contentStackView.topAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.topAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.bottomAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.trailingAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.frameLayoutGuide.widthAnchor),
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        chapterView.snp.makeConstraints {
+            $0.top.equalTo(summaryView.snp.bottom).offset(24)
+        }
+
+        verticalScrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
+        contentStackView.snp.makeConstraints {
+            $0.edges.equalTo(verticalScrollView.contentLayoutGuide)
+            $0.width.equalTo(verticalScrollView.frameLayoutGuide.snp.width)
+        }
     }
     
     func configure(book: Book, bookImage: UIImage, formattedSummary: String) {

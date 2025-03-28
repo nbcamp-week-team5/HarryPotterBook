@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ChapterView: UIView {
     
@@ -38,7 +39,8 @@ class ChapterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +61,12 @@ class ChapterView: UIView {
             chapterStackView.topAnchor.constraint(equalTo: topAnchor),
             chapterStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        chapterStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     func configure(_ book: Book) {

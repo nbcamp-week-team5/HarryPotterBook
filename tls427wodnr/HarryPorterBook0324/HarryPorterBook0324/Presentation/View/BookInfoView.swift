@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BookInfoView: UIView {
     
@@ -109,7 +110,8 @@ class BookInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupLayout()
+        //setupLayout()
+        setupLayoutWithSnapKit()
     }
     
     required init?(coder: NSCoder) {
@@ -150,6 +152,17 @@ class BookInfoView: UIView {
             bookInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             bookInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+    
+    private func setupLayoutWithSnapKit() {
+        bookImage.snp.makeConstraints {
+            $0.width.equalTo(100)
+            $0.height.equalTo(150)
+        }
+        
+        bookInfoStackView.snp.makeConstraints { 
+            $0.edges.equalToSuperview()
+        }
     }
     
     func configure(bookTitle: String, bookImage: UIImage, bookAuthor: String, bookReleaseDate: String, bookPage: String) {
