@@ -22,20 +22,24 @@ class HeaderView: UIView {
         return label
     }()
     
-     lazy var seriesButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("1", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 20
-        button.layer.masksToBounds = true
-        return button
+    private lazy var seriesScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private lazy var seriesButtonHStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 4
+        return stackView
     }()
     
     // codebase
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         configureLayout()
     }
     
@@ -46,19 +50,25 @@ class HeaderView: UIView {
     
     private func configureLayout() {
         
-                
-        [mainTitleLabel, seriesButton].forEach {
+        
+        [mainTitleLabel, seriesScrollView].forEach {
             self.addSubview($0)
         }
         
+        seriesScrollView.addSubview(seriesButtonHStack)
+        
         mainTitleLabel.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(seriesScrollView.snp.top).offset(-16)
         }
         
-        seriesButton.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-            make.top.equalTo(mainTitleLabel.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
+        seriesScrollView.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        seriesButtonHStack.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.height.equalToSuperview()
+            make.centerX.greaterThanOrEqualToSuperview()
         }
         
 
