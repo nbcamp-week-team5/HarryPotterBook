@@ -10,6 +10,9 @@ import SnapKit
 
 class HeaderView: UIView {
     
+    var bookController = BookController.shared
+
+    
     lazy var mainTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Harry Potter"
@@ -58,6 +61,48 @@ class HeaderView: UIView {
             make.centerX.equalToSuperview()
         }
         
+
         
+        
+        
+    }
+    
+    func addSeriesButtons(_ seriesCount: Int) {
+        for num in 1 ... seriesCount {
+            let seriesButton: UIButton = {
+                let button = UIButton()
+                button.setTitle("\(num)", for: .normal)
+                button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+                button.setTitleColor(.systemBlue, for: .normal)
+                button.backgroundColor = .systemGray5
+                button
+                    .addTarget(
+                        self,
+                        // changeSeries(_:)는 sender라는 UIButton 타입의 파라미터를 받는 메서드를 의미합니다.
+                        // addTarget은 버튼 이벤트 핸들러로 호출될 메서드가 반드시 sender를 파라미터로 받는 형태여야 한다고 기대합니다. 즉, func changeSeries(_ sender: UIButton) 같은 형태가 기본입니다.
+                        action: #selector(changeSeries(_:)),
+                        for: .touchUpInside
+                    )
+                button.layer.cornerRadius = 22
+                button.layer.masksToBounds = true
+                return button
+            }()
+            seriesButtonHStack.addArrangedSubview(seriesButton)
+            seriesButton.snp.makeConstraints { make in
+                make.width.height.equalTo(44)
+            }
+            
+        }
+    }
+    
+    @objc func changeSeries(_ sender: UIButton) {
+        let seriesNumber = Int(sender.title(for: .normal)!)!
+        print("Selected series: \(seriesNumber)")
+        
+        // 여기서 seriesNumber를 사용해 데이터 설정 로직 추가
+        sender.setTitleColor(.white, for: .normal)
+        sender.backgroundColor = .systemBlue
+        
+        bookController.loadBooks(seriesNumber)
     }
 }
