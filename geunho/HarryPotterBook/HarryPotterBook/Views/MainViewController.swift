@@ -10,6 +10,8 @@ import SnapKit
 
 final class MainViewController: UIViewController {
     
+    private let bookController = BookController.shared
+
     private let headerView = HeaderView()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
@@ -18,17 +20,6 @@ final class MainViewController: UIViewController {
     
     private let dataService = DataService()
     
-    // BookController에 뷰 객체 전달
-    private lazy var bookController: BookController = {
-        BookController(
-            mainView: self,
-            headerView: headerView,
-            bookInfoView: bookInfoView,
-            dedicationView: dedicationView,
-            summaryView: summaryView,
-            chaptersView: chaptersView
-        )
-    }()
     
     // ScrollView
     private lazy var scrollView: UIScrollView = {
@@ -48,10 +39,22 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                                
-        configureLayout()
+                             
         
         bookController.loadBooks()
+        
+        bookController
+            .setViews(
+                mainView: self,
+                headerView: headerView,
+                bookInfoView: bookInfoView,
+                dedicationView: dedicationView,
+                summaryView: summaryView,
+                chaptersView: chaptersView
+            )
+
+        configureLayout()
+        
 
     }
     

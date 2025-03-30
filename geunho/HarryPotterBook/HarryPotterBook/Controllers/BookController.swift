@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 class BookController {
     
+    static let shared = BookController()
+        
     private weak var mainView: MainViewController?
     private weak var headerView: HeaderView?
     private weak var bookInfoView: BookInfoView?
@@ -20,13 +23,15 @@ class BookController {
     
     var seriesCount = 0
     
-    init(
-        mainView: MainViewController? = nil,
-        headerView: HeaderView? = nil,
-        bookInfoView: BookInfoView? = nil,
-        dedicationView: DedicationView? = nil,
-        summaryView: SummaryView? = nil,
-        chaptersView: ChaptersView? = nil
+    private init() {}
+    
+    func setViews(
+        mainView: MainViewController?,
+        headerView: HeaderView?,
+        bookInfoView: BookInfoView?,
+        dedicationView: DedicationView?,
+        summaryView: SummaryView?,
+        chaptersView: ChaptersView?
     ) {
         self.mainView = mainView
         self.headerView = headerView
@@ -36,33 +41,50 @@ class BookController {
         self.chaptersView = chaptersView
     }
     
-    func loadBooks() {
-        dataService.loadBooks (completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let books):
-                seriesCount = books.count
-                headerView?.addSeriesButtons(seriesCount)
-                if let firstBook = books.first {
-                    headerView?.mainTitleLabel.text = firstBook.title
-                    headerView?.seriesButton.setTitle("1", for: .normal)
-                    bookInfoView?.bookTitle.text = firstBook.title
-                    bookInfoView?.bookAuthor.text = firstBook.author
-                    bookInfoView?.bookReleased.text = changeDateFormat(firstBook.releaseDate)
-                    bookInfoView?.bookPages.text = String(firstBook.pages)
-                    dedicationView?.dedicationLabel.text = firstBook.dedication
-                    summaryView?.summaryLabel.text = firstBook.summary
-                    summaryView?.detectSummaryText()
-                    // chapterView 추가
-                    chaptersView?.addChaptersView(firstBook)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.mainView?.showErrorAlert(error: error)
-                }
+    func loadBooks(_ seriesNumber: Int = 1) {
+        print(#function)
+        var isLoaded = false
+        dataService.loadBooks (
+            completion: { [weak self] result in
+                guard let self = self else { return }
                 
-            }
-        })
+                print("headerView: \(self.headerView != nil ? "exists" : "nil")")
+                print("bookInfoView: \(self.bookInfoView != nil ? "exists" : "nil")")
+                
+                switch result {
+                case .success(let books):
+                    isLoaded = true
+                    DispatchQueue.main.async {
+                        if isLoaded {
+                            self.seriesCount = books.count
+                            self.headerView?.addSeriesButtons(self.seriesCount)
+                        }
+                        
+                        let selectedBook = books[seriesNumber - 1]
+                         print(selectedBook)
+                        self.headerView?.mainTitleLabel.text = selectedBook.title
+                        self.bookInfoView?.bookImageView.image = UIImage(
+                            named: "harrypotter\(seriesNumber)"
+                        )
+                        self.bookInfoView?.bookTitle.text = selectedBook.title
+                        self.bookInfoView?.bookAuthor.text = selectedBook.author
+                        self.bookInfoView?.bookReleased.text = self
+                            .changeDateFormat(selectedBook.releaseDate)
+                        self.bookInfoView?.bookPages.text = String(selectedBook.pages)
+                        self.dedicationView?.dedicationLabel.text = selectedBook.dedication
+                        self.summaryView?.summaryLabel.text = selectedBook.summary
+                        self.summaryView?.detectSummaryText()
+                        // chapterView 추가
+                        self.chaptersView?.addChaptersView(selectedBook)
+                    }
+                    
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.mainView?.showErrorAlert(error: error)
+                    }
+                    
+                }
+            })
     }
     
     
