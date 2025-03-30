@@ -74,7 +74,10 @@ class SummaryView: UIView {
     
     private func configureLayout() {
         
-        self.addSubview(summaryStackView)
+        [summaryStackView, summaryButtonStackView].forEach {
+            self.addSubview($0)
+        }
+        
         
         [summary, summaryLabel].forEach {
             summaryStackView.addArrangedSubview($0)
@@ -83,13 +86,14 @@ class SummaryView: UIView {
        summaryButtonStackView.addArrangedSubview(summaryButton)
         
         summaryStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.trailing.leading.top.equalToSuperview()
+            make.bottom.equalTo(summaryButtonStackView.snp.top)
         }
         
         summaryButtonStackView.snp.makeConstraints { make in
             // width.equalTo로 하니 레이아웃 오류 발생
-            make.width.greaterThanOrEqualTo(40)
-            make.height.equalTo(20)
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
       
     }
