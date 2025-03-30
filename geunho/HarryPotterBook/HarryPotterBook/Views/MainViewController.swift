@@ -8,10 +8,8 @@
 import UIKit
 import SnapKit
 
-
 final class MainViewController: UIViewController {
     
-    // SubViews
     private let headerView = HeaderView()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
@@ -20,6 +18,17 @@ final class MainViewController: UIViewController {
     
     private let dataService = DataService()
     
+    // BookController에 뷰 객체 전달
+    private lazy var bookController: BookController = {
+        BookController(
+            mainView: self,
+            headerView: headerView,
+            bookInfoView: bookInfoView,
+            dedicationView: dedicationView,
+            summaryView: summaryView,
+            chaptersView: chaptersView
+        )
+    }()
     
     // ScrollView
     private lazy var scrollView: UIScrollView = {
@@ -39,12 +48,11 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadBooks()
-        
-        summaryView.detectSummaryText()
-        
+                                
         configureLayout()
+        
+        bookController.loadBooks()
+
     }
     
     private func configureLayout() {
@@ -56,13 +64,14 @@ final class MainViewController: UIViewController {
         
         scrollView.addSubview(scrollContentsVStack)
         
-        [bookInfoView, dedicationView, summaryView, summaryView.summaryButtonStackView, chaptersView].forEach {
+        [bookInfoView, dedicationView, summaryView, chaptersView].forEach {
             scrollContentsVStack.addArrangedSubview($0)
         }
         
         headerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.height.equalTo(130)
         }
         
         scrollContentsVStack.snp.makeConstraints { make in
@@ -70,7 +79,7 @@ final class MainViewController: UIViewController {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.seriesButton.snp.bottom).offset(16)
+            make.top.equalTo(headerView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -80,31 +89,7 @@ final class MainViewController: UIViewController {
     }
     
     // MARK: - Other Functions
-    func loadBooks() {
-        dataService.loadBooks (completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let books):
-                if let firstBook = books.first {
-                    headerView.mainTitleLabel.text = firstBook.title
-                    headerView.seriesButton.setTitle("1", for: .normal)
-                    bookInfoView.bookTitle.text = firstBook.title
-                    bookInfoView.bookAuthor.text = firstBook.author
-                    bookInfoView.bookReleased.text = changeDateFormat(firstBook.releaseDate)
-                    bookInfoView.bookPages.text = String(firstBook.pages)
-                    dedicationView.dedicationLabel.text = firstBook.dedication
-                    summaryView.summaryLabel.text = firstBook.summary
-                    
-                    chaptersView.addChaptersView(firstBook)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showErrorAlert(error: error)
-                }
-                
-            }
-        })
-    }
+    
     
     func showErrorAlert(error: Error) {
         print("에러: \(error)")
@@ -118,17 +103,7 @@ final class MainViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func changeDateFormat(_ dateStr: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let convertedDate = dateFormatter.date(from: dateStr)
-        
-        let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "MMMM dd, yyyy"
-        let newConvertedDate = newDateFormatter.string(from: convertedDate!)
-        
-        return newConvertedDate
-    }
+    
     
     
     
