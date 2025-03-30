@@ -19,7 +19,7 @@ class BookInfoView: UIView {
     }()
     
     // 이미지
-    private lazy var bookImageView: UIImageView = {
+    lazy var bookImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "harrypotter1")
         imageView.contentMode = .scaleAspectFit
