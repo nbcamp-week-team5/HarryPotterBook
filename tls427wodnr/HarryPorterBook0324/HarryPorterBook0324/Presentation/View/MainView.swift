@@ -54,24 +54,24 @@ class MainView: UIView {
         contentStackView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
-    private func setupLayout() {
-        verticalScrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            chapterView.topAnchor.constraint(equalTo: summaryView.bottomAnchor, constant: 24),
-            
-            verticalScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            verticalScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            verticalScrollView.topAnchor.constraint(equalTo: topAnchor),
-            verticalScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            contentStackView.topAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.bottomAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.trailingAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.frameLayoutGuide.widthAnchor),
-        ])
-    }
+//    private func setupLayout() {
+//        verticalScrollView.translatesAutoresizingMaskIntoConstraints = false
+//        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            chapterView.topAnchor.constraint(equalTo: summaryView.bottomAnchor, constant: 24),
+//            
+//            verticalScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            verticalScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            verticalScrollView.topAnchor.constraint(equalTo: topAnchor),
+//            verticalScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//            
+//            contentStackView.topAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.topAnchor),
+//            contentStackView.bottomAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.bottomAnchor),
+//            contentStackView.leadingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.leadingAnchor),
+//            contentStackView.trailingAnchor.constraint(equalTo: verticalScrollView.contentLayoutGuide.trailingAnchor),
+//            contentStackView.widthAnchor.constraint(equalTo: verticalScrollView.frameLayoutGuide.widthAnchor),
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         chapterView.snp.makeConstraints {

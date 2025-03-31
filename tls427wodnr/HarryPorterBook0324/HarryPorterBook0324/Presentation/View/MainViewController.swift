@@ -37,21 +37,21 @@ class MainViewController: UIViewController {
         view.addSubview(mainView)
     }
     
-    private func setupLayout() {
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            
-            mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
-            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-        ])
-    }
+//    private func setupLayout() {
+//        headerView.translatesAutoresizingMaskIntoConstraints = false
+//        mainView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+//            
+//            mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
+//            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         headerView.snp.makeConstraints {

@@ -52,15 +52,15 @@ class DedicationView: UIView {
         dedicationStackView.addArrangedSubview(bookDedication)
     }
     
-    private func setupLayout() {
-        dedicationStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dedicationStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dedicationStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            dedicationStackView.topAnchor.constraint(equalTo: topAnchor),
-            dedicationStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+//    private func setupLayout() {
+//        dedicationStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            dedicationStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            dedicationStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            dedicationStackView.topAnchor.constraint(equalTo: topAnchor),
+//            dedicationStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         dedicationStackView.snp.makeConstraints {

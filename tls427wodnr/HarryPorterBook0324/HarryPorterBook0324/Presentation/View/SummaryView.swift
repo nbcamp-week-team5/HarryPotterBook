@@ -72,17 +72,17 @@ class SummaryView: UIView {
         summaryStackView.addArrangedSubview(summaryButtonWrapper)
     }
     
-    private func setupLayout() {
-        summaryStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
-            
-            summaryStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            summaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            summaryStackView.topAnchor.constraint(equalTo: topAnchor),
-            summaryStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+//    private func setupLayout() {
+//        summaryStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
+//            
+//            summaryStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            summaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            summaryStackView.topAnchor.constraint(equalTo: topAnchor),
+//            summaryStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         summaryButtonWrapper.snp.makeConstraints {

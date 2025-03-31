@@ -53,15 +53,15 @@ class ChapterView: UIView {
         chapterStackView.addArrangedSubview(chapterListView)
     }
     
-    private func setupLayout() {
-        chapterStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            chapterStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            chapterStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            chapterStackView.topAnchor.constraint(equalTo: topAnchor),
-            chapterStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+//    private func setupLayout() {
+//        chapterStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            chapterStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            chapterStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            chapterStackView.topAnchor.constraint(equalTo: topAnchor),
+//            chapterStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         chapterStackView.snp.makeConstraints {

@@ -76,15 +76,15 @@ class HeaderView: UIView {
         }
     }
     
-    private func setupLayout() {
-        headerStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            headerStackView.topAnchor.constraint(equalTo: topAnchor),
-            headerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-    }
+//    private func setupLayout() {
+//        headerStackView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            headerStackView.topAnchor.constraint(equalTo: topAnchor),
+//            headerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         headerStackView.snp.makeConstraints {

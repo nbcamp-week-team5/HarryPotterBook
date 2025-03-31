@@ -139,20 +139,20 @@ class BookInfoView: UIView {
         addSubview(bookInfoStackView)
     }
     
-    private func setupLayout() {
-        bookImage.translatesAutoresizingMaskIntoConstraints = false
-        bookInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            bookImage.widthAnchor.constraint(equalToConstant: 100),
-            bookImage.heightAnchor.constraint(equalToConstant: 150),
-            
-            bookInfoStackView.topAnchor.constraint(equalTo: topAnchor),
-            bookInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bookInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bookInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-    }
+//    private func setupLayout() {
+//        bookImage.translatesAutoresizingMaskIntoConstraints = false
+//        bookInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        NSLayoutConstraint.activate([
+//            bookImage.widthAnchor.constraint(equalToConstant: 100),
+//            bookImage.heightAnchor.constraint(equalToConstant: 150),
+//            
+//            bookInfoStackView.topAnchor.constraint(equalTo: topAnchor),
+//            bookInfoStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            bookInfoStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            bookInfoStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//        ])
+//    }
     
     private func setupLayoutWithSnapKit() {
         bookImage.snp.makeConstraints {
