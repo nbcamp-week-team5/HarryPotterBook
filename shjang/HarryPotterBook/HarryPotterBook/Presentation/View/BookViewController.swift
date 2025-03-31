@@ -100,7 +100,9 @@ final class BookViewController: UIViewController {
     func updateUI() {
         bookTopView.configure(with: viewModel.books)
         if let currentBook = viewModel.selectedBook {
-            bookBriefView.configure(with: currentBook)
+            if let data = viewModel.getImageData(for: viewModel.selectedIndex + 1) {
+                bookBriefView.configure(with: currentBook, data: data)
+            }
             bookDetailView.configure(with: currentBook, isExpanded: viewModel.isExpanded)
             bookChapterView.configure(with: currentBook.chapters)
         }
@@ -121,9 +123,16 @@ final class BookViewController: UIViewController {
 }
 
 extension BookViewController: BookViewModelDelegate {
+    func didCompleteAllImageLoading(_ viewModel: BookViewModel) {
+        updateUI()
+    }
+    
     func didUpdateSelectedBook(_ viewModel: BookViewModel, _ book: Book?) {
         if let book = book {
-            bookBriefView.configure(with: book)
+            if let data = viewModel.getImageData(for: viewModel.selectedIndex + 1) {
+                bookBriefView.configure(with: book, data: data)
+            }
+            
             bookDetailView.configure(with: book, isExpanded: viewModel.isExpanded)
             bookChapterView.clearChapters()
             bookChapterView.configure(with: book.chapters)

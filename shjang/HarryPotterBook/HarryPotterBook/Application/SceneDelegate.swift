@@ -23,4 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
         // save the default data
     }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+        UserDefaults.standard.synchronize()
+    }
 }

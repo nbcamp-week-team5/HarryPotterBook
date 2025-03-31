@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 struct Chapter: Codable {
     let title: String
@@ -13,7 +13,6 @@ struct Book: Codable {
     let summary: String
     let wiki: String
     let chapters: [Chapter]
-    var seriesOrder: Int?
     
     enum CodingKeys: String, CodingKey {
         case title

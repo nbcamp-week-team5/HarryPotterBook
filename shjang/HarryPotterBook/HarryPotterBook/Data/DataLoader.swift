@@ -8,7 +8,7 @@ struct BookResponse: Decodable {
     let data: [BookData]
 }
 
-final class DataLoader : DataServiceProtocol {
+final class DataLoader : DataService {
     enum DataError: Error {
         case noResponse
         case fileNotFound

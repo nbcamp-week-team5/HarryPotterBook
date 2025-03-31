@@ -99,9 +99,6 @@ final class BookBriefView: UIView {
     
     private lazy var bookImageView: UIImageView = {
         let imgView = UIImageView()
-        let img = UIImage(named: "harrypotter1") // TODO: tmp
-        imgView.image = img
-        imgView.contentMode = .scaleAspectFill
         return imgView
     }()
     
@@ -142,11 +139,15 @@ final class BookBriefView: UIView {
         }
     }
     
-    func configure(with book: Book){
+    func configure(with book: Book, data: Data){
         titleLabel.text = book.title
         authorAttributeLabel.text = book.author
         releaseAttributeLabel.text = book.releaseDate ?? "Unknown"
         pagesAttributeLabel.text = "\(book.pages)"
-        // bookImageView.image = UIImage(named: book.title)
+        if let image = UIImage(data: data) {
+            bookImageView.image = UIImage(data: data)
+        } else {
+            print("Failed to set image")
+        }
     }
 }
