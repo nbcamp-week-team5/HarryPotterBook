@@ -11,7 +11,7 @@ class BookService {
     
     private var books: [Book] = []
     
-    private let bookImages: [String] = ["harrypotter1","harrypotter2","harrypotter3","harrypotter4","harrypotter5","harrypotter6","harrypotter7"]
+    private let bookImages: [String] = (1...7).map { "harrypotter\($0)" }
     
     func getBooks(completion: @escaping ([Book]) -> Void) {
         if books.isEmpty {
