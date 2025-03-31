@@ -12,7 +12,7 @@ final class MainViewController: UIViewController {
     
     private let bookController = BookController.shared
 
-    private let headerView = HeaderView()
+    let headerView = HeaderView()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
     private let summaryView = SummaryView()

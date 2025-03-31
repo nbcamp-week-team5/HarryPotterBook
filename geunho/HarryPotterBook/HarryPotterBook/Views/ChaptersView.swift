@@ -38,12 +38,25 @@ class ChaptersView: UIView {
     
     private func configureLayout() {
         
-        self.addSubview(chaptersStackView)
+        [chapters, chaptersStackView].forEach {
+            self.addSubview($0)
+        }
+        
+        chapters.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
         
         chaptersStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.bottom.leading.trailing.equalToSuperview()
+            make.top.equalTo(chapters.snp.bottom).offset(8)
         }
-        chaptersStackView.addArrangedSubview(chapters)
+    }
+    
+    func removeChatersView() {
+        chaptersStackView.arrangedSubviews.forEach {
+            chaptersStackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
     }
     
     func addChaptersView(_ book: Book) {
