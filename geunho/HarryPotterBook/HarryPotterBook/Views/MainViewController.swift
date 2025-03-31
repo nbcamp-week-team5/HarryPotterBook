@@ -39,7 +39,6 @@ final class MainViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        print("isSet: \(isSet)")
         
         super.viewDidLoad()
                                      
