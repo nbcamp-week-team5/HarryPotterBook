@@ -44,13 +44,9 @@ class BookController {
     
     
     func loadBooks(_ seriesNumber: Int = 1) {
-        print(#function)
         dataService.loadBooks (
             completion: { [weak self] result in
                 guard let self = self else { return }
-                
-                print("headerView: \(self.headerView != nil ? "exists" : "nil")")
-                print("bookInfoView: \(self.bookInfoView != nil ? "exists" : "nil")")
                 
                 switch result {
                 case .success(let books):
@@ -62,7 +58,6 @@ class BookController {
                             self.mainView?.isSet = true
                         }
                         let selectedBook = books[seriesNumber - 1]
-                        print(selectedBook)
                         self.headerView?.mainTitleLabel.text = selectedBook.title
                         self.bookInfoView?.bookImageView.image = UIImage(
                             named: "harrypotter\(seriesNumber)"

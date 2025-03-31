@@ -119,7 +119,6 @@ class HeaderView: UIView {
     
     @objc func changeSeries(_ sender: UIButton) {
         let seriesNumber = Int(sender.title(for: .normal)!)!
-        print("Selected series: \(seriesNumber)")
         
         var prevButton: UIButton?
         
