@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     
     private let dataService = DataService()
     
+    var isSet = false
     
     // ScrollView
     private lazy var scrollView: UIScrollView = {
@@ -38,10 +39,12 @@ final class MainViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-                             
+        print("isSet: \(isSet)")
         
+        super.viewDidLoad()
+                                     
         bookController.loadBooks()
+        
         
         bookController
             .setViews(
@@ -90,9 +93,6 @@ final class MainViewController: UIViewController {
         
         
     }
-    
-    // MARK: - Other Functions
-    
     
     func showErrorAlert(error: Error) {
         print("에러: \(error)")

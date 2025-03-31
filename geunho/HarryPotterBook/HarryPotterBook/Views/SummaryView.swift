@@ -12,7 +12,10 @@ let defaults = UserDefaults.standard
 
 class SummaryView: UIView {
     
+    var seriesCount = BookController.shared.seriesCount
+    
     var isFolded = defaults.bool(forKey: "summaryButtonState")
+    
     private var tempString = ""
 
 
@@ -98,6 +101,24 @@ class SummaryView: UIView {
       
     }
     
+    func detectSummaryText() {
+        if summaryLabel.text!.count >= 450 {
+            summaryButton.isHidden = false
+            tempString = summaryLabel.text!
+            
+            adjustSummaryText()
+            
+            if self.isFolded {
+                summaryButton.setTitle("더보기", for: .normal)
+            } else {
+                summaryButton.setTitle("접기", for: .normal)
+            }
+        } else {
+            summaryButton.isHidden = true
+        }
+    }
+    
+    
     func adjustSummaryText() {
         
         if self.isFolded {
@@ -113,21 +134,6 @@ class SummaryView: UIView {
         }
     }
     
-    func detectSummaryText() {
-        if summaryLabel.text!.count >= 450 {
-            summaryButton.isHidden = false
-            tempString = summaryLabel.text!
-            adjustSummaryText()
-            
-            if self.isFolded {
-                summaryButton.setTitle("더보기", for: .normal)
-            } else {
-                summaryButton.setTitle("접기", for: .normal)
-            }
-            
-            
-        }
-    }
     
     @objc func summaryButtonClicked() {
         
