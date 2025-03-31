@@ -64,6 +64,7 @@ final class MainViewController: UIViewController {
     private func configureLayout() {
         view.backgroundColor = .white
         
+        
         [headerView, scrollView].forEach {
             view.addSubview($0)
         }
@@ -74,21 +75,24 @@ final class MainViewController: UIViewController {
             scrollContentsVStack.addArrangedSubview($0)
         }
         
+        
+        
         headerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
-            make.height.equalTo(130)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+//            make.height.equalTo(130)
         }
         
         scrollContentsVStack.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.width.equalToSuperview()
+            make.top.leading.trailing.bottom.width
+                .equalToSuperview()
         }
         
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
         
