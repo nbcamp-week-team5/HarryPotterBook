@@ -13,8 +13,15 @@ let defaults = UserDefaults.standard
 class SummaryView: UIView {
     
     var seriesCount = BookController.shared.seriesCount
+        
+    private let seriesNumber: Int
     
-    var isFolded = defaults.bool(forKey: "summaryButtonState")
+    private var isFolded: Bool {
+        // didSet - 속성의 값이 변경된 직후 실행
+        didSet {
+            defaults.set(isFolded, forKey: "summaryButtonState_\(seriesNumber)")
+        }
+    }
     
     private var tempString = ""
 
@@ -65,7 +72,9 @@ class SummaryView: UIView {
         return stackView
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, num: Int) {
+        self.seriesNumber = num
+        self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
         super.init(frame: frame)
         
         configureLayout()
@@ -147,6 +156,5 @@ class SummaryView: UIView {
         
         adjustSummaryText()
         
-        defaults.set(isFolded, forKey: "summaryButtonState")
     }
 }
