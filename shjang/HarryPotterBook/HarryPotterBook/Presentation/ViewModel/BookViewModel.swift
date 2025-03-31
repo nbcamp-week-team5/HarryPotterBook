@@ -3,30 +3,43 @@ import Foundation
 protocol BookViewModelDelegate: AnyObject {
     func didUpdateSelectedBook(_ viewModel: BookViewModel, _ book: Book?)
     func didFailToLoadBook(_ viewModel: BookViewModel, _ error: Error)
+    func didFailToLoadImage(_ viewModel: BookViewModel, _ error: Error)
+    func didUpdateExpandedState(_ viewModel: BookViewModel, _ index: Int)
 }
 
 final class BookViewModel {
     private enum UserDefaultsKeys {
-        static let isExpanded = "isExpanded"
+        static let expandStates = "BookVM.expandStates"
+        static let selectedIndex = "BookVM.selectedIndex"
     }
     
     weak var delegate: BookViewModelDelegate?
     
+    private let dataLoader: DataLoader
+    private let userDefaultService: UserDefaultsService
+    
     private(set) var books: [Book] = []
-    private(set) var selectedIndex: Int = 0
+    private var pageExpandStates: [Int: Bool] = [:]
+    private(set) var selectedIndex: Int = 0 {
+        didSet {
+            userDefaultService.save(selectedIndex, forKey: UserDefaultsKeys.selectedIndex)
+        }
+    }
+    
     private(set) var selectedBook: Book? {
         didSet {
             delegate?.didUpdateSelectedBook(self, selectedBook)
         }
     }
     
-    var isExpanded: Bool = false
+    var isExpanded: Bool {
+        get { return pageExpandStates[selectedIndex] ?? false }
+    }
     
-    private let dataService: DataService
-    
-    init(dataService: DataService) {
-        self.dataService = dataService
-        isExpanded = UserDefaults.standard.bool(forKey: UserDefaultsKeys.isExpanded)
+    init(dataService: DataLoader, userDefaultsService: UserDefaultsStorageService) {
+        self.dataLoader = dataService
+        self.userDefaultService = userDefaultsService
+        loadPagesStatus()
         parseBook()
     }
     
@@ -38,17 +51,19 @@ final class BookViewModel {
         delegate?.didUpdateSelectedBook(self, selectedBook)
     }
     
-    func toggleExpanded() {
-        isExpanded.toggle()
-        UserDefaults.standard.set(isExpanded, forKey: UserDefaultsKeys.isExpanded)
+    func toggleExpanded(for index: Int) {
+        pageExpandStates[index] = !(pageExpandStates[index] ?? false)
+        savePagesStatus()
+        delegate?.didUpdateExpandedState(self, index)
     }
     
+    // MARK: Parse Book
     func parseBook() {
-        dataService.parseBook{ [weak self] result in
+        dataLoader.parseBook{ [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let books):
-                self.books = self.loadData(for: books)
+                self.books = self.loadJSONData(for: books)
                 self.selectedBook = self.books.first // TMP
             case .failure(let error):
                 self.delegate?.didFailToLoadBook(self, error)
@@ -56,10 +71,9 @@ final class BookViewModel {
         }
     }
     
-    private func loadData(for books: [Book]) -> [Book] {
+    private func loadJSONData(for books: [Book]) -> [Book] {
         return books.enumerated().map { index, book in
-            var loadBook = self.loadReleaseDate(book)
-            loadBook.seriesOrder = index + 1
+            let loadBook = self.loadReleaseDate(book)
             return loadBook
         }
     }
@@ -83,4 +97,26 @@ final class BookViewModel {
         return dateFormatter.string(from: date)
     }
     
+    // MARK: LoadImage
+    
+    // MARK: LoadPages
+    private func loadPagesStatus() {
+        // load the index first
+        self.selectedIndex = userDefaultService.load(forKey: UserDefaultsKeys.selectedIndex) ?? 0
+        
+        if let states = userDefaultService.loadDict(forKey: UserDefaultsKeys.expandStates) as? [String: Bool] {
+            pageExpandStates = states.reduce(into: [:]) { result, pair in
+                if let index = Int(pair.key) {
+                    result[index] = pair.value
+                }
+            }
+        }
+    }
+    
+    private func savePagesStatus() {
+        let states = pageExpandStates.reduce(into: [:]) { result, pair in
+            result[String(pair.key)] = pair.value
+        }
+        userDefaultService.saveDict(dict: states, forKey: UserDefaultsKeys.expandStates)
+    }
 }

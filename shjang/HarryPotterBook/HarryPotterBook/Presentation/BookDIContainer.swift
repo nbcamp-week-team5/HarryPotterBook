@@ -11,12 +11,20 @@ final class BookDIContainer: BookFlowCoordinatorDependencies {
         self.dependencies = dependencies
     }
     
-    func makeDataService() -> DataService {
-        return DataService()
+    func makeDataLoader() -> DataLoader {
+        return DataLoader()
+    }
+    
+    func makeUserDefaultsService() -> UserDefaultsStorageService {
+        return UserDefaultsStorageService()
+    }
+    
+    func makeImageLoader() -> ImageLoaderService {
+        return ImageLoader.shared
     }
     
     func makeBookViewModel() -> BookViewModel {
-        return BookViewModel(dataService: makeDataService())
+        return BookViewModel(dataService: makeDataLoader(), userDefaultsService: makeUserDefaultsService())
     }
     
     func makeBookViewController() -> BookViewController {

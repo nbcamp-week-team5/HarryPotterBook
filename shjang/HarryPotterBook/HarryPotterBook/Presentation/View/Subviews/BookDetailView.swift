@@ -106,12 +106,18 @@ final class BookDetailView: UIView {
     func configure(with book: Book, isExpanded: Bool) {
         dedicationContentLabel.text = book.dedication
         let summary = book.summary
-        if summary.count > 450 && !isExpanded {
-            summaryContentLabel.text = String(summary.prefix(450)) + "…"
-            expandButton.setTitle("Expand", for: .normal)
+        if summary.count > 450 {
+            if isExpanded {
+                summaryContentLabel.text = summary
+                expandButton.setTitle("Fold", for: .normal)
+            } else {
+                summaryContentLabel.text = String(summary.prefix(450)) + "…"
+                expandButton.setTitle("Expand", for: .normal)
+            }
+            expandButton.isHidden = false
         } else {
             summaryContentLabel.text = summary
-            expandButton.setTitle(isExpanded ? "Fold" : "Expand", for: .normal)
+            expandButton.isHidden = true
         }
     }
 }

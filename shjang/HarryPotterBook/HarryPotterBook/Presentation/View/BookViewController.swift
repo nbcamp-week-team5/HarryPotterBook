@@ -42,8 +42,8 @@ final class BookViewController: UIViewController {
     init(viewModel: BookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        bookTopView.delegate = self
         viewModel.delegate = self
+        bookTopView.delegate = self
         bookDetailView.delegate = self
     }
     
@@ -120,12 +120,6 @@ final class BookViewController: UIViewController {
     }
 }
 
-extension BookViewController: BookTopViewDelegate {
-    func bookTopViewDidTapBookButton(_ bookTopView: BookTopView, at index: Int) {
-        viewModel.selectBook(at: index)
-    }
-}
-
 extension BookViewController: BookViewModelDelegate {
     func didUpdateSelectedBook(_ viewModel: BookViewModel, _ book: Book?) {
         if let book = book {
@@ -139,13 +133,26 @@ extension BookViewController: BookViewModelDelegate {
     func didFailToLoadBook(_ viewModel: BookViewModel, _ error: any Error) {
         showError("Failed To Parse Book: \(error.localizedDescription)")
     }
+    
+    func didFailToLoadImage(_ viewModel: BookViewModel, _ error: any Error) {
+        showError("Failed To Load Imge: \(error.localizedDescription)")
+    }
+    
+    func didUpdateExpandedState(_ viewModel: BookViewModel, _ index: Int) {
+        if let currentBook = viewModel.selectedBook {
+            bookDetailView.configure(with: currentBook, isExpanded: viewModel.isExpanded)
+        }
+    }
+}
+
+extension BookViewController: BookTopViewDelegate {
+    func bookTopViewDidTapBookButton(_ bookTopView: BookTopView, at index: Int) {
+        viewModel.selectBook(at: index)
+    }
 }
 
 extension BookViewController: BookDetailViewDelegate {
     func bookDetailViewDidTapButton(_ view: BookDetailView) {
-        viewModel.toggleExpanded()
-        if let currentBook = viewModel.selectedBook {
-            bookDetailView.configure(with: currentBook, isExpanded: viewModel.isExpanded)
-        }
+        viewModel.toggleExpanded(for: viewModel.selectedIndex)
     }
 }

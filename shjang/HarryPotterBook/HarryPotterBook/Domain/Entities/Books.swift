@@ -4,7 +4,7 @@ struct Chapter: Codable {
     let title: String
 }
 
-struct Book: Decodable {
+struct Book: Codable {
     let title: String
     let author: String
     let pages: Int
