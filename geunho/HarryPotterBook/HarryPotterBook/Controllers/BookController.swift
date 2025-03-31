@@ -41,9 +41,10 @@ class BookController {
         self.chaptersView = chaptersView
     }
     
+    
+    
     func loadBooks(_ seriesNumber: Int = 1) {
         print(#function)
-        var isLoaded = false
         dataService.loadBooks (
             completion: { [weak self] result in
                 guard let self = self else { return }
@@ -53,15 +54,15 @@ class BookController {
                 
                 switch result {
                 case .success(let books):
-                    isLoaded = true
+                    
                     DispatchQueue.main.async {
-                        if isLoaded {
+                        if self.mainView?.isSet == false {
                             self.seriesCount = books.count
                             self.headerView?.addSeriesButtons(self.seriesCount)
+                            self.mainView?.isSet = true
                         }
-                        
                         let selectedBook = books[seriesNumber - 1]
-                         print(selectedBook)
+                        print(selectedBook)
                         self.headerView?.mainTitleLabel.text = selectedBook.title
                         self.bookInfoView?.bookImageView.image = UIImage(
                             named: "harrypotter\(seriesNumber)"

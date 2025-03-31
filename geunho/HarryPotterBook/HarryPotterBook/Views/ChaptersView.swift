@@ -43,11 +43,11 @@ class ChaptersView: UIView {
         chaptersStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        chaptersStackView.addArrangedSubview(chapters)
     }
     
     func addChaptersView(_ book: Book) {
         // Chapters View
-        chaptersStackView.addArrangedSubview(chapters)
         for chapter in book.chapters{
             lazy var chaptersLabel: UILabel = {
                 let label = UILabel()

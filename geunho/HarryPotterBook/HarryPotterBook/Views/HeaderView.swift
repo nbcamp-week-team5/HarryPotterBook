@@ -11,6 +11,8 @@ import SnapKit
 class HeaderView: UIView {
     
     var bookController = BookController.shared
+    
+    private var selectedButton: UIButton?
 
     
     lazy var mainTitleLabel: UILabel = {
@@ -83,8 +85,13 @@ class HeaderView: UIView {
                 let button = UIButton()
                 button.setTitle("\(num)", for: .normal)
                 button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-                button.setTitleColor(.systemBlue, for: .normal)
-                button.backgroundColor = .systemGray5
+                if num == 1 {
+                    button.setTitleColor(.white, for: .normal)
+                    button.backgroundColor = .systemBlue
+                } else {
+                    button.setTitleColor(.systemBlue, for: .normal)
+                    button.backgroundColor = .systemGray5
+                }
                 button
                     .addTarget(
                         self,
@@ -101,7 +108,9 @@ class HeaderView: UIView {
             seriesButton.snp.makeConstraints { make in
                 make.width.height.equalTo(44)
             }
-            
+            if num == 1 {
+                selectedButton = seriesButton
+            }
         }
     }
     
@@ -109,10 +118,22 @@ class HeaderView: UIView {
         let seriesNumber = Int(sender.title(for: .normal)!)!
         print("Selected series: \(seriesNumber)")
         
-        // 여기서 seriesNumber를 사용해 데이터 설정 로직 추가
-        sender.setTitleColor(.white, for: .normal)
-        sender.backgroundColor = .systemBlue
+        var prevButton: UIButton?
+        
+        if sender != selectedButton {
+            prevButton = selectedButton
+            selectedButton = sender
+            sender.setTitleColor(.white, for: .normal)
+            sender.backgroundColor = .systemBlue
+            prevButton?.setTitleColor(.systemBlue, for: .normal)
+            prevButton?.backgroundColor = .systemGray5
+        }
+        
+        
         
         bookController.loadBooks(seriesNumber)
     }
 }
+
+
+
