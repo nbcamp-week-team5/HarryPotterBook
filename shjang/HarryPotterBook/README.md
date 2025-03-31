@@ -3,6 +3,78 @@
 ## Description
 
 ### Directory Tree
+```bash
+└── HarryPotterBook
+    ├── HarryPotterBook
+    │   ├── Application
+    │   │   ├── AppConfiguration.swift
+    │   │   ├── AppDIContainer.swift
+    │   │   ├── AppDelegate.swift
+    │   │   ├── AppFlowCoordinator.swift
+    │   │   └── SceneDelegate.swift
+    │   ├── Data
+    │   │   ├── DataLoader.swift
+    │   │   ├── ImageCache.swift
+    │   │   └── ImageLoader.swift
+    │   ├── Domain
+    │   │   ├── Entities
+    │   │   │   └── Books.swift
+    │   │   └── Interfaces
+    │   │       ├── DataService.swift
+    │   │       ├── ImageCachingService.swift
+    │   │       ├── ImageLoaderService.swift
+    │   │       └── UserDefaultsService.swift
+    │   ├── Info.plist
+    │   ├── Presentation
+    │   │   ├── BookDIContainer.swift
+    │   │   ├── BookFlowCoordinator.swift
+    │   │   ├── View
+    │   │   │   ├── BookViewController.swift
+    │   │   │   └── Subviews
+    │   │   │       ├── BookBriefView.swift
+    │   │   │       ├── BookChapterView.swift
+    │   │   │       ├── BookDetailView.swift
+    │   │   │       └── BookTopView.swift
+    │   │   └── ViewModel
+    │   │       └── BookViewModel.swift
+    │   ├── Resource
+    │   │   ├── Assets.xcassets
+    │   │   │   ├── AccentColor.colorset
+    │   │   │   │   └── Contents.json
+    │   │   │   ├── AppIcon.appiconset
+    │   │   │   │   └── Contents.json
+    │   │   │   └── Contents.json
+    │   │   ├── Base.lproj
+    │   │   │   └── LaunchScreen.storyboard
+    │   │   ├── data.json
+    │   │   └── img
+    │   │       ├── harrypotter1.jpg
+    │   │       ├── harrypotter2.jpg
+    │   │       ├── harrypotter3.jpg
+    │   │       ├── harrypotter4.jpg
+    │   │       ├── harrypotter5.jpg
+    │   │       ├── harrypotter6.jpg
+    │   │       └── harrypotter7.jpg
+    │   └── Utils
+    │       └── Preview.swift
+    ├── HarryPotterBook.xcodeproj
+    │   ├── project.pbxproj
+    │   ├── project.xcworkspace
+    │   │   ├── contents.xcworkspacedata
+    │   │   ├── xcshareddata
+    │   │   │   └── swiftpm
+    │   │   │       ├── Package.resolved
+    │   │   │       └── configuration
+    │   │   └── xcuserdata
+    │   │       └── seunghojang.xcuserdatad
+    │   │           └── UserInterfaceState.xcuserstate
+    │   └── xcuserdata
+    │       └── seunghojang.xcuserdatad
+    │           ├── xcdebugger
+    │           │   └── Breakpoints_v2.xcbkptlist
+    │           └── xcschemes
+    │               └── xcschememanagement.plist
+```
 
 ## Installations w Dependencies (snp.kit)
 You can certainly add the dependencies to your project, in my case, was `snapKit`. 
@@ -58,6 +130,9 @@ if userDefaultsService.load(forKey: UserDefaultsKeys.selectedIndex) == nil {
 
 **Trouble Shooting**
 ![alt text](loadingFailed.png)
+
+### TODO:
+* Instead of using my own cache rule, I could possibly use [KingFisher](https://github.com/onevcat/Kingfisher)
 
 ### Resource 
 * [Loading Image from URL on Swift](https://stackoverflow.com/questions/24231680/loading-downloading-image-from-url-on-swift)
