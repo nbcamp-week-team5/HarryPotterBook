@@ -30,14 +30,12 @@ class BookController {
         headerView: HeaderView?,
         bookInfoView: BookInfoView?,
         dedicationView: DedicationView?,
-        summaryView: SummaryView?,
         chaptersView: ChaptersView?
     ) {
         self.mainView = mainView
         self.headerView = headerView
         self.bookInfoView = bookInfoView
         self.dedicationView = dedicationView
-        self.summaryView = summaryView
         self.chaptersView = chaptersView
     }
     
@@ -59,6 +57,7 @@ class BookController {
                         }
                         let selectedBook = books[seriesNumber - 1]
                         self.headerView?.mainTitleLabel.text = selectedBook.title
+                        
                         self.bookInfoView?.bookImageView.image = UIImage(
                             named: "harrypotter\(seriesNumber)"
                         )
@@ -67,11 +66,16 @@ class BookController {
                         self.bookInfoView?.bookReleased.text = self
                             .changeDateFormat(selectedBook.releaseDate)
                         self.bookInfoView?.bookPages.text = String(selectedBook.pages)
+                        
                         self.dedicationView?.dedicationLabel.text = selectedBook.dedication
-                        self.summaryView?.summaryLabel.text = selectedBook.summary
-                        self.summaryView?.detectSummaryText()
+                        
+                        self.mainView?.updateSummaryView(seriesNumber)
+                        if let summaryView = self.mainView?.summaryViews[seriesNumber] {
+                            summaryView.summaryLabel.text = selectedBook.summary
+                            summaryView.detectSummaryText()
+                        }
+                        
                         self.chaptersView?.removeChatersView()
-                        // chapterView 추가
                         self.chaptersView?.addChaptersView(selectedBook)
                     }
                     

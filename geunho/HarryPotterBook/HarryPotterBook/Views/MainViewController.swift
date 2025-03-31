@@ -15,7 +15,7 @@ final class MainViewController: UIViewController {
     let headerView = HeaderView()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
-    private let summaryView = SummaryView()
+    var summaryViews: [Int: SummaryView] = [:]
     private let chaptersView = ChaptersView()
     
     private let dataService = DataService()
@@ -41,9 +41,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                                     
-        bookController.loadBooks()
-        
+                                             
         
         bookController
             .setViews(
@@ -51,9 +49,10 @@ final class MainViewController: UIViewController {
                 headerView: headerView,
                 bookInfoView: bookInfoView,
                 dedicationView: dedicationView,
-                summaryView: summaryView,
                 chaptersView: chaptersView
             )
+        
+        bookController.loadBooks(1)
 
         configureLayout()
         
@@ -70,7 +69,7 @@ final class MainViewController: UIViewController {
         
         scrollView.addSubview(scrollContentsVStack)
         
-        [bookInfoView, dedicationView, summaryView, chaptersView].forEach {
+        [bookInfoView, dedicationView, chaptersView].forEach {
             scrollContentsVStack.addArrangedSubview($0)
         }
         
@@ -79,7 +78,6 @@ final class MainViewController: UIViewController {
         headerView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
-//            make.height.equalTo(130)
         }
         
         scrollContentsVStack.snp.makeConstraints { make in
@@ -95,6 +93,24 @@ final class MainViewController: UIViewController {
         }
         
         
+    }
+    
+    func updateSummaryView(_ seriesNumber: Int) {
+
+        if let currentSummaryView = summaryViews[seriesNumber] {
+            scrollContentsVStack.removeArrangedSubview(currentSummaryView)
+            currentSummaryView.removeFromSuperview()
+        }
+        
+        let summaryView: SummaryView
+        if let existingView = summaryViews[seriesNumber] {
+            summaryView = existingView
+        } else {
+            summaryView = SummaryView(frame: .zero, num: seriesNumber)
+            summaryViews[seriesNumber] = summaryView
+        }
+        
+        scrollContentsVStack.insertArrangedSubview(summaryView, at: 2)
     }
     
     func showErrorAlert(error: Error) {
