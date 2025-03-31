@@ -33,8 +33,9 @@ class HeaderView: UIView {
     private lazy var seriesButtonHStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.spacing = 4
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -65,7 +66,9 @@ class HeaderView: UIView {
         }
         
         seriesScrollView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalTo(seriesButtonHStack.snp.width)
         }
         
         seriesButtonHStack.snp.makeConstraints { make in
