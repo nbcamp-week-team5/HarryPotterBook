@@ -12,7 +12,7 @@ class HeaderView: UIView {
     
     var bookController = BookController.shared
     
-    private var selectedButton: UIButton?
+    var selectedButton: UIButton?
 
     
     lazy var mainTitleLabel: UILabel = {

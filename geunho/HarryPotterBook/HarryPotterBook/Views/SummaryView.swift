@@ -139,10 +139,10 @@ class SummaryView: UIView {
         
         if !self.isFolded {
             summaryButton.setTitle("더보기", for: .normal)
-            self.isFolded = !self.isFolded
+            self.isFolded = true
         } else {
             summaryButton.setTitle("접기", for: .normal)
-            self.isFolded = !self.isFolded
+            self.isFolded = false
         }
         
         adjustSummaryText()

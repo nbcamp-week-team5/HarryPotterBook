@@ -75,6 +75,7 @@ class BookController {
                         self.dedicationView?.dedicationLabel.text = selectedBook.dedication
                         self.summaryView?.summaryLabel.text = selectedBook.summary
                         self.summaryView?.detectSummaryText()
+                        self.chaptersView?.removeChatersView()
                         // chapterView 추가
                         self.chaptersView?.addChaptersView(selectedBook)
                     }
