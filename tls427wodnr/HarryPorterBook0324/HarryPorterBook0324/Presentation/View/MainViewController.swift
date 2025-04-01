@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class MainViewController: UIViewController {
-    
     private let viewModel = MainViewModel()
 
     private let headerView = HeaderView()

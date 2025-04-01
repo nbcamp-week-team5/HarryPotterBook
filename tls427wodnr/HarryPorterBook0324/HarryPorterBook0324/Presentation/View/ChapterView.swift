@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class ChapterView: UIView {
-    
     private let chapterStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical

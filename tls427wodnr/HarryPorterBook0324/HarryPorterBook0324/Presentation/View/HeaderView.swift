@@ -14,7 +14,6 @@ protocol HeaderViewDelegate: AnyObject {
 }
 
 class HeaderView: UIView {
-    
     weak var delegate: HeaderViewDelegate?
     
     private let titleLabel: UILabel = {

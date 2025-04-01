@@ -5,13 +5,14 @@
 //  Created by tlswo on 3/25/25.
 //
 
-class BookService {
-    
-    private let dataService = DataService()
-    
+class BookService: BookServiceProtocol {
+    private let dataService: DataServiceProtocol
     private var books: [Book] = []
-    
     private let bookImages: [String] = (1...7).map { "harrypotter\($0)" }
+    
+    init(dataService: DataServiceProtocol = DataService()) {
+        self.dataService = dataService
+    }
     
     func getBooks(completion: @escaping ([Book]) -> Void) {
         if books.isEmpty {

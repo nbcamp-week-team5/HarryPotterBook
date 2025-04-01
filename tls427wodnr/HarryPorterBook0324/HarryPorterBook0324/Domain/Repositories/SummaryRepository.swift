@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SummaryRepository {
+class SummaryRepository: SummaryRepositoryProtocol {
     private let isSummaryKeys: [String] = (0..<7).map { "isSummaryKey_\($0)" }
     
     func getSummaryFromUserDefaults(_ page: Int) -> Bool {

@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class DedicationView: UIView {
-    
     private let dedicationStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical

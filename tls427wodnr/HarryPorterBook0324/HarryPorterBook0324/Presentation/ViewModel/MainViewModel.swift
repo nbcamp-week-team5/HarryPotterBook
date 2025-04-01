@@ -6,13 +6,19 @@
 //
 
 class MainViewModel {
-    private let pageState = PageState()
-    private let bookService = BookService()
-    private let summaryService = SummaryService()
+    private let pageState: PageStateProtocol
+    private let bookService: BookServiceProtocol
+    private let summaryService: SummaryServiceProtocol
     
     var onDataUpdated: (() -> Void)?
-
-    init() {
+    
+    init(pageState: PageStateProtocol = PageState(),
+         bookService: BookServiceProtocol = BookService(),
+         summaryService: SummaryServiceProtocol = SummaryService()) {
+        self.pageState = pageState
+        self.bookService = bookService
+        self.summaryService = summaryService
+        
         pageState.onPageUpdated = { [weak self] in
             guard let self = self else { return }
             summaryService.getSummaryState(page: pageState.getPage())
@@ -50,7 +56,7 @@ class MainViewModel {
     func toggleSummaryState() {
         summaryService.toggleSummaryState(page: pageState.getPage())
     }
-
+    
     func currentSummaryButtonTitle() -> String {
         return summaryService.currentSummaryButtonTitle(page: pageState.getPage())
     }

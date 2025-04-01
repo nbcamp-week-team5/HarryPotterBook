@@ -6,8 +6,7 @@
 //
 import Foundation
 
-class DataService {
-    
+class DataService: DataServiceProtocol {
     enum DataError: Error {
         case fileNotFound
         case parsingFailed

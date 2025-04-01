@@ -7,9 +7,13 @@
 
 import Foundation
 
-class SummaryService {
-    private let repository = SummaryRepository()
+class SummaryService: SummaryServiceProtocol {
+    private let repository: SummaryRepositoryProtocol
     private var isSummarys: [Bool] = Array(repeating: false, count: 7)
+    
+    init(repository: SummaryRepositoryProtocol = SummaryRepository()) {
+        self.repository = repository
+    }
     
     func currentSummaryButtonTitle(page: Int) -> String {
         return isSummarys[page] ? "더 보기" : "접기"

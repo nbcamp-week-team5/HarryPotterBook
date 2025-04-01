@@ -8,7 +8,6 @@
 import UIKit
 
 class MainView: UIView {
-    
     let bookInfoView = BookInfoView()
     let dedicationView = DedicationView()
     let summaryView = SummaryView()

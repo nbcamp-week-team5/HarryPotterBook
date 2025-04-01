@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class BookInfoView: UIView {
-    
     private let bookInfoStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal

@@ -13,7 +13,6 @@ protocol SummaryViewDelegate: AnyObject {
 }
 
 class SummaryView: UIView {
-    
     weak var delegate: SummaryViewDelegate?
     
     private let summaryStackView: UIStackView = {
