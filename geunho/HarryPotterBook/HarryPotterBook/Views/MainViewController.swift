@@ -16,6 +16,7 @@ final class MainViewController: UIViewController {
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
     var summaryViews: [Int: SummaryView] = [:]
+    private var currentSummaryView: SummaryView?
     private let chaptersView = ChaptersView()
     
     private let dataService = DataService()
@@ -52,7 +53,7 @@ final class MainViewController: UIViewController {
                 chaptersView: chaptersView
             )
         
-        bookController.loadBooks(1)
+        bookController.loadBooks()
 
         configureLayout()
         
@@ -96,10 +97,10 @@ final class MainViewController: UIViewController {
     }
     
     func updateSummaryView(_ seriesNumber: Int) {
-
-        if let currentSummaryView = summaryViews[seriesNumber] {
-            scrollContentsVStack.removeArrangedSubview(currentSummaryView)
-            currentSummaryView.removeFromSuperview()
+        
+        if let current = currentSummaryView {
+            scrollContentsVStack.removeArrangedSubview(current)
+            current.removeFromSuperview()
         }
         
         let summaryView: SummaryView
@@ -111,6 +112,7 @@ final class MainViewController: UIViewController {
         }
         
         scrollContentsVStack.insertArrangedSubview(summaryView, at: 2)
+        currentSummaryView = summaryView
     }
     
     func showErrorAlert(error: Error) {
