@@ -16,6 +16,29 @@ struct Book {
     let summary: String
     let wiki: String
     let chapters: [Chapter]
+    var isExpanded: Bool
+    var truncatedSummary: String?
+}
+
+extension Book {
+    mutating func checkSummaryEllipsis() {
+        guard summary.count >= 450 else { return }
+        
+        var charCount = 0
+        var truncatedSummary = ""
+        
+        for line in summary.components(separatedBy: "\n") {
+            if charCount + line.count > 450 {
+                let remaining = 450 - charCount
+                truncatedSummary += line.prefix(remaining) + "..."
+                break
+            }
+            truncatedSummary += line + "\n"
+            charCount += line.count + 1
+        }
+        
+        self.truncatedSummary = truncatedSummary.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
 
 struct Chapter {
