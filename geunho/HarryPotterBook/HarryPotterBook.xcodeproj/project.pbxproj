@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6634E8ED2D9B7B430064BF64 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 6634E8EC2D9B7B430064BF64 /* .swiftlint.yml */; };
 		66EBCDD72D924B2E00AF63C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 66EBCDD62D924B2E00AF63C3 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6634E8EC2D9B7B430064BF64 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		66EBCDBD2D9248EC00AF63C3 /* HarryPotterBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotterBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,6 +52,7 @@
 		66EBCDB42D9248EC00AF63C3 = {
 			isa = PBXGroup;
 			children = (
+				6634E8EC2D9B7B430064BF64 /* .swiftlint.yml */,
 				66EBCDBF2D9248EC00AF63C3 /* HarryPotterBook */,
 				66EBCDBE2D9248EC00AF63C3 /* Products */,
 			);
@@ -70,8 +73,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66EBCDD02D9248EF00AF63C3 /* Build configuration list for PBXNativeTarget "HarryPotterBook" */;
 			buildPhases = (
+				661423872D926995006255D2 /* Run Script */,
 				66EBCDB92D9248EC00AF63C3 /* Sources */,
-				661423872D926995006255D2 /* ShellScript */,
 				66EBCDBA2D9248EC00AF63C3 /* Frameworks */,
 				66EBCDBB2D9248EC00AF63C3 /* Resources */,
 			);
@@ -132,13 +135,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6634E8ED2D9B7B430064BF64 /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		661423872D926995006255D2 /* ShellScript */ = {
+		661423872D926995006255D2 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 12;
@@ -148,13 +152,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = "export PATH=\"/opt/homebrew/bin:$PATH\"\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -177,6 +182,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U54KVZDT39;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HarryPotterBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -209,6 +215,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = U54KVZDT39;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HarryPotterBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
