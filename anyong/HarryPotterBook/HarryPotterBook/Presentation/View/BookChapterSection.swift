@@ -41,13 +41,17 @@ final class BookChapterSection: UIView {
     }
     
     private func setUI() {
-        addSubview(chapterStackView)
-        chapterStackView.addArrangedSubview(chapterTitleLabel)
+        addSubViews(chapterTitleLabel, chapterStackView)
     }
     
     private func setLayout() {
+        chapterTitleLabel.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
         chapterStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(chapterTitleLabel.snp.bottom).offset(8)
+            $0.horizontalEdges.bottom.equalToSuperview()
         }
     }
 }
