@@ -13,6 +13,7 @@ final class ViewController: UIViewController {
     private let userDefaultService = UserDefaultService()
     private let alert = UIAlertController(title: "알림", message: "정보를 불러오는데 실패했습니다", preferredStyle: .alert)
     
+    private var currentIndex = 0
     private var books: [Book] = []
     
     override func viewDidLoad() {
@@ -22,7 +23,8 @@ final class ViewController: UIViewController {
     
     override func loadView() {
         view = rootView
-        rootView.bookDeatilInfoSection.delegate = self
+        rootView.delegate = self
+        rootView.bookDetailInfoSection.delegate = self
     }
 }
 
@@ -39,11 +41,13 @@ extension ViewController {
             switch result {
             case .success(let success):
                 self.books = success
-                if let book = books.first {
+                
+                if !self.books.isEmpty {
                     let isExpended = self.userDefaultService.get(0)
-                    
-                    self.rootView.configure(book, 1, isExpended)
+                    self.books[0].isExpanded = isExpended
+                    self.rootView.configure(books[0], 1, books.count)
                 }
+
             case .failure(_):
                 DispatchQueue.main.async {
                     self.showAlert()
@@ -56,7 +60,20 @@ extension ViewController {
 
 
 extension ViewController: BookDetailInfoSectionDelegate {
-    func didTapExpendButton(_ expeded: Bool) {
-        userDefaultService.save(0, expeded)
+    func didTapExpendButton(_ isExpanded: Bool) {
+        books[currentIndex].isExpanded = isExpanded
+        userDefaultService.save(currentIndex, isExpanded)
+    }
+}
+
+extension ViewController: BookInfoViewDelegate {
+    func didTapOrderButton(_ sender: UIButton) {
+        if let numStr = sender.titleLabel?.text,
+           let num = Int(numStr) {
+            currentIndex = num-1
+            let isExpended = userDefaultService.get(currentIndex)
+            books[currentIndex].isExpanded = isExpended
+            rootView.configure(books[currentIndex], num, books.count)
+        }
     }
 }
