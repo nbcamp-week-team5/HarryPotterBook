@@ -9,18 +9,10 @@ import UIKit
 import SnapKit
 
 final class MainViewController: UIViewController, HeaderViewDelegate {
-
-    
-    /*
-     1. shared 없애기(BookController 싱글톤)
-     2. book -> mainController
-     3. 버튼 눌렀을 때 로직을 view컨에서 하도록 delegate
-     4. summaryView 생성 로직 수정하기
-     */
     
     lazy var headerView: HeaderView = {
         let view = HeaderView()
-        view.delegate = self 
+        view.delegate = self
         return view
     }()
     private let bookInfoView = BookInfoView()
@@ -91,7 +83,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
     }
     
     func loadBooks(_ seriesNumber: Int = 1) {
-        dataService.loadBooks (
+        dataService.loadBooks(
             completion: { [weak self] result in
                 guard let self = self else { return }
                 
@@ -99,7 +91,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
                 case .success(let books):
                     DispatchQueue.main.async {
                         // 첫 로드시만 seriesButtons 추가
-                        if self.dataLoaded == false {
+                        if !self.dataLoaded {
                             self.seriesCount = books.count
                             self.headerView.addSeriesButtons(self.seriesCount)
                             self.dataLoaded = true
@@ -118,11 +110,10 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
                         
                         self.dedicationView.dedicationLabel.text = selectedBook.dedication
                         
-                        self.updateSummaryView(seriesNumber)
-                        if let summaryView = self.summaryViews[seriesNumber] {
-                            summaryView.summaryLabel.text = selectedBook.summary
-                            summaryView.detectSummaryText()
-                        }
+                        self.updateSummaryView(
+                            seriesNumber,
+                            with: selectedBook.summary
+                        )
                         
                         self.chaptersView.removeChatersView()
                         self.chaptersView.addChaptersView(selectedBook)
@@ -154,24 +145,20 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         return newConvertedDate
     }
     
-    // 비효율적
-    func updateSummaryView(_ seriesNumber: Int) {
+    func updateSummaryView(_ seriesNumber: Int, with summaryText: String) {
         
-        if let current = currentSummaryView {
-            scrollContentsVStack.removeArrangedSubview(current)
-            current.removeFromSuperview()
-        }
-        
-        let summaryView: SummaryView
-        if let existingView = summaryViews[seriesNumber] {
-            summaryView = existingView
+        if let summaryView = summaryViews[seriesNumber] {
+            summaryView.summaryLabel.text = summaryText
+            summaryView.detectSummaryText()
         } else {
-            summaryView = SummaryView(frame: .zero, seriesNumber: seriesNumber)
-            summaryViews[seriesNumber] = summaryView
+            let newSummaryView = SummaryView(frame: .zero, seriesNumber: seriesNumber)
+            summaryViews[seriesNumber] = newSummaryView
+            newSummaryView.summaryLabel.text = summaryText
+            newSummaryView.detectSummaryText()
+            
+            scrollContentsVStack.insertArrangedSubview(newSummaryView, at: 2)
+            currentSummaryView = newSummaryView
         }
-        
-        scrollContentsVStack.insertArrangedSubview(summaryView, at: 2)
-        currentSummaryView = summaryView
     }
     
     func showErrorAlert(error: Error) {
