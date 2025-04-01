@@ -54,12 +54,18 @@ final class BookChapterSection: UIView {
 
 extension BookChapterSection {
     func configure(_ book: Book) {
+        if !chapterStackView.subviews.isEmpty {
+            let subviews = chapterStackView.arrangedSubviews
+            chapterStackView.arrangedSubviews.forEach(chapterStackView.removeArrangedSubview(_:))
+            subviews.forEach { $0.removeFromSuperview() }
+        }
+        
         book.chapters.forEach { chapter in
             let label = UILabel()
             label.text = chapter.title
             label.font = .systemFont(ofSize: 14)
             label.textColor = .darkGray
-            label.numberOfLines = 1
+            label.numberOfLines = 0
             
             chapterStackView.addArrangedSubview(label)
         }
