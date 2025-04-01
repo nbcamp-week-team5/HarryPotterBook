@@ -73,8 +73,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66EBCDD02D9248EF00AF63C3 /* Build configuration list for PBXNativeTarget "HarryPotterBook" */;
 			buildPhases = (
-				661423872D926995006255D2 /* Run Script */,
 				66EBCDB92D9248EC00AF63C3 /* Sources */,
+				661423872D926995006255D2 /* Run Script */,
 				66EBCDBA2D9248EC00AF63C3 /* Frameworks */,
 				66EBCDBB2D9248EC00AF63C3 /* Resources */,
 			);
