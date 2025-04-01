@@ -61,7 +61,7 @@ class ChaptersView: UIView {
     
     func addChaptersView(_ book: Book) {
         // Chapters View
-        for chapter in book.chapters{
+        for chapter in book.chapters {
             lazy var chaptersLabel: UILabel = {
                 let label = UILabel()
                 label.text = "1. Chapter"

@@ -34,4 +34,3 @@ struct BookWrapper: Codable {
 struct BookResponse: Codable {
     let data: [BookWrapper]
 }
-

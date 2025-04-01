@@ -13,7 +13,6 @@ class HeaderView: UIView {
     var bookController = BookController.shared
     
     var selectedButton: UIButton?
-
     
     lazy var mainTitleLabel: UILabel = {
         let label = UILabel()
@@ -53,7 +52,6 @@ class HeaderView: UIView {
     
     private func configureLayout() {
         
-        
         [mainTitleLabel, seriesScrollView].forEach {
             self.addSubview($0)
         }
@@ -75,10 +73,6 @@ class HeaderView: UIView {
             make.top.bottom.leading.trailing.height.equalToSuperview()
             make.centerX.greaterThanOrEqualToSuperview()
         }
-        
-
-        
-        
         
     }
     
@@ -118,7 +112,11 @@ class HeaderView: UIView {
     }
     
     @objc func changeSeries(_ sender: UIButton) {
-        let seriesNumber = Int(sender.title(for: .normal)!)!
+        guard let titleText = sender.title(for: .normal),
+              let seriesNumber = Int(titleText) else {
+            print("Error: Invalid series number")
+            return
+        }
         
         var prevButton: UIButton?
         
@@ -131,11 +129,6 @@ class HeaderView: UIView {
             prevButton?.backgroundColor = .systemGray5
         }
         
-        
-        
         bookController.loadBooks(seriesNumber)
     }
 }
-
-
-
