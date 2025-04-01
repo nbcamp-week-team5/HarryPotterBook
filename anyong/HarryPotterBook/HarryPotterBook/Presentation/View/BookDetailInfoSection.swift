@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 protocol BookDetailInfoSectionDelegate: AnyObject {
-    func didTapExpendButton(_ expeded: Bool)
+    func didTapExpendButton(_ isExpanded: Bool)
 }
 
 final class BookDetailInfoSection: UIView {
@@ -26,7 +26,7 @@ final class BookDetailInfoSection: UIView {
     
     private var summary: String?
     private var truncatedSummary: String?
-    private var isExpanded = false
+    private var isExpanded: Bool = false
     
     weak var delegate: BookDetailInfoSectionDelegate?
     
@@ -111,9 +111,11 @@ final class BookDetailInfoSection: UIView {
 }
 
 extension BookDetailInfoSection {
-    func configure(_ book: Book, _ isExpanded: Bool) {
+    func configure(_ book: Book) {
+        summary = book.summary
+        truncatedSummary = book.truncatedSummary
         dedicationLabel.text = book.dedication
-        checkSummaryEllipsis(book.summary)
+        
         
         guard let truncatedSummary else {
             summaryLabel.text = book.summary
@@ -122,30 +124,9 @@ extension BookDetailInfoSection {
             return
         }
         
-        self.isExpanded = isExpanded
-        expendButton.setTitle(isExpanded ? "접기" : "더보기", for: .normal)
-        summaryLabel.text = isExpanded ? book.summary : truncatedSummary
-    }
-    
-    private func checkSummaryEllipsis(_ summary: String) {
-        self.summary = summary
-        
-        guard summary.count >= 450 else { return }
-        
-        var charCount = 0
-        var truncatedSummary = ""
-        
-        for line in summary.components(separatedBy: "\n") {
-            if charCount + line.count > 450 {
-                let remaining = 450 - charCount
-                truncatedSummary += line.prefix(remaining) + "..."
-                break
-            }
-            truncatedSummary += line + "\n"
-            charCount += line.count + 1
-        }
-        
-        self.truncatedSummary = truncatedSummary.trimmingCharacters(in: .whitespacesAndNewlines)
+        expendButton.isHidden = false
+        expendButton.setTitle(book.isExpanded ? "접기" : "더보기", for: .normal)
+        summaryLabel.text = book.isExpanded ? book.summary : truncatedSummary
     }
 }
 
