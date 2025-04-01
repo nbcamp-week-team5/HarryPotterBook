@@ -8,10 +8,14 @@
 import UIKit
 import SnapKit
 
+protocol HeaderViewDelegate: AnyObject {
+    func headerView(_ headerView: HeaderView, didSelectSeries seriesNumber: Int)
+}
+
 class HeaderView: UIView {
     
-    var bookController = BookController.shared
-    
+    weak var delegate: HeaderViewDelegate?
+        
     var selectedButton: UIButton?
     
     lazy var mainTitleLabel: UILabel = {
@@ -38,14 +42,12 @@ class HeaderView: UIView {
         return stackView
     }()
     
-    // codebase
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configureLayout()
     }
     
-    // storyboard
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -73,9 +75,9 @@ class HeaderView: UIView {
             make.top.bottom.leading.trailing.height.equalToSuperview()
             make.centerX.greaterThanOrEqualToSuperview()
         }
-        
     }
     
+    // series 개수에 따라 seriesButton 추가
     func addSeriesButtons(_ seriesCount: Int) {
         for seriesNumber in 1 ... seriesCount {
             let seriesButton: UIButton = {
@@ -92,8 +94,6 @@ class HeaderView: UIView {
                 button
                     .addTarget(
                         self,
-                        // changeSeries(_:)는 sender라는 UIButton 타입의 파라미터를 받는 메서드를 의미합니다.
-                        // addTarget은 버튼 이벤트 핸들러로 호출될 메서드가 반드시 sender를 파라미터로 받는 형태여야 한다고 기대합니다. 즉, func changeSeries(_ sender: UIButton) 같은 형태가 기본입니다.
                         action: #selector(changeSeries(_:)),
                         for: .touchUpInside
                     )
@@ -111,6 +111,7 @@ class HeaderView: UIView {
         }
     }
     
+    // 시리즈 변경 시 해당 내용 load
     @objc func changeSeries(_ sender: UIButton) {
         guard let titleText = sender.title(for: .normal),
               let seriesNumber = Int(titleText) else {
@@ -129,6 +130,6 @@ class HeaderView: UIView {
             prevButton?.backgroundColor = .systemGray5
         }
         
-        bookController.loadBooks(seriesNumber)
+        delegate?.headerView(self, didSelectSeries: seriesNumber)
     }
 }

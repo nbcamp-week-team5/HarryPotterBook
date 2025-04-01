@@ -10,8 +10,6 @@ import SnapKit
 
 class DedicationView: UIView {
     
-    // MARK: - Dedication, Summary
-    // Dedication
     private lazy var dedicationStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

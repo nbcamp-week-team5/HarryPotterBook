@@ -11,13 +11,10 @@ import SnapKit
 let defaults = UserDefaults.standard
 
 class SummaryView: UIView {
-    
-    var seriesCount = BookController.shared.seriesCount
-        
+            
     private let seriesNumber: Int
     
     private var isFolded: Bool {
-        // didSet - 속성의 값이 변경된 직후 실행
         didSet {
             defaults.set(isFolded, forKey: "summaryButtonState_\(seriesNumber)")
         }
@@ -25,7 +22,6 @@ class SummaryView: UIView {
     
     private var tempString = ""
 
-    // Summary
     private lazy var summaryStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -101,7 +97,6 @@ class SummaryView: UIView {
         }
         
         summaryButtonStackView.snp.makeConstraints { make in
-            // width.equalTo로 하니 레이아웃 오류 발생
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
