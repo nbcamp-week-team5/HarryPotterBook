@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol HeaderViewDelegate: AnyObject {
-    func headerView(_ headerView: HeaderView, didSelectSeries seriesNumber: Int)
+    func loadSelectedSeries(_ headerView: HeaderView, didSelectSeries seriesNumber: Int)
 }
 
 class HeaderView: UIView {
@@ -130,6 +130,6 @@ class HeaderView: UIView {
             prevButton?.backgroundColor = .systemGray5
         }
         
-        delegate?.headerView(self, didSelectSeries: seriesNumber)
+        delegate?.loadSelectedSeries(self, didSelectSeries: seriesNumber)
     }
 }
