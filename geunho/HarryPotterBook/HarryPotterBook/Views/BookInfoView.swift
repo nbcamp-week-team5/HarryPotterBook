@@ -164,7 +164,6 @@ class BookInfoView: UIView {
         }
                 
         bookImageView.snp.makeConstraints { make in
-            // equalTo -> lessThanOrEqualTo로 변경하니 레이아웃 오류가 확실히 줄었음.
             make.width.lessThanOrEqualTo(100)
             make.height.equalTo(150)
             make.leading.equalToSuperview()

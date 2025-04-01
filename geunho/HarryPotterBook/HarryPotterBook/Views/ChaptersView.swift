@@ -60,11 +60,10 @@ class ChaptersView: UIView {
     }
     
     func addChaptersView(_ book: Book) {
-        // Chapters View
+        // chaptersLabel 생성
         for chapter in book.chapters {
             lazy var chaptersLabel: UILabel = {
                 let label = UILabel()
-                label.text = "1. Chapter"
                 label.font = .systemFont(ofSize: 14)
                 label.numberOfLines = 0
                 label.textColor = .darkGray
