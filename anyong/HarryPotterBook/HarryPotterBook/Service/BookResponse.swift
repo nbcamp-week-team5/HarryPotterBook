@@ -48,7 +48,7 @@ struct BookInfo: Decodable {
     }
     
     func toModel() -> Book {
-        return .init(
+        var book = Book(
             title: title,
             author: author,
             pages: pages,
@@ -56,8 +56,13 @@ struct BookInfo: Decodable {
             dedication: dedication,
             summary: summary,
             wiki: wiki,
-            chapters: chapters.map{ $0.toModel() }
+            chapters: chapters.map{ $0.toModel() },
+            isExpanded: false
         )
+        
+        book.checkSummaryEllipsis()
+        
+        return book
     }
 }
 
