@@ -100,7 +100,7 @@ final class MainViewController: UIViewController {
         if let existingView = summaryViews[seriesNumber] {
             summaryView = existingView
         } else {
-            summaryView = SummaryView(frame: .zero, num: seriesNumber)
+            summaryView = SummaryView(frame: .zero, seriesNumber: seriesNumber)
             summaryViews[seriesNumber] = summaryView
         }
         

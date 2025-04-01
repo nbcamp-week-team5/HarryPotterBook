@@ -71,8 +71,8 @@ class SummaryView: UIView {
         return stackView
     }()
     
-    init(frame: CGRect, num: Int) {
-        self.seriesNumber = num
+    init(frame: CGRect, seriesNumber: Int) {
+        self.seriesNumber = seriesNumber
         self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
         super.init(frame: frame)
         

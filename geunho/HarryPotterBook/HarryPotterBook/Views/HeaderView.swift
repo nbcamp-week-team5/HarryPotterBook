@@ -62,7 +62,7 @@ class HeaderView: UIView {
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalTo(seriesScrollView.snp.top).offset(-16)
         }
-        
+
         seriesScrollView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -77,12 +77,12 @@ class HeaderView: UIView {
     }
     
     func addSeriesButtons(_ seriesCount: Int) {
-        for num in 1 ... seriesCount {
+        for seriesNumber in 1 ... seriesCount {
             let seriesButton: UIButton = {
                 let button = UIButton()
-                button.setTitle("\(num)", for: .normal)
+                button.setTitle("\(seriesNumber)", for: .normal)
                 button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-                if num == 1 {
+                if seriesNumber == 1 {
                     button.setTitleColor(.white, for: .normal)
                     button.backgroundColor = .systemBlue
                 } else {
@@ -105,7 +105,7 @@ class HeaderView: UIView {
             seriesButton.snp.makeConstraints { make in
                 make.width.height.equalTo(44)
             }
-            if num == 1 {
+            if seriesNumber == 1 {
                 selectedButton = seriesButton
             }
         }
