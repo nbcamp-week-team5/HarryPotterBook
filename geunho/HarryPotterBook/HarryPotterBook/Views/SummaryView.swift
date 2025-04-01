@@ -25,7 +25,6 @@ class SummaryView: UIView {
     
     private var tempString = ""
 
-
     // Summary
     private lazy var summaryStackView: UIStackView = {
         let stackView = UIStackView()
@@ -72,8 +71,8 @@ class SummaryView: UIView {
         return stackView
     }()
     
-    init(frame: CGRect, num: Int) {
-        self.seriesNumber = num
+    init(frame: CGRect, seriesNumber: Int) {
+        self.seriesNumber = seriesNumber
         self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
         super.init(frame: frame)
         
@@ -89,7 +88,6 @@ class SummaryView: UIView {
         [summaryStackView, summaryButtonStackView].forEach {
             self.addSubview($0)
         }
-        
         
         [summary, summaryLabel].forEach {
             summaryStackView.addArrangedSubview($0)
@@ -111,9 +109,14 @@ class SummaryView: UIView {
     }
     
     func detectSummaryText() {
-        if summaryLabel.text!.count >= 450 {
+        guard let summaryText = summaryLabel.text else {
+            summaryButton.isHidden = true
+            return
+        }
+        
+        if summaryText.count >= 450 {
             summaryButton.isHidden = false
-            tempString = summaryLabel.text!
+            tempString = summaryText
             
             adjustSummaryText()
             
@@ -127,22 +130,27 @@ class SummaryView: UIView {
         }
     }
     
-    
     func adjustSummaryText() {
         
-        if self.isFolded {
-            tempString = summaryLabel.text!
-            let startIndex = summaryLabel.text!.index(summaryLabel.text!.startIndex, offsetBy: 450)
-            let endIndex = summaryLabel.text!.endIndex
-            
-            summaryLabel.text?
-                .replaceSubrange(startIndex..<endIndex, with: "...")
+        guard let summaryText = summaryLabel.text else {
+            return
         }
-        else {
+        
+        if self.isFolded {
+            tempString = summaryText
+            
+            if summaryText.count > 450 {
+                let startIndex = summaryText.index(summaryText.startIndex, offsetBy: 450)
+                let endIndex = summaryText.endIndex
+                
+                var truncatedText = summaryText
+                truncatedText.replaceSubrange(startIndex..<endIndex, with: "...")
+                summaryLabel.text = truncatedText
+            }
+        } else {
             summaryLabel.text = tempString
         }
     }
-    
     
     @objc func summaryButtonClicked() {
         

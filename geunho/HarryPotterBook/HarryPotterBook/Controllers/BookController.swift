@@ -39,10 +39,8 @@ class BookController {
         self.chaptersView = chaptersView
     }
     
-    
-    
     func loadBooks(_ seriesNumber: Int = 1) {
-        dataService.loadBooks (
+        dataService.loadBooks(
             completion: { [weak self] result in
                 guard let self = self else { return }
                 
@@ -88,8 +86,6 @@ class BookController {
             })
     }
     
-    
-    
     func changeDateFormat(_ dateStr: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -97,7 +93,12 @@ class BookController {
         
         let newDateFormatter = DateFormatter()
         newDateFormatter.dateFormat = "MMMM dd, yyyy"
-        let newConvertedDate = newDateFormatter.string(from: convertedDate!)
+        
+        guard let safeDate = convertedDate else {
+            return "Invalid date format"
+        }
+        
+        let newConvertedDate = newDateFormatter.string(from: safeDate)
         
         return newConvertedDate
     }

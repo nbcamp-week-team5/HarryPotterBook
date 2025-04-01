@@ -154,13 +154,12 @@ class BookInfoView: UIView {
         [pages, bookPages].forEach {
             pagesStackView.addArrangedSubview($0)
         }
-
         
         bookHStackView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        bookVStackView.snp.makeConstraints { make in
+        bookVStackView.snp.makeConstraints { _ in
            
         }
                 

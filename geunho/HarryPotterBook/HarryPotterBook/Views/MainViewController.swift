@@ -38,11 +38,9 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                                             
         
         bookController
             .setViews(
@@ -56,13 +54,11 @@ final class MainViewController: UIViewController {
         bookController.loadBooks()
 
         configureLayout()
-        
 
     }
     
     private func configureLayout() {
         view.backgroundColor = .white
-        
         
         [headerView, scrollView].forEach {
             view.addSubview($0)
@@ -73,8 +69,6 @@ final class MainViewController: UIViewController {
         [bookInfoView, dedicationView, chaptersView].forEach {
             scrollContentsVStack.addArrangedSubview($0)
         }
-        
-        
         
         headerView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
@@ -93,7 +87,6 @@ final class MainViewController: UIViewController {
             make.centerX.equalTo(view.safeAreaLayoutGuide)
         }
         
-        
     }
     
     func updateSummaryView(_ seriesNumber: Int) {
@@ -107,7 +100,7 @@ final class MainViewController: UIViewController {
         if let existingView = summaryViews[seriesNumber] {
             summaryView = existingView
         } else {
-            summaryView = SummaryView(frame: .zero, num: seriesNumber)
+            summaryView = SummaryView(frame: .zero, seriesNumber: seriesNumber)
             summaryViews[seriesNumber] = summaryView
         }
         
@@ -127,9 +120,4 @@ final class MainViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
 }
-
