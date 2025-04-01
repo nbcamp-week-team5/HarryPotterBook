@@ -174,7 +174,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    func headerView(_ headerView: HeaderView, didSelectSeries seriesNumber: Int) {
+    func loadSelectedSeries(_ headerView: HeaderView, didSelectSeries seriesNumber: Int) {
         loadBooks(seriesNumber)
     }
 }
