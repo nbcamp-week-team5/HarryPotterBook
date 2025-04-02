@@ -12,7 +12,7 @@ let defaults = UserDefaults.standard
 
 class SummaryView: UIView {
             
-    private let seriesNumber: Int
+    private var seriesNumber: Int
     
     private var isFolded: Bool {
         didSet {
@@ -145,6 +145,12 @@ class SummaryView: UIView {
         } else {
             summaryLabel.text = tempString
         }
+    }
+    
+    func updateSeriesNumber(_ seriesNumber: Int) {
+        self.seriesNumber = seriesNumber
+        self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
+        detectSummaryText()
     }
     
     @objc func summaryButtonClicked() {
