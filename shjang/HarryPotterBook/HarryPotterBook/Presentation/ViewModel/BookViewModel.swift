@@ -148,8 +148,7 @@ final class BookViewModel {
     // MARK: LoadPages
     private func loadPagesStatus() {
         // load the index first
-        let savedIndex = userDefaultService.load(forKey: UserDefaultsKeys.selectedIndex) ?? 0
-        self.selectedIndex = savedIndex >= 0 && savedIndex < 7 ? savedIndex : 0
+        self.selectedIndex = userDefaultService.load(forKey: UserDefaultsKeys.selectedIndex) ?? 0
         if let states = userDefaultService.loadDict(forKey: UserDefaultsKeys.expandStates) as? [String: Bool] {
             pageExpandStates = states.reduce(into: [:]) { result, pair in
                 if let index = Int(pair.key) {
