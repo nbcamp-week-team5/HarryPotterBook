@@ -68,7 +68,7 @@ class HeaderView: UIView {
         seriesScrollView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.width.equalTo(seriesButtonHStack.snp.width)
+            make.width.equalTo(self)
         }
         
         seriesButtonHStack.snp.makeConstraints { make in
