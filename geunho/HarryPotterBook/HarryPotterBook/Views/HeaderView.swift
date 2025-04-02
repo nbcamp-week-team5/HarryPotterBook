@@ -16,7 +16,7 @@ class HeaderView: UIView {
     
     weak var delegate: HeaderViewDelegate?
         
-    var selectedButton: UIButton?
+    private var selectedButton: UIButton?
     
     lazy var mainTitleLabel: UILabel = {
         let label = UILabel()

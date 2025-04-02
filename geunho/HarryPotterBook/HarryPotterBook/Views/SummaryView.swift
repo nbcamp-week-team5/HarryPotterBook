@@ -47,7 +47,7 @@ class SummaryView: UIView {
     }()
     
     // 더 보기/접기 버튼
-    lazy var summaryButton: UIButton = {
+    private lazy var summaryButton: UIButton = {
         let button = UIButton()
         button.setTitle("더 보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
@@ -60,7 +60,7 @@ class SummaryView: UIView {
         button.isHidden = true
         return button
     }()
-    lazy var summaryButtonStackView: UIStackView = {
+    private lazy var summaryButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .trailing

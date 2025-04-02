@@ -158,10 +158,6 @@ class BookInfoView: UIView {
         bookHStackView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-        
-        bookVStackView.snp.makeConstraints { _ in
-           
-        }
                 
         bookImageView.snp.makeConstraints { make in
             make.width.lessThanOrEqualTo(100)

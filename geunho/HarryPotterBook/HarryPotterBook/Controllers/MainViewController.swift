@@ -10,7 +10,7 @@ import SnapKit
 
 final class MainViewController: UIViewController, HeaderViewDelegate {
     
-    lazy var headerView: HeaderView = {
+    private lazy var headerView: HeaderView = {
         let view = HeaderView()
         view.delegate = self
         return view
@@ -23,7 +23,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
     
     private let dataService = DataService()
     
-    var seriesCount = 0
+    private var seriesCount = 0
     private var dataLoaded = false
     
     // ScrollView
@@ -82,7 +82,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         }
     }
     
-    func loadBooks(_ seriesNumber: Int = 1) {
+    private func loadBooks(_ seriesNumber: Int = 1) {
         dataService.loadBooks(
             completion: { [weak self] result in
                 guard let self = self else { return }
@@ -131,7 +131,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
             })
     }
     
-    func changeDateFormat(_ dateStr: String) -> String {
+    private func changeDateFormat(_ dateStr: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let convertedDate = dateFormatter.date(from: dateStr)
@@ -148,13 +148,13 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         return newConvertedDate
     }
     
-    func updateSummaryView(_ seriesNumber: Int, with summaryText: String) {
+    private func updateSummaryView(_ seriesNumber: Int, with summaryText: String) {
         summaryView.updateSeriesNumber(seriesNumber)
         summaryView.summaryLabel.text = summaryText
         summaryView.detectSummaryText()
     }
     
-    func showErrorAlert(error: Error) {
+    private func showErrorAlert(error: Error) {
         print("에러: \(error)")
         let alert = UIAlertController(
             title: "파일을 불러오지 못했습니다!",
