@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 class BookInfoView: UIView {
-    private let bookInfoStackView: UIStackView = {
-        let stack = UIStackView()
+    private lazy var bookInfoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [bookImage,bookDetailStackView])
         stack.axis = .horizontal
         stack.alignment = .top
         stack.distribution = .fill
@@ -18,32 +18,32 @@ class BookInfoView: UIView {
         return stack
     }()
     
-    private let authorInfoStackView: UIStackView = {
-        let stack = UIStackView()
+    private lazy var authorInfoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [authorTitle,bookAuthor])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.spacing = 8
         return stack
     }()
     
-    private let releaseInfoStackView: UIStackView = {
-        let stack = UIStackView()
+    private lazy var releaseInfoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [releasedTitle,bookReleaseDate])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.spacing = 8
         return stack
     }()
     
-    private let pageInfoStackView: UIStackView = {
-        let stack = UIStackView()
+    private lazy var pageInfoStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [pageTitle,bookPage])
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.spacing = 8
         return stack
     }()
     
-    private let bookDetailStackView: UIStackView = {
-        let stack = UIStackView()
+    private lazy var bookDetailStackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [bookTitle,authorInfoStackView,releaseInfoStackView,pageInfoStackView])
         stack.axis = .vertical
         stack.alignment = .leading
         stack.distribution = .equalSpacing
@@ -117,23 +117,6 @@ class BookInfoView: UIView {
     }
     
     private func setupViews() {
-        authorInfoStackView.addArrangedSubview(authorTitle)
-        authorInfoStackView.addArrangedSubview(bookAuthor)
-        
-        releaseInfoStackView.addArrangedSubview(releasedTitle)
-        releaseInfoStackView.addArrangedSubview(bookReleaseDate)
-        
-        pageInfoStackView.addArrangedSubview(pageTitle)
-        pageInfoStackView.addArrangedSubview(bookPage)
-        
-        bookDetailStackView.addArrangedSubview(bookTitle)
-        bookDetailStackView.addArrangedSubview(authorInfoStackView)
-        bookDetailStackView.addArrangedSubview(releaseInfoStackView)
-        bookDetailStackView.addArrangedSubview(pageInfoStackView)
-        
-        bookInfoStackView.addArrangedSubview(bookImage)
-        bookInfoStackView.addArrangedSubview(bookDetailStackView)
-        
         addSubview(bookInfoStackView)
     }
     
