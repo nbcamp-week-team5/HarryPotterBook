@@ -11,7 +11,11 @@ final class ViewController: UIViewController {
     private let rootView = BookInfoView()
     private let dataService = DataService()
     private let userDefaultService = UserDefaultService()
-    private let alert = UIAlertController(title: "알림", message: "정보를 불러오는데 실패했습니다", preferredStyle: .alert)
+    private let alert = UIAlertController(
+        title: "알림",
+        message: "정보를 불러오는데 실패했습니다",
+        preferredStyle: .alert
+    )
     
     private var currentIndex = 0
     private var books: [Book] = []
@@ -28,6 +32,7 @@ final class ViewController: UIViewController {
     }
 }
 
+// MARK: - Private Function
 extension ViewController {
     private func showAlert() {
         alert.addAction(UIAlertAction(title: "확인", style: .default))
@@ -58,7 +63,7 @@ extension ViewController {
     }
 }
 
-
+//MARK: - BookDetailInfoSectionDelegate Function
 extension ViewController: BookDetailInfoSectionDelegate {
     func didTapExpendButton(_ isExpanded: Bool) {
         books[currentIndex].isExpanded = isExpanded
@@ -66,6 +71,7 @@ extension ViewController: BookDetailInfoSectionDelegate {
     }
 }
 
+//MARK: - BookInfoViewDelegate Function
 extension ViewController: BookInfoViewDelegate {
     func didTapOrderButton(_ sender: UIButton) {
         if let numStr = sender.titleLabel?.text,

@@ -10,11 +10,13 @@ import UIKit
 import Then
 import SnapKit
 
+// MARK: - Protocol
 protocol BookInfoViewDelegate: AnyObject {
     func didTapOrderButton(_ sender: UIButton)
 }
 
 final class BookInfoView: UIView {
+    // MARK: - Properties
     private let titleLabel = UILabel()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -37,6 +39,7 @@ final class BookInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Style
     private func setStyle() {
         self.do {
             $0.backgroundColor = .white
@@ -61,12 +64,14 @@ final class BookInfoView: UIView {
         }
     }
     
+    //MARK: - View Hierarchy
     private func setUI() {
         addSubViews(titleLabel, buttonStackView, scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubViews(bookInfoSection, bookDetailInfoSection, bookChapterSection)
     }
     
+    //MARK: - Layout
     private func setLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(10)
@@ -107,6 +112,7 @@ final class BookInfoView: UIView {
     }
 }
 
+//MARK: - Internal Function
 extension BookInfoView {
     func configure(_ book: Book, _ num: Int, _ count: Int) {
         titleLabel.text = book.title
@@ -122,6 +128,7 @@ extension BookInfoView {
     }
 }
 
+//MARK: - Private Function
 extension BookInfoView {
     private func makeOrderButton(_ num: Int) -> UIButton {
         let button = UIButton(type: .system)
