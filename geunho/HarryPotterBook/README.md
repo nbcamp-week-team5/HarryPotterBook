@@ -30,6 +30,7 @@
 - SummaryView 중복 생성 방지
 - SeriesButtons 중복 생성 방지
 - Series 여러개일 때 (Series 버튼 스택이 화면 width 초과 시) 대응
+- HIG에 맞게 버튼 크기 최소 44로 지정
 <br>
 
 ## 🗂️ 파일 구조
