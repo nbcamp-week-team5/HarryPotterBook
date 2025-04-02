@@ -1,0 +1,8 @@
+# HarryPotterBook
+
+## Description
+
+### File Structure
+```
+
+```
