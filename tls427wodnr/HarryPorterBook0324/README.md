@@ -72,6 +72,13 @@
 ## 리팩토링 
 
 ### MainViewController에 전부 작성되어 있던 UI를 작은 컴포넌트 단위로 분리하기
+https://github.com/nbcamp-week-team5/HarryPotterBook/commit/8a0b8020fa872a921ff8b54eef0acd5c0c59ca5b
+https://github.com/nbcamp-week-team5/HarryPotterBook/commit/8c7f8df134d2e45ffa022cc71f3be6d49f20b860
+https://github.com/nbcamp-week-team5/HarryPotterBook/commit/9e56782198e0859fe158339cd6c2dd85ecc9a8c6
+https://github.com/nbcamp-week-team5/HarryPotterBook/commit/203aef452a650818c63495a8efbc5a48122a774d
+https://github.com/nbcamp-week-team5/HarryPotterBook/commit/c546974ad4c6b477b9f7fb3ab55a743c5ded7260
+
+#### UI 구조
 ```
 MainViewController
 ├── HeaderView
