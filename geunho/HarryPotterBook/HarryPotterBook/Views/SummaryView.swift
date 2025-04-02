@@ -85,7 +85,6 @@ class SummaryView: UIView {
             self.addSubview($0)
         }
         
-        
         summaryStackView.snp.makeConstraints { make in
             make.trailing.leading.top.equalToSuperview()
             make.bottom.equalTo(summaryButtonStackView.snp.top)
@@ -130,12 +129,8 @@ class SummaryView: UIView {
             tempString = summaryText
             
             if summaryText.count > 450 {
-                let startIndex = summaryText.index(summaryText.startIndex, offsetBy: 450)
-                let endIndex = summaryText.endIndex
-                
-                var truncatedText = summaryText
-                truncatedText.replaceSubrange(startIndex..<endIndex, with: "...")
-                summaryLabel.text = truncatedText
+                let truncatedText = summaryText.prefix(450)
+                summaryLabel.text = String(truncatedText + "...")
             }
         } else {
             summaryLabel.text = tempString
