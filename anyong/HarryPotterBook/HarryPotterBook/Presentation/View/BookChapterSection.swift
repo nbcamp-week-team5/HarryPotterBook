@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 final class BookChapterSection: UIView {
+    // MARK: - Properties
     private let chapterTitleLabel = UILabel()
     private let chapterStackView = UIStackView()
     
@@ -26,6 +27,7 @@ final class BookChapterSection: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Style
     private func setStyle() {
         chapterTitleLabel.do {
             $0.text = "Chapters"
@@ -40,10 +42,12 @@ final class BookChapterSection: UIView {
         }
     }
     
+    //MARK: - View Hierarchy
     private func setUI() {
         addSubViews(chapterTitleLabel, chapterStackView)
     }
     
+    //MARK: - Layout
     private func setLayout() {
         chapterTitleLabel.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
@@ -56,6 +60,7 @@ final class BookChapterSection: UIView {
     }
 }
 
+//MARK: - Internal Function
 extension BookChapterSection {
     func configure(_ book: Book) {
         if !chapterStackView.subviews.isEmpty {

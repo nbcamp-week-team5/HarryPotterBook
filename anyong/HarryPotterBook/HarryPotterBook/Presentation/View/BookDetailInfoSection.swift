@@ -10,11 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
+// MARK: - Protocol
 protocol BookDetailInfoSectionDelegate: AnyObject {
     func didTapExpendButton(_ isExpanded: Bool)
 }
 
 final class BookDetailInfoSection: UIView {
+    // MARK: - Properties
     private let dedicationTitleLabel = UILabel()
     private let dedicationLabel = UILabel()
     private let summaryTitleLabel = UILabel()
@@ -42,6 +44,7 @@ final class BookDetailInfoSection: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Style
     private func setStyle() {
         dedicationTitleLabel.do {
             $0.text = "Dedication"
@@ -87,12 +90,14 @@ final class BookDetailInfoSection: UIView {
         }
     }
     
+    //MARK: - View Hierarchy
     private func setUI() {
         dedicationStackView.addArrangedSubViews(dedicationTitleLabel, dedicationLabel)
         summaryStackView.addArrangedSubViews(summaryTitleLabel, summaryLabel)
         addSubViews(dedicationStackView, summaryStackView, expendButton)
     }
     
+    //MARK: - Layout
     private func setLayout() {
         dedicationStackView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
@@ -110,6 +115,7 @@ final class BookDetailInfoSection: UIView {
     }
 }
 
+//MARK: - Internal Function
 extension BookDetailInfoSection {
     func configure(_ book: Book) {
         summary = book.summary
@@ -130,6 +136,7 @@ extension BookDetailInfoSection {
     }
 }
 
+//MARK: - Private Function
 extension BookDetailInfoSection {
     @objc
     private func expandButtonTapped() {

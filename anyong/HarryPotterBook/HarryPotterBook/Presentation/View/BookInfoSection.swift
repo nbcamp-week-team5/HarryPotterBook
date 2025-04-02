@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 final class BookInfoSection: UIView {
+    // MARK: - Properties
     private let posterImageView = UIImageView()
     private let titleLabel = UILabel()
     private let authorTitleLabel = UILabel()
@@ -38,6 +39,7 @@ final class BookInfoSection: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Style
     private func setStyle() {
         posterImageView.do {
             $0.contentMode = .scaleToFill
@@ -113,6 +115,7 @@ final class BookInfoSection: UIView {
         }
     }
     
+    //MARK: - View Hierarchy
     private func setUI() {
         authorStackView.addArrangedSubViews(authorTitleLabel, authorLabel)
         releasedStackView.addArrangedSubViews(releasedTitleLabel, releasedLabel)
@@ -127,6 +130,7 @@ final class BookInfoSection: UIView {
         addSubview(imageStackView)
     }
     
+    //MARK: - Layout
     private func setLayout() {
         posterImageView.snp.makeConstraints {
             $0.width.equalTo(100)
@@ -139,6 +143,7 @@ final class BookInfoSection: UIView {
     }
 }
 
+//MARK: - Internal Function
 extension BookInfoSection {
     func configure(_ book: Book, _ num: Int) {
         posterImageView.image = UIImage(named: "harrypotter\(num)")
