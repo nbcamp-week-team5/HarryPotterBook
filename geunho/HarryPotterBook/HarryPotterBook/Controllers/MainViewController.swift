@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 
-
 final class MainViewController: UIViewController, HeaderViewDelegate {
     
     lazy var headerView: HeaderView = {
@@ -97,6 +96,9 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
                             self.headerView.addSeriesButtons(self.seriesCount)
                             self.dataLoaded = true
                         }
+                        self.scrollView
+                            .setContentOffset(CGPointZero, animated: false)
+                        
                         let selectedBook = books[seriesNumber - 1]
                         self.headerView.mainTitleLabel.text = selectedBook.title
                         
