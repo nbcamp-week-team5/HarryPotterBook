@@ -18,7 +18,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
     }()
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
-    private var summaryViews: [Int: SummaryView] = [:]
+    private lazy var summaryView = SummaryView(frame: .zero, seriesNumber: 1)
     private var currentSummaryView: SummaryView?
     private let chaptersView = ChaptersView()
     
@@ -61,7 +61,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         
         scrollView.addSubview(scrollContentsVStack)
         
-        [bookInfoView, dedicationView, chaptersView].forEach {
+        [bookInfoView, dedicationView, summaryView, chaptersView].forEach {
             scrollContentsVStack.addArrangedSubview($0)
         }
         
@@ -147,19 +147,9 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
     }
     
     func updateSummaryView(_ seriesNumber: Int, with summaryText: String) {
-        
-        if let summaryView = summaryViews[seriesNumber] {
-            summaryView.summaryLabel.text = summaryText
-            summaryView.detectSummaryText()
-        } else {
-            let newSummaryView = SummaryView(frame: .zero, seriesNumber: seriesNumber)
-            summaryViews[seriesNumber] = newSummaryView
-            newSummaryView.summaryLabel.text = summaryText
-            newSummaryView.detectSummaryText()
-            
-            scrollContentsVStack.insertArrangedSubview(newSummaryView, at: 2)
-            currentSummaryView = newSummaryView
-        }
+        summaryView.updateSeriesNumber(seriesNumber)
+        summaryView.summaryLabel.text = summaryText
+        summaryView.detectSummaryText()
     }
     
     func showErrorAlert(error: Error) {
