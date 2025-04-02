@@ -92,7 +92,7 @@ MainViewController
 ### Clean Architecture 구조를 참고해서 폴더 구조 변경해보기
 참고 링크: https://github.com/kudoleh/iOS-Clean-Architecture-MVVM
 
-##### 기존 구조 
+#### 기존 구조 
 ```
 HarryPorterBook
 ├── Model
