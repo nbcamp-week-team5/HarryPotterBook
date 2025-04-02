@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class MainViewController: UIViewController {
-    private let viewModel = MainViewModel()
+    private let viewModel = MainViewModel(pageState: PageState(), bookService: BookService(), summaryService: SummaryService())
 
     private let headerView = HeaderView()
     private let mainView = MainView()
@@ -25,7 +25,6 @@ class MainViewController: UIViewController {
         headerView.setPageButtonColor()
         mainView.setSummaryViewDelegate(self)
         setupViews()
-        //setupLayout()
         setupLayoutWithSnapKit()
         bindData()
     }
@@ -35,22 +34,6 @@ class MainViewController: UIViewController {
         view.addSubview(headerView)
         view.addSubview(mainView)
     }
-    
-//    private func setupLayout() {
-//        headerView.translatesAutoresizingMaskIntoConstraints = false
-//        mainView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        NSLayoutConstraint.activate([
-//            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-//            
-//            mainView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
-//            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            mainView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//        ])
-//    }
     
     private func setupLayoutWithSnapKit() {
         headerView.snp.makeConstraints {
@@ -73,7 +56,7 @@ class MainViewController: UIViewController {
                 let imageName = self.viewModel.getCurrentBookImage()
                 let image = UIImage(named: imageName) ?? UIImage()
                 let formattedSummary = self.viewModel.getFormattedSummary()
-                self.headerView.configure(book.title)
+                self.headerView.configureTitleLabel(book.title)
                 self.mainView.configure(
                     book: book,
                     bookImage: image,

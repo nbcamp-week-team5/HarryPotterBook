@@ -37,7 +37,6 @@ class DedicationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        //setupLayout()
         setupLayoutWithSnapKit()
     }
     
@@ -50,16 +49,6 @@ class DedicationView: UIView {
         dedicationStackView.addArrangedSubview(dedicationTitle)
         dedicationStackView.addArrangedSubview(bookDedication)
     }
-    
-//    private func setupLayout() {
-//        dedicationStackView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            dedicationStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            dedicationStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            dedicationStackView.topAnchor.constraint(equalTo: topAnchor),
-//            dedicationStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
-//    }
     
     private func setupLayoutWithSnapKit() {
         dedicationStackView.snp.makeConstraints {

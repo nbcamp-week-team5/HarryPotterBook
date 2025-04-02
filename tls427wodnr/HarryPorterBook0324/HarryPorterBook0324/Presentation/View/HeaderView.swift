@@ -44,7 +44,6 @@ class HeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        //setupLayout()
         setupLayoutWithSnapKit()
     }
     
@@ -56,34 +55,8 @@ class HeaderView: UIView {
         addSubview(headerStackView)
         headerStackView.addArrangedSubview(titleLabel)
         headerStackView.addArrangedSubview(pageButtonStackView)
-        
-        for index in 0..<7 {
-            let button = UIButton()
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            button.setTitle("\(index+1)", for: .normal)
-            button.layer.cornerRadius = 16
-            button.tag = index
-            button.addTarget(self, action: #selector(clickPageButton), for: .touchUpInside)
-            
-            button.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                button.widthAnchor.constraint(equalToConstant: 32),
-                button.heightAnchor.constraint(equalToConstant: 32),
-            ])
-            
-            pageButtonStackView.addArrangedSubview(button)
-        }
+        configureButtons(7)
     }
-    
-//    private func setupLayout() {
-//        headerStackView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            headerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            headerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            headerStackView.topAnchor.constraint(equalTo: topAnchor),
-//            headerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
-//    }
     
     private func setupLayoutWithSnapKit() {
         headerStackView.snp.makeConstraints {
@@ -91,7 +64,22 @@ class HeaderView: UIView {
         }
     }
     
-    func configure(_ text: String) {
+    func configureButtons(_ count: Int) {
+        for index in 0..<count {
+            let button = UIButton()
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            button.setTitle("\(index+1)", for: .normal)
+            button.layer.cornerRadius = 16
+            button.tag = index
+            button.addTarget(self, action: #selector(clickPageButton), for: .touchUpInside)
+            button.snp.makeConstraints {
+                $0.width.height.equalTo(32)
+            }
+            pageButtonStackView.addArrangedSubview(button)
+        }
+    }
+    
+    func configureTitleLabel(_ text: String) {
         titleLabel.text = text
     }
     

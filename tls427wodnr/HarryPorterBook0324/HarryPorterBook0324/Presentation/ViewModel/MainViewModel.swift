@@ -12,9 +12,9 @@ class MainViewModel {
     
     var onDataUpdated: (() -> Void)?
     
-    init(pageState: PageStateProtocol = PageState(),
-         bookService: BookServiceProtocol = BookService(),
-         summaryService: SummaryServiceProtocol = SummaryService()) {
+    init(pageState: PageStateProtocol,
+         bookService: BookServiceProtocol,
+         summaryService: SummaryServiceProtocol) {
         self.pageState = pageState
         self.bookService = bookService
         self.summaryService = summaryService

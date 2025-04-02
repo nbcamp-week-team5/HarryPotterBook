@@ -53,7 +53,6 @@ class SummaryView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        //setupLayout()
         setupLayoutWithSnapKit()
     }
     
@@ -70,18 +69,6 @@ class SummaryView: UIView {
         summaryButtonWrapper.addArrangedSubview(summaryButton)
         summaryStackView.addArrangedSubview(summaryButtonWrapper)
     }
-    
-//    private func setupLayout() {
-//        summaryStackView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            summaryButtonWrapper.widthAnchor.constraint(equalTo: summaryStackView.widthAnchor),
-//            
-//            summaryStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            summaryStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            summaryStackView.topAnchor.constraint(equalTo: topAnchor),
-//            summaryStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
-//        ])
-//    }
     
     private func setupLayoutWithSnapKit() {
         summaryButtonWrapper.snp.makeConstraints {
