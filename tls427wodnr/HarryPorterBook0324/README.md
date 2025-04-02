@@ -1,5 +1,8 @@
 # HarryPotterBook
 
+## 시행 영상
+https://github.com/user-attachments/assets/3463ff73-1a1e-4804-80d7-de38ec991dd7
+
 ## 파일 구조
 ```
 ├── HarryPorterBook0324
