@@ -12,7 +12,9 @@ class BookInfoView: UIView {
     
     // 메인 HStack
     private lazy var bookHStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(
+            arrangedSubviews: [bookImageView, bookVStackView]
+        )
         stackView.axis = .horizontal
         stackView.spacing = 20
         return stackView
@@ -28,7 +30,9 @@ class BookInfoView: UIView {
     
     // 책 상세 정보 VStack
     private lazy var bookVStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews:
+            [bookTitle, authorStackView, releasedStackView, pagesStackView]
+        )
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -48,7 +52,7 @@ class BookInfoView: UIView {
     
     // Author HStack
     private lazy var authorStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [author, bookAuthor])
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -73,7 +77,7 @@ class BookInfoView: UIView {
     
     // Released HStack
     private lazy var releasedStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [released, bookReleased])
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -98,7 +102,7 @@ class BookInfoView: UIView {
     
     // Pages HStack
     private lazy var pagesStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [pages, bookPages])
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
@@ -135,25 +139,6 @@ class BookInfoView: UIView {
         
         self.addSubview(bookHStackView)
         
-        [bookImageView, bookVStackView].forEach {
-            bookHStackView.addArrangedSubview($0)
-        }
-        
-        [bookTitle, authorStackView, releasedStackView, pagesStackView].forEach {
-            bookVStackView.addArrangedSubview($0)
-        }
-        
-        [author, bookAuthor].forEach {
-            authorStackView.addArrangedSubview($0)
-        }
-        
-        [released, bookReleased].forEach {
-            releasedStackView.addArrangedSubview($0)
-        }
-        
-        [pages, bookPages].forEach {
-            pagesStackView.addArrangedSubview($0)
-        }
         
         bookHStackView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()

@@ -11,7 +11,9 @@ import SnapKit
 class DedicationView: UIView {
     
     private lazy var dedicationStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(
+            arrangedSubviews: [dedication, dedicationLabel]
+        )
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
@@ -48,9 +50,6 @@ class DedicationView: UIView {
         
         self.addSubview(dedicationStackView)
         
-        [dedication, dedicationLabel].forEach {
-            dedicationStackView.addArrangedSubview($0)
-        }
         
         dedicationStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

@@ -33,7 +33,7 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         return view
     }()
     private lazy var scrollContentsVStack: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [bookInfoView, dedicationView, summaryView, chaptersView])
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .fill
@@ -59,10 +59,6 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         }
         
         scrollView.addSubview(scrollContentsVStack)
-        
-        [bookInfoView, dedicationView, summaryView, chaptersView].forEach {
-            scrollContentsVStack.addArrangedSubview($0)
-        }
         
         headerView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)

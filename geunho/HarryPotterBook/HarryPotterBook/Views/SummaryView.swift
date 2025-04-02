@@ -23,7 +23,7 @@ class SummaryView: UIView {
     private var tempString = ""
 
     private lazy var summaryStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [summary, summaryLabel])
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
@@ -61,7 +61,7 @@ class SummaryView: UIView {
         return button
     }()
     private lazy var summaryButtonStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [summaryButton])
         stackView.axis = .vertical
         stackView.alignment = .trailing
         return stackView
@@ -85,11 +85,6 @@ class SummaryView: UIView {
             self.addSubview($0)
         }
         
-        [summary, summaryLabel].forEach {
-            summaryStackView.addArrangedSubview($0)
-        }
-        
-       summaryButtonStackView.addArrangedSubview(summaryButton)
         
         summaryStackView.snp.makeConstraints { make in
             make.trailing.leading.top.equalToSuperview()
