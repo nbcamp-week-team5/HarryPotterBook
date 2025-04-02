@@ -11,7 +11,7 @@ final class AppFlowCoordinator {
     }
     
     func start() {
-        let bookDIContainer = appDIContainer.makeBookDIConatiner()
+        let bookDIContainer = appDIContainer.makeBookDIContainer()
         let flow = bookDIContainer.makeBookFlowCoordinator(
             navigationController: navigationController
         )
