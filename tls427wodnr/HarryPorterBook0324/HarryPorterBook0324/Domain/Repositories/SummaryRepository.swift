@@ -8,13 +8,11 @@
 import Foundation
 
 class SummaryRepository: SummaryRepositoryProtocol {
-    private let isSummaryKeys: [String] = (0..<7).map { "isSummaryKey_\($0)" }
-    
     func getSummaryFromUserDefaults(_ page: Int) -> Bool {
-        return UserDefaults.standard.bool(forKey: isSummaryKeys[page])
+        return UserDefaults.standard.bool(forKey: "isSummaryKey_\(page)")
     }
     
     func setSummaryToUserDefaults(page: Int, value: Bool) {
-        UserDefaults.standard.set(value, forKey: isSummaryKeys[page])
+        UserDefaults.standard.set(value, forKey: "isSummaryKey_\(page)")
     }
 }
