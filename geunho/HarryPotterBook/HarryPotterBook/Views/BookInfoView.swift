@@ -139,7 +139,6 @@ class BookInfoView: UIView {
         
         self.addSubview(bookHStackView)
         
-        
         bookHStackView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }

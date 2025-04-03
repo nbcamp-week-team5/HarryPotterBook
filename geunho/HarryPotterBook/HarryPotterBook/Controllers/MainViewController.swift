@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController, HeaderViewDelegate {
+final class MainViewController: UIViewController {
     
     private lazy var headerView: HeaderView = {
         let view = HeaderView()
@@ -162,6 +162,9 @@ final class MainViewController: UIViewController, HeaderViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+}
+
+extension MainViewController: HeaderViewDelegate {
     func loadSelectedSeries(_ headerView: HeaderView, didSelectSeries seriesNumber: Int) {
         loadBooks(seriesNumber)
     }
