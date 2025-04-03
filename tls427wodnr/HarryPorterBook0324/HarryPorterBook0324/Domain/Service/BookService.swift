@@ -8,9 +8,8 @@
 class BookService: BookServiceProtocol {
     private let dataService: DataServiceProtocol
     private var books: [Book] = []
-    private let bookImages: [String] = (1...7).map { "harrypotter\($0)" }
     
-    init(dataService: DataServiceProtocol = DataService()) {
+    init(dataService: DataServiceProtocol) {
         self.dataService = dataService
     }
     
@@ -37,9 +36,9 @@ class BookService: BookServiceProtocol {
     
     func getBookSummary(page: Int) -> String {
         return books[page].summary
-    } 
+    }
     
     func getBookImage(page: Int) -> String {
-        return bookImages[page]
+        return "harrypotter\(page+1)"
     }
 }

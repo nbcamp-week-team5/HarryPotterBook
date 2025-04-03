@@ -42,14 +42,12 @@ class SummaryView: UIView {
     
     private let summaryButtonWrapper: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .trailing
         stackView.distribution = .fill
         return stackView
     }()
-    
-    private let spacer = UIView()
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -65,7 +63,6 @@ class SummaryView: UIView {
         summaryStackView.addArrangedSubview(summaryTitle)
         summaryStackView.addArrangedSubview(bookSummary)
         
-        summaryButtonWrapper.addArrangedSubview(spacer)
         summaryButtonWrapper.addArrangedSubview(summaryButton)
         summaryStackView.addArrangedSubview(summaryButtonWrapper)
     }

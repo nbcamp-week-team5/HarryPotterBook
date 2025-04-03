@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class MainViewController: UIViewController {
-    private let viewModel = MainViewModel(pageState: PageState(), bookService: BookService(), summaryService: SummaryService())
+    private let viewModel = MainViewModel(pageState: PageState(), bookService: BookService(dataService: DataService()), summaryService: SummaryService())
 
     private let headerView = HeaderView()
     private let mainView = MainView()

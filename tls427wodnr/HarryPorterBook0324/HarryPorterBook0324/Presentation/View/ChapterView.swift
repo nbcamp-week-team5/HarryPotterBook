@@ -59,12 +59,12 @@ class ChapterView: UIView {
     
     func configure(_ book: Book) {
         self.chapterListView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        book.chapters.enumerated().forEach { (_, chapter) in
+        book.chapters.forEach { chapter in
             let label = UILabel()
             label.font = .systemFont(ofSize: 14)
             label.textColor = .darkGray
             label.numberOfLines = 0
-            label.text = "\(chapter.title)"
+            label.text = chapter.title
             self.chapterListView.addArrangedSubview(label)
         }
     }
