@@ -47,11 +47,11 @@ final class MainViewController: UIViewController {
         
         loadBooks()
         
-        configureLayout()
+        setUI()
         
     }
     
-    private func configureLayout() {
+    private func setUI() {
         view.backgroundColor = .white
         
         [headerView, scrollView].forEach {
@@ -96,26 +96,9 @@ final class MainViewController: UIViewController {
                             .setContentOffset(CGPointZero, animated: false)
                         
                         let selectedBook = books[seriesNumber - 1]
-                        self.headerView.mainTitleLabel.text = selectedBook.title
                         
-                        self.bookInfoView.bookImageView.image = UIImage(
-                            named: "harrypotter\(seriesNumber)"
-                        )
-                        self.bookInfoView.bookTitle.text = selectedBook.title
-                        self.bookInfoView.bookAuthor.text = selectedBook.author
-                        self.bookInfoView.bookReleased.text = self
-                            .changeDateFormat(selectedBook.releaseDate)
-                        self.bookInfoView.bookPages.text = String(selectedBook.pages)
+                        self.configure(selectedBook, at: seriesNumber)
                         
-                        self.dedicationView.dedicationLabel.text = selectedBook.dedication
-                        
-                        self.updateSummaryView(
-                            seriesNumber,
-                            with: selectedBook.summary
-                        )
-                        
-                        self.chaptersView.removeChatersView()
-                        self.chaptersView.addChaptersView(selectedBook)
                     }
                     
                 case .failure(let error):
@@ -127,27 +110,12 @@ final class MainViewController: UIViewController {
             })
     }
     
-    private func changeDateFormat(_ dateStr: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let convertedDate = dateFormatter.date(from: dateStr)
-        
-        let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "MMMM dd, yyyy"
-        
-        guard let safeDate = convertedDate else {
-            return "Invalid date format"
-        }
-        
-        let newConvertedDate = newDateFormatter.string(from: safeDate)
-        
-        return newConvertedDate
-    }
-    
-    private func updateSummaryView(_ seriesNumber: Int, with summaryText: String) {
-        summaryView.updateSeriesNumber(seriesNumber)
-        summaryView.summaryLabel.text = summaryText
-        summaryView.detectSummaryText()
+    private func configure(_ book: Book, at seriesNumber: Int) {
+        headerView.configure(book)
+        bookInfoView.configure(book, at: seriesNumber)
+        dedicationView.configure(book)
+        summaryView.configure(book, at: seriesNumber)
+        chaptersView.configure(book)
     }
     
     private func showErrorAlert(error: Error) {
@@ -161,7 +129,6 @@ final class MainViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
-    
 }
 
 extension MainViewController: HeaderViewDelegate {

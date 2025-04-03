@@ -10,7 +10,7 @@ import SnapKit
 
 class ChaptersView: UIView {
     
-    lazy var chaptersStackView: UIStackView = {
+    private lazy var chaptersStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -18,7 +18,7 @@ class ChaptersView: UIView {
         stackView.spacing = 8
         return stackView
     }()
-    lazy var chapters: UILabel = {
+    private lazy var chapters: UILabel = {
         let label = UILabel()
         label.text = "Chapters"
         label.font = .systemFont(ofSize: 18, weight: .bold)
@@ -29,14 +29,14 @@ class ChaptersView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureLayout() {
+    private func setUI() {
         
         [chapters, chaptersStackView].forEach {
             self.addSubview($0)
@@ -52,14 +52,14 @@ class ChaptersView: UIView {
         }
     }
     
-    func removeChatersView() {
+    private func removeChatersView() {
         chaptersStackView.arrangedSubviews.forEach {
             chaptersStackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
     }
     
-    func addChaptersView(_ book: Book) {
+    private func addChaptersView(_ book: Book) {
         // chaptersLabel 생성
         for chapter in book.chapters {
             lazy var chaptersLabel: UILabel = {
@@ -72,5 +72,12 @@ class ChaptersView: UIView {
             chaptersLabel.text = chapter.title
             chaptersStackView.addArrangedSubview(chaptersLabel)
         }
+    }
+    
+    func configure(_ book: Book) {
+        if !chaptersStackView.arrangedSubviews.isEmpty {
+            removeChatersView()
+        }
+        addChaptersView(book)
     }
 }

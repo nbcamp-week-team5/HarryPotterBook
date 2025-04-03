@@ -21,7 +21,7 @@ class BookInfoView: UIView {
     }()
     
     // 이미지
-    lazy var bookImageView: UIImageView = {
+    private lazy var bookImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "harrypotter1")
         imageView.contentMode = .scaleAspectFit
@@ -41,7 +41,7 @@ class BookInfoView: UIView {
     }()
     
     // Title
-    lazy var bookTitle: UILabel = {
+    private lazy var bookTitle: UILabel = {
         let label = UILabel()
         label.text = "Harry Potter"
         label.textAlignment = .left
@@ -66,7 +66,7 @@ class BookInfoView: UIView {
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
-    lazy var bookAuthor: UILabel = {
+    private lazy var bookAuthor: UILabel = {
         let label = UILabel()
         label.text = "Author"
         label.textAlignment = .center
@@ -91,7 +91,7 @@ class BookInfoView: UIView {
         label.font = .systemFont(ofSize: 14, weight: .bold)
         return label
     }()
-    lazy var bookReleased: UILabel = {
+    private lazy var bookReleased: UILabel = {
         let label = UILabel()
         label.text = "Released Date"
         label.textAlignment = .center
@@ -116,7 +116,7 @@ class BookInfoView: UIView {
         label.font = .systemFont(ofSize: 14, weight: .bold)
         return label
     }()
-    lazy var bookPages: UILabel = {
+    private lazy var bookPages: UILabel = {
         let label = UILabel()
         label.text = "100"
         label.textAlignment = .center
@@ -128,14 +128,14 @@ class BookInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureLayout() {
+    private func setUI() {
         
         self.addSubview(bookHStackView)
         
@@ -148,5 +148,30 @@ class BookInfoView: UIView {
             make.height.equalTo(150)
             make.leading.equalToSuperview()
         }
+    }
+    
+    func configure(_ book: Book, at seriesNumber: Int) {
+        bookImageView.image = UIImage(named: "harrypotter\(seriesNumber)")
+        bookTitle.text = book.title
+        bookAuthor.text = book.author
+        bookReleased.text = changeDateFormat(book.releaseDate)
+        bookPages.text = String(book.pages)
+    }
+    
+    private func changeDateFormat(_ dateStr: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let convertedDate = dateFormatter.date(from: dateStr)
+        
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.dateFormat = "MMMM dd, yyyy"
+        
+        guard let safeDate = convertedDate else {
+            return "Invalid date format"
+        }
+        
+        let newConvertedDate = newDateFormatter.string(from: safeDate)
+        
+        return newConvertedDate
     }
 }

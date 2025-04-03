@@ -37,7 +37,7 @@ class SummaryView: UIView {
         label.textColor = .black
         return label
     }()
-    lazy var summaryLabel: UILabel = {
+    private lazy var summaryLabel: UILabel = {
         var label = UILabel()
         label.text = "Summary..."
         label.font = .systemFont(ofSize: 14)
@@ -72,14 +72,14 @@ class SummaryView: UIView {
         self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
         super.init(frame: frame)
         
-        configureLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureLayout() {
+    private func setUI() {
         
         [summaryStackView, summaryButtonStackView].forEach {
             self.addSubview($0)
@@ -137,7 +137,7 @@ class SummaryView: UIView {
         }
     }
     
-    func updateSeriesNumber(_ seriesNumber: Int) {
+    private func updateSeriesNumber(_ seriesNumber: Int) {
         self.seriesNumber = seriesNumber
         self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
         detectSummaryText()
@@ -155,5 +155,11 @@ class SummaryView: UIView {
         
         adjustSummaryText()
         
+    }
+    
+    func configure(_ book: Book, at seriesNumber: Int) {
+        updateSeriesNumber(seriesNumber)
+        summaryLabel.text = book.summary
+        detectSummaryText()
     }
 }

@@ -18,7 +18,7 @@ class HeaderView: UIView {
         
     private var selectedButton: UIButton?
     
-    lazy var mainTitleLabel: UILabel = {
+    private lazy var mainTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Harry Potter"
         label.textAlignment = .center
@@ -45,14 +45,14 @@ class HeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureLayout() {
+    private func setUI() {
         
         [mainTitleLabel, seriesScrollView].forEach {
             self.addSubview($0)
@@ -131,5 +131,9 @@ class HeaderView: UIView {
         }
         
         delegate?.loadSelectedSeries(self, didSelectSeries: seriesNumber)
+    }
+    
+    func configure(_ book: Book) {
+        mainTitleLabel.text = book.title
     }
 }

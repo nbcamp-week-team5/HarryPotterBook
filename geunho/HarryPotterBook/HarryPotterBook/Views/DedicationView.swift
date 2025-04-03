@@ -27,7 +27,7 @@ class DedicationView: UIView {
         label.textColor = .black
         return label
     }()
-    lazy var dedicationLabel: UILabel = {
+    private lazy var dedicationLabel: UILabel = {
         let label = UILabel()
         label.text = "Dedication..."
         label.font = .systemFont(ofSize: 14)
@@ -39,20 +39,23 @@ class DedicationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        configureLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureLayout() {
+    private func setUI() {
         
         self.addSubview(dedicationStackView)
-        
         
         dedicationStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func configure(_ book: Book) {
+        dedicationLabel.text = book.dedication
     }
 }
