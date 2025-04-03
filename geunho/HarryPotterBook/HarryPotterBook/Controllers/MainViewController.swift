@@ -92,8 +92,9 @@ final class MainViewController: UIViewController {
                             self.headerView.addSeriesButtons(self.seriesCount)
                             self.dataLoaded = true
                         }
+                        // 스크롤 초기화
                         self.scrollView
-                            .setContentOffset(CGPointZero, animated: false)
+                            .setContentOffset(.zero, animated: false)
                         
                         let selectedBook = books[seriesNumber - 1]
                         
