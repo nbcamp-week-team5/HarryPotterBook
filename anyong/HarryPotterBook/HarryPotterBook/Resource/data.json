@@ -1,0 +1,692 @@
+{
+    "data": [
+        {
+            "attributes": {
+                "title": "Harry Potter and the Philosopher's Stone",
+                "author": "J. K. Rowling",
+                "pages": 223,
+                "release_date": "1997-06-26",
+                "dedication": "For Jessica, who loves stories, for Anne, who loved them too, and for Di, who heard this one first",
+                "summary": "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher's_Stone",
+                "chapters": [
+                    {
+                        "title": "1. The Boy Who Lived"
+                    },
+                    {
+                        "title": "2. The Vanishing Glass"
+                    },
+                    {
+                        "title": "3. The Letter from No One"
+                    },
+                    {
+                        "title": "4. The Keeper of the Keys"
+                    },
+                    {
+                        "title": "5. Diagon Alley"
+                    },
+                    {
+                        "title": "6. The Journey from Platform Nine and Three-Quarters"
+                    },
+                    {
+                        "title": "7. The Sorting Hat"
+                    },
+                    {
+                        "title": "8. The Potions Master"
+                    },
+                    {
+                        "title": "9. The Midnight Duel"
+                    },
+                    {
+                        "title": "10. Hallowe'en"
+                    },
+                    {
+                        "title": "11. Quidditch"
+                    },
+                    {
+                        "title": "12. The Mirror of Erised"
+                    },
+                    {
+                        "title": "13. Nicolas Flamel"
+                    },
+                    {
+                        "title": "14. Norbert the Norwegian Ridgeback",
+                    },
+                    {
+                        "title": "15. The Forbidden Forest"
+                    },
+                    {
+                        "title": "16. Through the Trapdoor"
+                    },
+                    {
+                        "title": "17. The Man with Two Faces"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Chamber of Secrets",
+                "author": "J. K. Rowling",
+                "pages": 251,
+                "release_date": "1998-07-02",
+                "dedication": "For Séan P. F. Harris, getaway driver and foul-weather friend",
+                "summary": "Harry Potter's summer has included the worst birthday ever, doomy warnings from a house-elf called Dobby, and rescue from the Dursleys by his friend Ron Weasley in a magical flying car! Back at Hogwarts School of Witchcraft And Wizardry for his second year, Harry hears strange whispers echo through empty corridors – and then the attacks start. Students are found as though turned to stone... Dobby's sinister predictions seem to be coming true.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Chamber_of_Secrets",
+                "chapters": [
+                    {
+                        "title": "1. The Worst Birthday"
+                    },
+                    {
+                        "title": "2. Dobby's Warning"
+                    },
+                    {
+                        "title": "3. The Burrow"
+                    },
+                    {
+                        "title": "4. At Flourish and Blotts"
+                    },
+                    {
+                        "title": "5. The Whomping Willow"
+                    },
+                    {
+                        "title": "6. Gilderoy Lockhart"
+                    },
+                    {
+                        "title": "7. Mudbloods And Murmurs"
+                    },
+                    {
+                        "title": "8. The Deathday Party"
+                    },
+                    {
+                        "title": "9. The Writing on the Wall"
+                    },
+                    {
+                        "title": "10. The Rogue Bludger"
+                    },
+                    {
+                        "title": "11. The Duelling Club"
+                    },
+                    {
+                        "title": "12. The Polyjuice Potion"
+                    },
+                    {
+                        "title": "13. The Very Secret Diary"
+                    },
+                    {
+                        "title": "14. Cornelius Fudge"
+                    },
+                    {
+                        "title": "15. Aragog"
+                    },
+                    {
+                        "title": "16. The Chamber of Secrets"
+                    },
+                    {
+                        "title": "17. The Heir of Slytherin"
+                    },
+                    {
+                        "title": "18. Dobby's Reward"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Prisoner of Azkaban",
+                "author": "J. K. Rowling",
+                "pages": 317,
+                "release_date": "1999-07-08",
+                "dedication": "To Jill Prewett and Aine Kiely, the Godmothers of Swing",
+                "summary": "When the Knight Bus crashes through the darkness and screeches to a halt in front of him, it's the start of another far from ordinary year at Hogwarts for Harry Potter. Sirius Black, escaped mass-murderer and follower of Lord Voldemort, is on the run – and they say he is coming after Harry. In his first ever Divination class, Professor Trelawney sees an omen of death in Harry's tea leaves... But perhaps most terrifying of all are the Dementors patrolling the school grounds, with their soul-sucking kiss.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Prisoner_of_Azkaban",
+                "chapters": [
+                    {
+                        "title": "1. Owl Post"
+                    },
+                    {
+                        "title": "2. Aunt Marge's Big Mistake"
+                    },
+                    {
+                        "title": "3. The Knight Bus"
+                    },
+                    {
+                        "title": "4. The Leaky Cauldron"
+                    },
+                    {
+                        "title": "5. The Dementor"
+                    },
+                    {
+                        "title": "6. Talons and Tea Leaves"
+                    },
+                    {
+                        "title": "7. The Boggart in the Wardrobe"
+                    },
+                    {
+                        "title": "8. Flight of the Fat Lady"
+                    },
+                    {
+                        "title": "9. Grim Defeat"
+                    },
+                    {
+                        "title": "10. The Marauder's Map"
+                    },
+                    {
+                        "title": "11. The Firebolt"
+                    },
+                    {
+                        "title": "12. The Patronus"
+                    },
+                    {
+                        "title": "13. Gryffindor versus Ravenclaw"
+                    },
+                    {
+                        "title": "14. Snape's Grudge"
+                    },
+                    {
+                        "title": "15. The Quidditch Final"
+                    },
+                    {
+                        "title": "16. Professor Trelawney's Prediction"
+                    },
+                    {
+                        "title": "17. Cat, Rat and Dog"
+                    },
+                    {
+                        "title": "18. Moony, Wormtail, Padfoot and Prongs"
+                    },
+                    {
+                        "title": "19. The Servant of Lord Voldemort"
+                    },
+                    {
+                        "title": "20. The Dementor's Kiss"
+                    },
+                    {
+                        "title": "21. Hermione's Secret"
+                    },
+                    {
+                        "title": "22. Owl Post Again"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Goblet of Firen",
+                "author": "J. K. Rowling",
+                "pages": 636,
+                "release_date": "2000-07-08",
+                "dedication": "To Peter Rowling, in memory of Mr Ridley and to Susan Sladden, who helped Harry out of his cupboard",
+                "summary": "The Triwizard Tournament is to be held at Hogwarts. Only wizards who are over seventeen are allowed to enter – but that doesn't stop Harry dreaming that he will win the competition. Then at Hallowe'en, when the Goblet of Fire makes its selection, Harry is amazed to find his name is one of those that the magical cup picks out. He will face death-defying tasks, dragons and Dark wizards, but with the help of his best friends, Ron and Hermione, he might just make it through – alive!",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Goblet_of_Fire",
+                "chapters": [
+                    {
+                        "title": "1. The Riddle House"
+                    },
+                    {
+                        "title": "2. The Scar"
+                    },
+                    {
+                        "title": "3. The Invitation"
+                    },
+                    {
+                        "title": "4. Back to The Burrow"
+                    },
+                    {
+                        "title": "5. Weasley's Wizard Wheezes"
+                    },
+                    {
+                        "title": "6. The Portkey"
+                    },
+                    {
+                        "title": "7. Bagman and Crouch"
+                    },
+                    {
+                        "title": "8. The Quidditch World Cup"
+                    },
+                    {
+                        "title": "9. The Dark Mark"
+                    },
+                    {
+                        "title": "10. Mayhem at the Ministry"
+                    },
+                    {
+                        "title": "11. Aboard the Hogwarts Express"
+                    },
+                    {
+                        "title": "12. The Triwizard Tournament"
+                    },
+                    {
+                        "title": "13. Mad-Eye Moody"
+                    },
+                    {
+                        "title": "14. The Unforgivable Curses"
+                    },
+                    {
+                        "title": "15. Beauxbatons and Durmstrang"
+                    },
+                    {
+                        "title": "16. The Goblet of Fire"
+                    },
+                    {
+                        "title": "17. The Four Champions"
+                    },
+                    {
+                        "title": "18. The Weighing of the Wands"
+                    },
+                    {
+                        "title": "19. The Hungarian Horntail"
+                    },
+                    {
+                        "title": "20. The First Task"
+                    },
+                    {
+                        "title": "21. The House-Elf Liberation Front"
+                    },
+                    {
+                        "title": "22. The Unexpected Task"
+                    },
+                    {
+                        "title": "23. The Yule Ball"
+                    },
+                    {
+                        "title": "24. Rita Skeeter's Scoop"
+                    },
+                    {
+                        "title": "25. The Egg and the Eye"
+                    },
+                    {
+                        "title": "26. The Second Task"
+                    },
+                    {
+                        "title": "27. Padfoot Returns"
+                    },
+                    {
+                        "title": "28. The Madness of Mr Crouch"
+                    },
+                    {
+                        "title": "29. The Dream"
+                    },
+                    {
+                        "title": "30. The Pensieveg"
+                    },
+                    {
+                        "title": "31. The Third Task"
+                    },
+                    {
+                        "title": "32. Flesh, Blood and Bone"
+                    },
+                    {
+                        "title": "33. The Death Eaters"
+                    },
+                    {
+                        "title": "34. Priori Incantatem"
+                    },
+                    {
+                        "title": "35. Veritaserum"
+                    },
+                    {
+                        "title": "36. The Parting of the Ways"
+                    },
+                    {
+                        "title": "37. The Beginning"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Order of the Phoenix",
+                "author": "J. K. Rowling",
+                "pages": 766,
+                "release_date": "2003-06-21",
+                "dedication": "To Neil, Jessica and David, who make my world magical",
+                "summary": "Dark times have come to Hogwarts. After the Dementors' attack on his cousin Dudley, Harry Potter knows that Voldemort will stop at nothing to find him. There are many who deny the Dark Lord's return, but Harry is not alone: a secret Order gathers at Grimmauld Place to fight against the Dark forces. Harry must allow Professor Snape to teach him how to protect himself from Voldemort's savage assaults on his mind. But they are growing stronger by the day and Harry is running out of time.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Order_of_the_Phoenix",
+                "chapters": [
+                    {
+                        "title": "1. Dudley Demented"
+                    },
+                    {
+                        "title": "2. A Peck of Owls"
+                    },
+                    {
+                        "title": "3. The Advance Guard"
+                    },
+                    {
+                        "title": "4. Number Twelve Grimmauld Place"
+                    },
+                    {
+                        "title": "5. The Order of the Phoenix"
+                    },
+                    {
+                        "title": "6. The Noble and Most Ancient House of Black"
+                    },
+                    {
+                        "title": "7. The Ministry of Magic"
+                    },
+                    {
+                        "title": "8. The Hearing"
+                    },
+                    {
+                        "title": "9. The Woes of Mrs Weasley"
+                    },
+                    {
+                        "title": "10. Luna Lovegood"
+                    },
+                    {
+                        "title": "11. The Sorting Hat's New Song"
+                    },
+                    {
+                        "title": "12. Professor Umbridge"
+                    },
+                    {
+                        "title": "13. Detention with Dolores"
+                    },
+                    {
+                        "title": "14. Percy and Padfoot"
+                    },
+                    {
+                        "title": "15. The Hogwarts High Inquisitor"
+                    },
+                    {
+                        "title": "16. In The Hog's Head"
+                    },
+                    {
+                        "title": "17. Educational Decree Number Twenty-Four"
+                    },
+                    {
+                        "title": "18. Dumbledore's Army"
+                    },
+                    {
+                        "title": "19. The Lion and the Serpent"
+                    },
+                    {
+                        "title": "20. Hagrid's Tale"
+                    },
+                    {
+                        "title": "21. The Eye of the Snake"
+                    },
+                    {
+                        "title": "22. St Mungo's Hospital for Magical Maladies and Injuries"
+                    },
+                    {
+                        "title": "23. Christmas on the Closed Ward"
+                    },
+                    {
+                        "title": "24. Occlumency"
+                    },
+                    {
+                        "title": "25. The Beetle at Bay"
+                    },
+                    {
+                        "title": "26. Seen and Unforeseen"
+                    },
+                    {
+                        "title": "27. The Centaur and the Sneak"
+                    },
+                    {
+                        "title": "28. Snape's Worst Memory"
+                    },
+                    {
+                        "title": "29. Careers Advice"
+                    },
+                    {
+                        "title": "30. Grawp"
+                    },
+                    {
+                        "title": "31. O.W.L.s"
+                    },
+                    {
+                        "title": "32. Out of the Fire"
+                    },
+                    {
+                        "title": "33. Fight and Flight"
+                    },
+                    {
+                        "title": "34. The Department of Mysteries"
+                    },
+                    {
+                        "title": "35. Beyond the Veil"
+                    },
+                    {
+                        "title": "36. The Only One He Ever Feared"
+                    },
+                    {
+                        "title": "37. The Lost Prophecy"
+                    },
+                    {
+                        "title": "38. The Second War Begins"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Half-Blood Prince",
+                "author": "J. K. Rowling",
+                "pages": 607,
+                "release_date": "2005-07-16",
+                "dedication": "To Mackenzie, My beautiful daughter, I dedicate Her ink-and-paper twin.",
+                "summary": "When Dumbledore arrives at Privet Drive one summer night to collect Harry Potter, his wand hand is blackened and shrivelled, but he does not reveal why. Secrets and suspicion are spreading through the wizarding world, and Hogwarts itself is not safe. Harry is convinced that Malfoy bears the Dark Mark: there is a Death Eater amongst them. Harry will need powerful magic and true friends as he explores Voldemort's darkest secrets, and Dumbledore prepares him to face his destiny.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Half-Blood_Prince",
+                "chapters": [
+                    {
+                        "title": "1. The Other Minister"
+                    },
+                    {
+                        "title": "2. Spinner's End"
+                    },
+                    {
+                        "title": "3. Will and Won't"
+                    },
+                    {
+                        "title": "4. Horace Slughorn"
+                    },
+                    {
+                        "title": "5. An Excess of Phlegm"
+                    },
+                    {
+                        "title": "6. Draco's Detour"
+                    },
+                    {
+                        "title": "7. The Slug Club"
+                    },
+                    {
+                        "title": "8. Snape Victorious"
+                    },
+                    {
+                        "title": "9. The Half-Blood Prince"
+                    },
+                    {
+                        "title": "10. The House of Gaunt"
+                    },
+                    {
+                        "title": "11. Hermione's Helping Hand"
+                    },
+                    {
+                        "title": "12. Silver and Opals"
+                    },
+                    {
+                        "title": "13. The Secret Riddle"
+                    },
+                    {
+                        "title": "14. Felix Felicis"
+                    },
+                    {
+                        "title": "15. The Unbreakable Vow"
+                    },
+                    {
+                        "title": "16. A Very Frosty Christmas"
+                    },
+                    {
+                        "title": "17. A Sluggish Memory"
+                    },
+                    {
+                        "title": "18. Birthday Surprises"
+                    },
+                    {
+                        "title": "19. Elf Tails"
+                    },
+                    {
+                        "title": "20. Lord Voldemort's Request"
+                    },
+                    {
+                        "title": "21. The Unknowable Room"
+                    },
+                    {
+                        "title": "22. After the Burial"
+                    },
+                    {
+                        "title": "23. Horcruxes"
+                    },
+                    {
+                        "title": "24. Sectumsempra"
+                    },
+                    {
+                        "title": "25. The Seer Overheard"
+                    },
+                    {
+                        "title": "26. The Cave"
+                    },
+                    {
+                        "title": "27. The Lightning-Struck Tower"
+                    },
+                    {
+                        "title": "28. Flight of the Prince"
+                    },
+                    {
+                        "title": "29. The Phoenix Lament"
+                    },
+                    {
+                        "title": "30. The White Tomb"
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "title": "Harry Potter and the Deathly Hallows",
+                "author": "J. K. Rowling",
+                "pages": 610,
+                "release_date": "2007-07-2",
+                "dedication": "To Neil, To Jessica, To David, To Kenzie, To Di, To Anne, And to You If you have stuck with Harry until the very end.",
+                "summary": "As he climbs into the sidecar of Hagrid's motorbike and takes to the skies, leaving Privet Drive for the last time, Harry Potter knows that Lord Voldemort and the Death Eaters are not far behind. The protective charm that has kept Harry safe until now is broken, but he cannot keep hiding. The Dark Lord is breathing fear into everything Harry loves, and to stop him Harry will have to find and destroy the remaining Horcruxes. The final battle must begin – Harry must stand and face his enemy.",
+                "wiki": "https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Deathly_Hallows",
+                "chapters": [
+                    {
+                        "title": "1. The Dark Lord Ascending"
+                    },
+                    {
+                        "title": "2. In Memoriam"
+                    },
+                    {
+                        "title": "3. The Dursleys Departing"
+                    },
+                    {
+                        "title": "4. The Seven Potters"
+                    },
+                    {
+                        "title": "5. Fallen Warrior"
+                    },
+                    {
+                        "title": "6. The Ghoul in Pyjamas"
+                    },
+                    {
+                        "title": "7. The Will of Albus Dumbledore"
+                    },
+                    {
+                        "title": "8. The Wedding"
+                    },
+                    {
+                        "title": "9. A Place to Hide"
+                    },
+                    {
+                        "title": "10. Kreacher's Tale"
+                    },
+                    {
+                        "title": "11. The Bribe"
+                    },
+                    {
+                        "title": "12. Magic is Might"
+                    },
+                    {
+                        "title": "13. The Muggle-Born Registration Commission"
+                    },
+                    {
+                        "title": "14. The Thief"
+                    },
+                    {
+                        "title": "15. The Goblin's Revenge"
+                    },
+                    {
+                        "title": "16. Godric's Hollow"
+                    },
+                    {
+                        "title": "17. Bathilda's Secret"
+                    },
+                    {
+                        "title": "18. The Life and Lies of Albus Dumbledore"
+                    },
+                    {
+                        "title": "19. The Silver Doe"
+                    },
+                    {
+                        "title": "20. Xenophilius Lovegoodt"
+                    },
+                    {
+                        "title": "21. The Tale of the Three Brothers"
+                    },
+                    {
+                        "title": "22. The Deathly Hallows"
+                    },
+                    {
+                        "title": "23. Malfoy Manor"
+                    },
+                    {
+                        "title": "24. The Wandmaker"
+                    },
+                    {
+                        "title": "25. Shell Cottage"
+                    },
+                    {
+                        "title": "26. Gringotts"
+                    },
+                    {
+                        "title": "27. The Final Hiding Place"
+                    },
+                    {
+                        "title": "28. The Missing Mirror"
+                    },
+                    {
+                        "title": "29. The Lost Diadem"
+                    },
+                    {
+                        "title": "30. The Sacking of Severus Snape"
+                    },
+                    {
+                        "title": "31. The Battle of Hogwarts"
+                    },
+                    {
+                        "title": "32. The Elder Wand"
+                    },
+                    {
+                        "title": "33. The Prince's Tale"
+                    },
+                    {
+                        "title": "34. The Forest Again"
+                    },
+                    {
+                        "title": "35. King's Cross"
+                    },
+                    {
+                        "title": "36. The Flaw in the Plan"
+                    },
+                    {
+                        "title": "37. Nineteen Years Later"
+                    }
+                ]
+            }
+        }
+    ]
+}
