@@ -18,7 +18,6 @@ final class MainViewController: UIViewController {
     private let bookInfoView = BookInfoView()
     private let dedicationView = DedicationView()
     private lazy var summaryView = SummaryView(frame: .zero, seriesNumber: 1)
-    private var currentSummaryView: SummaryView?
     private let chaptersView = ChaptersView()
     
     private let dataService = DataService()

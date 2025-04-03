@@ -11,8 +11,9 @@ import SnapKit
 let defaults = UserDefaults.standard
 
 class SummaryView: UIView {
-            
+        
     private var seriesNumber: Int
+    private var book: Book?
     
     private var isFolded: Bool {
         didSet {
@@ -20,8 +21,6 @@ class SummaryView: UIView {
         }
     }
     
-    private var tempString = ""
-
     private lazy var summaryStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [summary, summaryLabel])
         stackView.axis = .vertical
@@ -49,7 +48,7 @@ class SummaryView: UIView {
     // 더 보기/접기 버튼
     private lazy var summaryButton: UIButton = {
         let button = UIButton()
-        button.setTitle("더 보기", for: .normal)
+        button.setTitle("더보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         button.addTarget(
@@ -97,69 +96,43 @@ class SummaryView: UIView {
       
     }
     
-    func detectSummaryText() {
-        guard let summaryText = summaryLabel.text else {
-            summaryButton.isHidden = true
-            return
-        }
-        
-        if summaryText.count >= 450 {
-            summaryButton.isHidden = false
-            tempString = summaryText
-            
-            adjustSummaryText()
-            
-            if self.isFolded {
-                summaryButton.setTitle("더보기", for: .normal)
-            } else {
-                summaryButton.setTitle("접기", for: .normal)
-            }
-        } else {
-            summaryButton.isHidden = true
-        }
-    }
-    
-    func adjustSummaryText() {
+    func adjustSummaryText(_ book: Book) {
         
         guard let summaryText = summaryLabel.text else {
             return
         }
         
-        if self.isFolded {
-            tempString = summaryText
-            
-            if summaryText.count > 450 {
-                let truncatedText = summaryText.prefix(450)
-                summaryLabel.text = String(truncatedText + "...")
-            }
+        summaryButton.isHidden = summaryText.count < 450 ? true : false
+        
+        if self.isFolded && summaryText.count >= 450 {
+            summaryButton.setTitle("더보기", for: .normal)
+            let truncatedText = summaryText.prefix(450)
+            summaryLabel.text = String(truncatedText + "...")
         } else {
-            summaryLabel.text = tempString
+            summaryButton.setTitle("접기", for: .normal)
+            summaryLabel.text = book.summary
         }
+        
     }
     
     private func updateSeriesNumber(_ seriesNumber: Int) {
         self.seriesNumber = seriesNumber
         self.isFolded = defaults.bool(forKey: "summaryButtonState_\(seriesNumber)")
-        detectSummaryText()
     }
     
     @objc func summaryButtonClicked() {
         
-        if !self.isFolded {
-            summaryButton.setTitle("더보기", for: .normal)
-            self.isFolded = true
-        } else {
-            summaryButton.setTitle("접기", for: .normal)
-            self.isFolded = false
+        self.isFolded.toggle()
+        
+        if let book = book {
+            adjustSummaryText(book)
         }
-        
-        adjustSummaryText()
-        
     }
     
     func configure(_ book: Book, at seriesNumber: Int) {
+        self.book = book
         updateSeriesNumber(seriesNumber)
         summaryLabel.text = book.summary
-        detectSummaryText()
+        adjustSummaryText(book)
     }
 }
